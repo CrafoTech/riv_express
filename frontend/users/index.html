@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>RivExp - User</title>
+</head>
+<body>
+    <main>
+        <header>
+            <div class="menue" onclick="openMenueBtn()">
+                <div class="slash slash_1"></div>
+                <div class="slash slash_2"></div>
+            </div>
+            <div class="txt">
+                <span id="section_identifier">Trips & Rides</span>
+            </div>
+        </header>
+        <section class="side_bar_div">
+            <div class="side_bar">
+                <section>
+                    <div class="head">
+                        <div class="prof">
+                            <img src="../assets/icons/user.png" alt="">
+                            <span id="side_bar_user_name">John Doe</span>
+                        </div>
+                        <div class="img">
+                            <img src="../assets/icons/close.png" onclick="closeMenueBtn()">
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="btns">
+                            <div class="btn btn_1" onclick="displayTripCardBtn()">
+                                <img src="../assets/icons/trips.png" alt="">
+                                <span>Trinps & Rides</span>
+                            </div>
+                            <div class="btn btn_2" onclick="displayHistoryCardBtn()">
+                                <img src="../assets/icons/history.png" alt="">
+                                <span>Ride History</span>
+                            </div>
+                            <div class="btn btn_3" onclick="displayProfileCardBtn()">
+                                <img src="../assets/icons/profile.png" alt="">
+                                <span>Profile</span>
+                            </div>
+                            <div class="btn btn_4" onclick="displayNotificationsCardBtn()">
+                                <img src="../assets/icons/notifications.png" alt="">
+                                <span>Notifications</span>
+                            </div>
+                            <div class="btn btn_5" onclick="displayFaqsCardBtn()">
+                                <img src="../assets/icons/faqs.png" alt="">
+                                <span>FaQs</span>
+                            </div>
+                            <div class="btn btn_6" onclick="displayContactUSCardBtn()">
+                                <img src="../assets/icons/contactus.png" alt="">
+                                <span>Contact Us</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="content">
+                            <div class="mode">
+                                <div class="txt">
+                                    <span>Dark Mode</span>
+                                </div>
+                                <div class="divs">
+                                    <div class="main_div">
+                                        <div class="radio_div"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="company">
+                                <img src="../assets/icons/logo.png" alt="">
+                                <span>RIVEXP</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="empty_sidebar_space">
+
+            </div>
+        </section>
+        <section class="main">
+            <div class="user_trips_card main_card">
+                <div class="head">
+                    <section>
+                        <button onclick="displayCompanyWorkBtn(this)" class="select_work_btns company_work_btn select_company_work_btn">Company</button>
+                        <button onclick="displayRiderWorkBtn(this)" class="select_work_btns rider_work_btn select_rider_work_btn">My Work</button>
+                    </section>
+                </div>
+                <div class="body">
+                    <section class="section company_section company_gig_section">
+                        <div class="fisrt">
+                            <button onclick="addNewGigBtn()" class="new_gig_btn company_new_gig_btn" >+ New Gig</button>
+                        </div>
+                        <div class="second">
+                            <button onclick="startTripBtn()" class="start_company_btn start_stop_company_btns">Start</button>
+                            <button onclick="stopTripBtn()" class="stop_company_btn start_stop_company_btns">Stop</button>
+                        </div>
+                        <div class="third">
+                            <button onclick="cancelTripBtn()">Cancel Trip</button>
+                        </div>
+                    </section>
+                    <section class="section rider_work_section rider_gig_section">
+                        <div class="fisrt">
+                            <button onclick="addNewRideBtn()" class=" rider_new_gig_btn">+ New Ride</button>
+                        </div>
+                        <div class="second">
+                            <button onclick="startRideTripBtn()" class="start_company_btn start_stop_company_btns">Start Rides</button>
+                            <button onclick="stopRideTripBtn()" class="stop_company_btn start_stop_company_btns">Stop Ride</button>
+                        </div>
+                        <div class="third">
+                            <button onclick="cancelRideTripBtn()">Cancel Trip</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="user_history main_card">
+                <div class="head">
+                    <section>
+                        <button onclick="displayCompanyWorkHistoryBtn(this)" class="select_work_btns compny_work_btn compny_work_history_btn">Company</button>
+                        <button onclick="displayRiderWorkHistoryBtn(this)" class="select_work_btns rider_work_btn rider_work_history_btn">My Work</button>
+                    </section>
+                </div>
+                <div class="body">
+                    <div class="trips_history_div company_trips_history_div">
+                        <div class="first">
+                            <div class="filter_date_div">
+                                <input type="date" id="company_history_filter_date_inp">
+                            </div>
+                            <div class="collected_amount_div">
+                                <span>Total Amount</span>
+                                <span id="company_trips_collected_amount_span">3000</span>
+                            </div>
+                            <div class="total_no_of_collections_div">
+                                <span id="company_total_trips_span">1</span>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="cards company_tirps_history_card">
+                                <div class="card">
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">From</span>
+                                        <span class="txt">Nansana</span>
+                                        <span class="time">16:20</span>
+                                    </div>
+                                    <div class="sec_2 sec">
+                                        <span class="htxt">To</span>
+                                        <span class="txt">Busega</span>
+                                        <span class="time">16:40</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Time</span>
+                                        <span class="txt">30 mins</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Amount</span>
+                                        <span class="txt">3000</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="trips_history_div rider_trips_history_div">
+                        <div class="first">
+                            <div class="filter_date_div">
+                                <input type="date" id="rider_history_filter_date_inp">
+                            </div>
+                            <div class="collected_amount_div">
+                                <span>Total Amount</span>
+                                <span id="rider_trips_collected_amount_span">3000</span>
+                            </div>
+                            <div class="total_no_of_collections_div">
+                                <span id="rider_total_trips_span">1</span>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="cards rider_tirps_history_card">
+                                <div class="card">
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">From</span>
+                                        <span class="txt">Nansana</span>
+                                        <span class="time">16:20</span>
+                                    </div>
+                                    <div class="sec_2 sec">
+                                        <span class="htxt">To</span>
+                                        <span class="txt">Busega</span>
+                                        <span class="time">16:40</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Time</span>
+                                        <span class="txt">30 mins</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Amount</span>
+                                        <span class="txt">3000</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">From</span>
+                                        <span class="txt">Nansana</span>
+                                        <span class="time">16:20</span>
+                                    </div>
+                                    <div class="sec_2 sec">
+                                        <span class="htxt">To</span>
+                                        <span class="txt">Busega</span>
+                                        <span class="time">16:40</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Time</span>
+                                        <span class="txt">30 mins</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                    <div class="sec_1 sec">
+                                        <span class="htxt">Amount</span>
+                                        <span class="txt">3000</span>
+                                        <span class="time">---</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user_profile main_card">
+                <div class="body">
+                    <img src="../assets/icons/user.png" alt="">
+                    <span id="user_name_plcholder">John Doe</span>
+                    <span id="user_tel_plcholder">0750665963</span>
+                </div>
+            </div>
+            <div class="user_notifications main_card faqs_and_notifications">
+                <!-- <div class="head">
+                    <section>
+                        <button onclick="displayCompanNotificationBtn(this)" class="select_work_btns compny_work_btn company_notifications_btn">General</button>
+                        <button onclick="displayRiderNotificationBtn(this)" class="select_work_btns rider_work_btn rider_notifications_btn">Personal</button>
+                    </section>
+                </div> -->
+                <div class="body">
+                    <div class="notifications_div_switch company_notifications_div">
+                        <div class="first">
+                            <img src="../assets/icons/clear.png" alt="">
+                        </div>
+                        <div class="second">
+                            <div class="cards company_notification_cards">
+                                <div class="card">
+                                    <div class="one">
+                                        <div class="subject">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="message">
+                                            <span>Hello World!</span>
+                                        </div>
+                                    </div>
+                                    <div class="two">
+                                        <div class="time">
+                                            <span>22-05-2025</span>
+                                            <span>03:18</span>
+                                        </div>
+                                        <div class="img">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="one">
+                                        <div class="subject">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="message">
+                                            <span>Hello World!</span>
+                                        </div>
+                                    </div>
+                                    <div class="two">
+                                        <div class="time">
+                                            <span>22-05-2025</span>
+                                            <span>03:18</span>
+                                        </div>
+                                        <div class="img">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="notifications_div_switch rider_notifications_div">
+                        <div class="first">
+                            <img src="../assets/icons/clear.png" alt="">
+                        </div>
+                        <div class="second">
+                            <div class="cards rider_notification_cards">
+                                <section>
+                                <div class="card">
+                                    <div class="one">
+                                        <div class="subject">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="message">
+                                            <span>Hello World!</span>
+                                        </div>
+                                    </div>
+                                    <div class="two">
+                                        <div class="time">
+                                            <span>22-05-2025</span>
+                                            <span>03:18</span>
+                                        </div>
+                                        <div class="img">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user_faqs main_card faqs_and_notifications">
+                <!-- <div class="head">
+                    <section>
+                        <button onclick="displayCompanyWorkBtn(this)" class="select_work_btns compny_work_btn">General</button>
+                        <button onclick="displayRiderWorkBtn(this)" class="select_work_btns rider_work_btn">Personal</button>
+                    </section>
+                </div> -->
+                <div class="body">
+                    <!-- <div class="first">
+                        <img src="../assets/icons/clear.png" alt="">
+                    </div> -->
+                    <div class="second">
+                        <div class="cards faqs_cards_section">
+                            <div class="card">
+                                <div class="one">
+                                    <div class="subject">
+                                        <span>Subject</span>
+                                    </div>
+                                    <div class="message">
+                                        <span>Hello World!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact_us main_card">
+                <div class="body">
+                    <div class="intro">
+                        <span id="contact_intro_user_name">Hey Joh Doe!</span>
+                        <span>Here you can reach out to our customer care team for any inquires</span>
+                    </div>
+                    <div class="contacts">
+                        <div class="one">
+                            <div class="call btn">
+                                <span>+2567927858758</span>
+                                <a href="tel:+2567927858758">Call Us</a>
+                            </div>
+                            <div class="email btn">
+                                <span>info@crafotech.com</span>
+                                <a href="mailto:crafotech@gmail.com">Email Us</a>
+                            </div>
+                        </div>
+                        <div class="two">
+                            <a href="#">CrafoTech on TikTok</a>
+                            <a href="#">CrafoTech on Facebook</a>
+                            <a href="#">CrafoTech on X</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="pop_pups_div">
+            <div class="new_gig_pop pop_up all_add_trip_popups">
+                <div class="pop_box">
+                    <div class="title">
+                        <span>New Gig</span>
+                    </div>
+                    <div class="gig_type">
+                        <div class="head">
+                            <span>Type of Gig</span>
+                        </div>
+                        <div class="gigs">
+                            <div class="gig pakage_delivery_gig check_gig_div" value="pkg_delivery_div">
+                                <div class="check_box gig_check_box package_delivery_check">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span value="pkg_delivery">Package</span>
+                                </div>
+                            </div>
+                            <div class="gig client_gig check_gig_div">
+                                <div class="check_box gig_check_box client_gig_check">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span>Client</span>
+                                </div>
+                            </div>
+                            <div class="gig both_gig check_gig_div">
+                                <div class="check_box gig_check_box both_gig_check">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span>Both</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label>
+                            <span>Starting Point</span>
+                            <input type="text" name="" id="company_gig_start_point_txt">
+                        </label>
+                        <label>
+                            <span>End Point</span>
+                            <input type="text" name="" id="company_gig_end_point_txt">
+                        </label>
+                            <div class="money_input_div">
+                                <div class="first">
+                                    <span>Amount Charged</span>
+                                    <input type="text" name="" id="company_gig_amount_charged_txt">
+                                </div>
+                                <div class="second">
+                                    <span>No Money</span>
+                                    <div class="radio cash_payment_company_check_div">
+                                        <img src="../assets/icons/tick.png" id="cash_payment_company_check_img">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="btns">
+                        <button onclick="cancelGigCreationBtn()">Cancel</button>
+                        <button onclick="submitGigCreationBtn()">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="new_ride_pop pop_up all_add_trip_popups">
+                <div class="pop_box">
+                    <div class="title">
+                        <span>New Ride</span>
+                    </div>
+                    <div class="gig_type">
+                        <div class="head">
+                            <span>Type of Gig</span>
+                        </div>
+                        <div class="gigs">
+                            <div class="gig pakage_delivery_gig">
+                                <div class="check_box">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span>Pakage Delivery</span>
+                                </div>
+                            </div>
+                            <div class="gig client_gig">
+                                <div class="check_box">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span>Client</span>
+                                </div>
+                            </div>
+                            <div class="gig both_gig">
+                                <div class="check_box">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="txt">
+                                    <span>Both</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label>
+                            <span>Starting Point</span>
+                            <input type="text" name="" id="rider_gig_start_point_txt">
+                        </label>
+                        <label>
+                            <span>End Point</span>
+                            <input type="text" name="" id="rider_gig_end_point_txt">
+                        </label>
+                            <div class="money_input_div">
+                                <div class="first">
+                                    <span>Amount Charged</span>
+                                    <input type="number" name="" id="rider_gig_amount_charged_txt">
+                                </div>
+                                <div class="second">
+                                    <span>No Money</span>
+                                    <div class="radio cash_payment_check_div">
+                                        <img src="../assets/icons/tick.png" id="cash_payment_check_img">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="btns">
+                        <button onclick="cancelGigCreationBtn()">Cancel</button>
+                        <button onclick="submitGigCreationBtn()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="loading_screen">
+            <div class="loading_animation">
+                <div class="circle"></div>
+                <span>RIV</span>
+            </div>
+        </div>
+        <div class="login_screen">
+            <h1>LogIn</h1>
+            <div class="card">
+                <div class="form">
+                    <label>
+                        <span> <img src="../assets/icons/email.png" alt="">Email</span>
+                        <input type="email" name="" id="login_user_email_txt">
+                    </label>
+                    <label>
+                        <span> <img src="../assets/icons/lock.png" alt=""> User ID <img onclick="showUserIdBtn(this)" id="view_hide_password_img" src="../assets/icons/view-show.png" alt=""></span>
+                        <input type="password" name="" id="login_user_id_txt">
+                    </label>
+                    <label>
+                        <button onclick="logInBtn()">LogIn <img id="load_login_img" src="../assets/icons/login.png" alt=""></button>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="true_flase_pops">
+            <div class="true_or_flase_pop .pop_up">
+                    <div class="title">
+                        <span>Pop Title</span>
+                        <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                    </div>
+                    <div class="body">
+                        <div class="img">
+                            <img src="../assets/icons/error.png" alt="" >
+                        </div>
+                        <div class="txt">
+                            <span>This is the Message</span>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <button onclick="closePopUpBtn()">No</button>
+                        <button id="trueBtn">Yes</button>
+                    </div>
+            </div>
+    </div>
+    <div class="intro_screen">
+        <div class="box intro_screen_box">
+            <div class="company_logo">
+                <img src="../assets/icons/logo.png" alt="">
+            </div>
+            <div class="txt">
+                <span>RIV EXPRESS</span>
+                <span>Reach your destination in just seconds</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

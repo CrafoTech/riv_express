@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>RivExp - Admin</title>
+</head>
+<body>
+    <main>
+        <section class="sidebar">
+            <div class="cards">
+                <div class="card card-1">
+                    <div class="img">
+                        <img src="../assets/icons/logo.png" alt="">
+                    </div>
+                    <div class="txt">
+                        <span>RIVEXP</span>
+                        <span>Amin</span>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <div class="menue-btns">
+                        <div class="btn dashboard">
+                            <div class="first dashboard_btn">
+                                <div class="img">
+                                    <img src="../assets/icons/dashboard.png" alt="">
+                                </div>
+                                <div class="txt">
+                                    <span>Dashboard</span>
+                                    <img src="../assets/icons/drop-down.png" alt="" class="dashboard_drop_down_icon dropdown-arrow-non-visible">
+                                </div>
+                            </div>
+                            <div class="dropdown-btns non-visible-dropdown">
+                            </div>
+                        </div>
+                        <div class="btn analytics">
+                            <div class="first analytics_btn">
+                                <div class="img">
+                                    <img src="../assets/icons/analytics.png" alt="">
+                                </div>
+                                <div class="txt">
+                                    <span>Analytics</span>
+                                    <img src="../assets/icons/drop-down.png" alt="" class="analytics_drop_down_icon dropdown-arrow-visible">
+                                </div>
+                            </div>
+                            <div class="dropdown-btns visible-dropdown analytics-drop-down">
+                                <button onclick="analytics_assets_btn()">Assets</button>
+                                <button onclick="analytics_riders_btn()">Riders</button>
+                                <button onclick="analytics_collections_btn()">Collections</button>
+                            </div>
+                        </div>
+                        <div class="btn notifications">
+                            <div class="first notification_btn">
+                                <div class="img">
+                                    <img src="../assets/icons/notification.png" alt="" class="visible">
+                                </div>
+                                <div class="txt">
+                                    <span>Notifications</span>
+                                    <img src="../assets/icons/drop-down.png" alt="" class="notification_drop_down_icon dropdown-arrow-visible">
+                                </div>
+                            </div>
+                            <div class="dropdown-btns visible-dropdown notification-drop-down">
+                                <button onclick="notification_general_btn()">General</button>
+                                <button onclick="notification_personal_btn()">Personal</button>
+                            </div>
+                        </div>
+                        <div class="btn settings">
+                            <div class="first settings_btn">
+                                <div class="img">
+                                    <img src="../assets/icons/settings.png" alt="" class="visible">
+                                </div>
+                                <div class="txt">
+                                    <span>Settings</span>
+                                    <img src="../assets/icons/drop-down.png" class="settings_drop_down_icon dropdown-arrow-non-visible">
+                                </div>
+                            </div>
+                            <div class="dropdown-btns non-visible-dropdown">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mainbar">
+            <div class="content">
+                <div class="head">
+                    <div class="header">
+                        <span id="window_indicator_label">Dashboard</span>
+                        <span id="window_indicator_txt"></span>
+                    </div>
+                    <div class="user">
+                        <img src="../assets/icons/amin-user.png" alt="">
+                        <span>Admin Doe</span>
+                    </div>
+                </div>
+                <div class="main">
+                    <div class="windows dashboard-window">
+                        <div class="data">
+                            <div class="cards">
+                                <div class="card total-bikes-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/bike-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_bikes_span">16</span>
+                                        <span>Total Bikes</span>
+                                    </div>
+                                </div>
+                                <div class="card total-cars-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/car-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_cars_span">5</span>
+                                        <span>Total Cars</span>
+                                    </div>
+                                </div>
+                                <div class="card total-r&d-card total-rd-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/rider_and_driver-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_riders_and_drivers_span">21</span>
+                                        <span>Rider & Drivers</span>
+                                    </div>
+                                </div>
+                                <div class="card total-income-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/income-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_income_span">180000</span>
+                                        <span>Generated Income</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows analytics-window-assets widow-with-table">
+                        <div class="first">
+                            <div class="card-1">
+                                <div class="inputs">
+                                    <div class="input-1 input">
+                                        <input type="text" id="search_asset_inp" placeholder="Q Search For an Asset">
+                                    </div>
+                                    <div class="input-2 input">
+                                        <button onclick="showSortPop()"><img src="../assets/icons/sort.png" alt=""> <span>Sort</span></button>
+                                        <section id="sortDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortAssetsBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortAssetsBtns(this)" value="alphabets_az">Name A-Z</button>
+                                                <button onclick="sortAssetsBtns(this)" value="alphabets_za">Name Z-A</button>
+                                                <!-- <button onclick="sortAssetsBtns(this)" value="balance_high">Balance </button> -->
+                                                <!-- <button onclick="sortAssetsBtns(this)" value="balance_high">Balance - High</button>
+                                                <button onclick="sortAssetsBtns(this)" value="balance_low">Balance - Low</button> -->
+                                                <!-- <button onclick="sortAssetsBtns(this)" value="wallet">Wallet</button> -->
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="input-3 input">
+                                        <button onclick="showFilterPop()"><img src="../assets/icons/filter.png" alt=""> <span>Filter</span></button>
+                                        <section id="filterDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="filterAssetsBtns(this)" value="normal">Normal</button>
+                                                <button onclick="filterAssetsBtns(this)" value="asset_type">Asset Type</button>
+                                                <button onclick="filterAssetsBtns(this)" value="asset_state">Asset State</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-2">
+                                <button onclick="addAssetBtn()">+ Add Asset</button>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="table">
+                                <table border>
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Asset</th>
+                                            <th>Type</th>
+                                            <th>Rider/Driver</th>
+                                            <th>State</th>
+                                            <th>Expected Amount</th>
+                                            <th>Amount Paid</th>
+                                            <th>Balance Due</th>
+                                            <th>Wallet</th>
+                                            <th>Payment Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="asset_data_tbody">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>UMA455GF</td>
+                                            <td>Bike</td>
+                                            <td>John Doe</td>
+                                            <td>Ok</td>
+                                            <td>20000</td>
+                                            <td>15000</td>
+                                            <td>5000</td>
+                                            <td>0</td>
+                                            <td>05-17-2026</td>
+                                            <td>
+                                                <img src="../assets/icons/view.png" onclick="viewAssetBtn()">
+                                                <img src="../assets/icons/edit.png" onclick="editAssetBtn()">
+                                                <img src="../assets/icons/delete.png" onclick="deleteAssetBtn()">
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows analytics-window-riders widow-with-table">
+                        <div class="first">
+                            <div class="card-1">
+                                <div class="inputs">
+                                    <div class="input-1 input">
+                                        <input type="text" id="search_rider_inp" placeholder="Q Search For an Asset">
+                                    </div>
+                                    <div class="input-2 input">
+                                        <button onclick="showRiderSortPop()"><img src="../assets/icons/sort.png" alt=""> <span>Sort</span></button>
+                                        <section id="riderSortDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortRidersBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortRidersBtns(this)" value="name_az">Name_A-Z</button>
+                                                <button onclick="sortRidersBtns(this)" value="name_za">Name_Z-A</button>
+                                                <button onclick="sortRidersBtns(this)" value="empdate_first">Emp Date - First</button>
+                                                <button onclick="sortRidersBtns(this)" value="empdate_last">Emp Date - Last</button>
+                                                <button onclick="sortRidersBtns(this)" value="status_active">Status - Active</button>
+                                                <button onclick="sortRidersBtns(this)" value="status_blocked">Status - Blocked</button>
+                                                <button onclick="sortRidersBtns(this)" value="balance">Balance Due</button>
+                                                <button onclick="sortRidersBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="input-3 input">
+                                        <button onclick="showRiderFilterPop()"><img src="../assets/icons/filter.png" alt=""> <span>Filter</span></button>
+                                        <section id="riderFilterDiv" class="filter_div">
+                                            <div class="sort_dropdown">
+                                                <button onclick="filterRidersBtns(this)" value="normal">Normal</button>
+                                                <button onclick="filterRidersBtns(this)" value="type">Type</button>
+                                                <button onclick="filterRidersBtns(this)" value="status">Status</button>
+                                                <button onclick="filterRidersBtns(this)" value="balance">Balance</button>
+                                                <button onclick="filterRidersBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-2">
+                                <!-- <button onclick="addAssetBtn()">+ Add Asset</button> -->
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="table">
+                                <table border>
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Photo</th>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>TelNo.</th>
+                                            <th>Email</th>
+                                            <th>Emp Date</th>
+                                            <th>Status</th>
+                                            <th>Balance Due</th>
+                                            <th>Wallet</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="riders_data_tbdy">
+                                        <tr>
+                                            <td>1</td>
+                                            <td><img src="../assets/icons/user.png" alt=""></td>
+                                            <td>R001</td>
+                                            <td>John Doe</td>
+                                            <td>0756868677</td>
+                                            <td>johndoe@gmail.com</td>
+                                            <td>05-19-2026</td>
+                                            <td>Active</td>
+                                            <td>5000</td>
+                                            <td>0</td>
+                                            <td>
+                                                <img src="../assets/icons/view.png" onclick="viewRidertBtn()">
+                                                <img src="../assets/icons/edit.png" onclick="editRiderBtn()">
+                                                <img src="../assets/icons/delete.png" onclick="deleteRiderBtn()">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows analytics-window-collections widow-with-table">
+                        <div class="first">
+                            <div class="card-1">
+                                <div class="inputs">
+                                    <div class="input-1 input">
+                                        <input type="text" id="search_collection_inp" placeholder="Q Search For an Asset">
+                                    </div>
+                                    <div class="input-2 input">
+                                        <button onclick="showCollectionSortPop()"><img src="../assets/icons/sort.png" alt=""> <span>Sort</span></button>
+                                        <section id="collectionSortDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortCollectionsBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortCollectionsBtns(this)" value="name">Name</button>
+                                                <button onclick="sortCollectionsBtns(this)" value="payment_date_first">Payment Date - First</button>
+                                                <!-- <button onclick="sortCollectionsBtns(this)" value="payment_date_last">Payment Date - Last</button>
+                                                <button onclick="sortCollectionsBtns(this)" value="cmoney">Money Collected</button>
+                                                <button onclick="sortCollectionsBtns(this)" value="balance">Balance Due</button> -->
+                                                <button onclick="sortCollectionsBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="input-3 input">
+                                        <button onclick="showCollectionFilterPop()"><img src="../assets/icons/filter.png" alt=""> <span>Filter</span></button>
+                                        <section id="collectionFilterDiv" class="filter_div">
+                                            <div class="sort_dropdown">
+                                                <button onclick="filterCollectionsBtns(this)" value="normal">Normal</button>
+                                                <button onclick="filterCollectionsBtns(this)" value="type">Type</button>
+                                                <button onclick="filterCollectionsBtns(this)" value="status">Status</button>
+                                                <button onclick="filterCollectionsBtns(this)" value="balance">Balance</button>
+                                                <button onclick="filterCollectionsBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-2">
+                                <!-- <button onclick="addAssetBtn()">+ Add Asset</button> -->
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="table">
+                                <table border>
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>AssetID</th>
+                                            <th>Rider</th>
+                                            <th>Last Payment Date</th>
+                                            <th>Money Collected</th>
+                                            <th>Expected Amount</th>
+                                            <th>Amount Recived</th>
+                                            <th>Balance Due</th>
+                                            <th>Wallet</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="collections_data_tbdy">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>UMA080GB</td>
+                                            <td>John Doe</td>
+                                            <td>05-19-2026</td>
+                                            <td>50000</td>
+                                            <td>50000</td>
+                                            <td>45000</td>
+                                            <td>5000</td>
+                                            <td>0</td>
+                                            <td>
+                                                <button onclick="viewCollectionBtn()">View Trips</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>UMA080GB</td>
+                                            <td>John Doe</td>
+                                            <td>05-19-2026</td>
+                                            <td>50000</td>
+                                            <td>50000</td>
+                                            <td>45000</td>
+                                            <td>5000</td>
+                                            <td>0</td>
+                                            <td>
+                                                <button onclick="viewCollectionBtn()">View Trips</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>UMA080GB</td>
+                                            <td>John Doe</td>
+                                            <td>05-19-2026</td>
+                                            <td>50000</td>
+                                            <td>50000</td>
+                                            <td>45000</td>
+                                            <td>5000</td>
+                                            <td>0</td>
+                                            <td>
+                                                <button onclick="viewCollectionBtn()">View Trips</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows notifications notifications-window-general widow-with-table">
+                        <div class="first">
+                            <div class="card-1">
+                                <div class="inputs">
+                                    <div class="input-1 input">
+                                        <input type="text" placeholder="Q Search For an Asset">
+                                    </div>
+                                    <!-- <div class="input-2 input">
+                                        <button onclick="showRiderSortPop()"><img src="../assets/icons/sort.png" alt=""> <span>Sort</span></button>
+                                        <section id="riderSortDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortBtns(this)" value="name">Name</button>
+                                                <button onclick="sortBtns(this)" value="empdate">Emp Date</button>
+                                                <button onclick="sortBtns(this)" value="status">Status</button>
+                                                <button onclick="sortBtns(this)" value="balance">Balance Due</button>
+                                                <button onclick="sortBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div> -->
+                                    <div class="input-3 input">
+                                        <button onclick="showGeneralNotificationFilterPop()"><img src="../assets/icons/filter.png" alt=""> <span>Filter</span></button>
+                                        <section id="generalNotificationFilterDiv" class="filter_div">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortBtns(this)" value="type">Type</button>
+                                                <button onclick="sortBtns(this)" value="status">Status</button>
+                                                <button onclick="sortBtns(this)" value="balance">Balance</button>
+                                                <button onclick="sortBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-2">
+                                <button onclick="sendNotificationBtn()">Send Notifications</button>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="cards all_general_notications_cards">
+                                <div class="card_1 card">
+                                    <div class="txt">
+                                        <div class="head">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="body">
+                                            <span>Message</span>
+                                        </div>
+                                    </div>
+                                    <div class="icons">
+                                        <img src="../assets/icons/edit.png" alt="">
+                                        <img src="../assets/icons/delete.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="card_1 card">
+                                    <div class="txt">
+                                        <div class="head">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="body">
+                                            <span>Message</span>
+                                        </div>
+                                    </div>
+                                    <div class="icons">
+                                        <img src="../assets/icons/edit.png" alt="">
+                                        <img src="../assets/icons/delete.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows notifications notifications-window-personal widow-with-table">
+                        <div class="first">
+                            <div class="card-1">
+                                <div class="inputs">
+                                    <div class="input-1 input">
+                                        <input type="text" placeholder="Q Search For an Asset">
+                                    </div>
+                                    <div class="input-2 input">
+                                        <button onclick="showPersonalNotificationSortPop()"><img src="../assets/icons/sort.png" alt=""> <span>Sort</span></button>
+                                        <section id="personalNotificationSortDiv">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortBtns(this)" value="name">Name</button>
+                                                <button onclick="sortBtns(this)" value="empdate">Emp Date</button>
+                                                <button onclick="sortBtns(this)" value="status">Status</button>
+                                                <button onclick="sortBtns(this)" value="balance">Balance Due</button>
+                                                <button onclick="sortBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="input-3 input">
+                                        <button id="search_for_rider_to_send_noti"> Rider </button>
+                                        <div class="rider_search_dropdown">
+                                            <input type="text" name="" id="rider_notificatio_search_txt">
+                                            <div class="drop">
+                                                <div class="txt">
+                                                    <span>R001</span>
+                                                    <span>John Doe</span>
+                                                </div>
+                                                <div class="txt">
+                                                    <span>R002</span>
+                                                    <span>Mery Doe</span>
+                                                </div>
+                                                <div class="txt">
+                                                    <span>R003</span>
+                                                    <span>Delon D</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-2">
+                                <button onclick="sendPersonalNotificationBtn()">Send Notifications</button>
+                            </div>
+                        </div>
+                        <div class="second">
+                            <div class="cards all_personal_notications_cards">
+                                <div class="card_1 card">
+                                    <div class="txt">
+                                        <div class="head">
+                                            <span>Subject</span>
+                                        </div>
+                                        <div class="body">
+                                            <span>Message</span>
+                                        </div>
+                                    </div>
+                                    <div class="icons">
+                                        <img src="../assets/icons/edit.png" alt="">
+                                        <img src="../assets/icons/delete.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="windows settings-window">
+                        <h1>Settings</h1>
+                    </div>
+                </div>
+                <div class="pop_div">
+                    <div class="add_asset_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Adding an Asset</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="card_1 card">
+                                <div class="inputs">
+                                    <label>
+                                        <span>Asset ID</span>
+                                        <input type="text" id="add_asset_id_txt">
+                                    </label>
+                                    <label>
+                                        <span>Asset Modal</span>
+                                        <input type="text" id="add_asset_modal_txt">
+                                    </label>
+                                    <label>
+                                        <span>Distributor</span>
+                                        <input type="text" id="add_asset_distributor_txt">
+                                    </label>
+                                    <label>
+                                        <span>Asset Type</span>
+                                        <input type="text" id="add_asset_type_txt">
+                                    </label>
+                                    <label>
+                                        <span>Asset State</span>
+                                        <input type="text" id="add_asset_state_txt">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card_2 card">
+                                <div class="inputs">
+                                    <div class="img">
+                                        <label>
+                                            <input type="file" id="add_asset_pic_inp">
+                                            <span>Selete Picture</span>
+                                        </label>
+                                    </div>
+                                    <div class="btns">
+                                        <button onclick="ClrAddAssetInputsBtn()">Clear</button>
+                                        <button onclick="saveAddAssetBtn()">Save</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view_asset_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Editing an Asset</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main view_asset_info_cards">
+                            <div class="cards">
+                                <div class="card_1 card">
+                                    <div class="head">
+                                        <span>Asset Information</span>
+                                        <img src="../assets/icons/bike.png" alt="">
+                                    </div>
+                                    <div class="body">
+                                        <div class="txt">
+                                            <span>AssetID</span>
+                                            <span>UMA080GB</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Modal</span>
+                                            <span>150AT</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Distributor</span>
+                                            <span>Watu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card_2 card">
+                                    <div class="head">
+                                        <span>Rider Information</span>
+                                        <img src="../assets/icons/user.png" alt="">
+                                    </div>
+                                     <div class="body">
+                                        <div class="txt">
+                                            <span>ID</span>
+                                            <span>R001</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Name</span>
+                                            <span>John Doe</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Email</span>
+                                            <span>johndoe@gmail.com</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>TelNo.</span>
+                                            <span>0756238743</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Residence.</span>
+                                            <span>0756238743</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card_3 card">
+                                    <div class="head">
+                                        <span>Gurranter Information</span>
+                                        <img src="../assets/icons/user.png" alt="">
+                                    </div>
+                                     <div class="body">
+                                        <div class="txt">
+                                            <span>Name</span>
+                                            <span>Hoggy H</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>TelNo.</span>
+                                            <span>0743231295</span>
+                                        </div>
+                                        <div class="txt">
+                                            <span>Residence</span>
+                                            <span>Watu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="edit_asset_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Editing an Asset</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="first">
+                                <div class="btns">
+                                    <div onclick="editAsset_info(this)" class="edit_asset_btns edit_asset_btns_info">Asset</div>
+                                    <div onclick="editAsset_rider(this)" class="edit_asset_btns edit_asset_btns_rider">Rider</div>
+                                    <div onclick="editAsset_collections(this)" class="edit_asset_btns edit_asset_btns_collection">Collections</div>
+                                </div>
+                                <div class="btn">
+                                    <button class="assign_new_rider_btn">Assign New Rider</button>
+                                </div>
+                            </div>
+                            <div class="second">
+                                <div class="asset_info_card card asset_cards">
+                                    <section>
+                                        <div class="card_1 card">
+                                            <div class="inputs">
+                                                <label>
+                                                    <span>Asset ID</span>
+                                                    <input type="text" id="asset_id_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Asset Modal</span>
+                                                    <input type="text" id="asset_modal_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Distributor</span>
+                                                    <input type="text" id="asset_distributor_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Asset Type</span>
+                                                    <input type="text" id="asset_type_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Asset State</span>
+                                                    <input type="text" id="asset_state_txt">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="card_2 card">
+                                            <div class="inputs">
+                                                <div class="img">
+                                                    <label>
+                                                        <input type="file" id="asset_pic_inp">
+                                                        <span>Selete Picture</span>
+                                                    </label>
+                                                </div>
+                                                <div class="btns">
+                                                    <button onclick="ClrEditAssetInputsBtn()">Clear</button>
+                                                    <button onclick="SaveAssetUpdatesBtn()">Save</button>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="asset_rider_card card asset_cards">
+                                    <section>
+                                        <div class="card_1 card">
+                                            <div class="inputs">
+                                                <label id="generate_rider_id_label">
+                                                    <button>Generate ID</button>
+                                                    <input type="text" id="asset_rider_id_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Full Names</span>
+                                                    <input type="text" id="asset_rider_name_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Email Address</span>
+                                                    <input type="email" id="asset_rider_email_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Tel No.</span>
+                                                    <input type="tel" id="asset_rider_tel_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Status</span>
+                                                    <input type="text" id="asset_rider_status_txt">
+                                                </label>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="card_2 card">
+                                            <div class="inputs">
+                                                <div class="img">
+                                                    <label>
+                                                        <input type="file">
+                                                        <span>Selete Picture</span>
+                                                    </label>
+                                                </div>
+                                                <div class="btns">
+                                                    <button onclick="ClrEditAssetInputsBtn()">Clear</button>
+                                                    <button onclick="SaveAssetUpdatesBtn()">Save</button>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="asset_collections_card card asset_cards">
+                                    <section>
+                                        <div class="inputs">
+                                            <label>
+                                                <span>Today's Amount</span>
+                                                <input type="number" id="asset_todays_amount_txt">
+                                            </label>
+                                            <label>
+                                                <span>Amount Recieved</span>
+                                                <input type="number" id="asset_amount_recieved_txt">
+                                            </label>
+                                            <label>
+                                                <span>Payment Date</span>
+                                                <input type="date" id="asset_payment_date_txt">
+                                            </label>
+                                            <div class="btns">
+                                                <button onclick="ClrEditAssetInputsBtn()">Clear</button>
+                                                <button onclick="SaveAssetUpdatesBtn()">Save</button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view_rider_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Viewing the Rider's Data</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main view_rider_info_cards">
+                            <section>
+                                <div class="sec_1">
+                                    <span>John Doe</span>
+                                </div>
+                                <div class="sec_2">
+                                    <div class="card_1 card">
+                                        <img src="../assets/icons/user.png" alt="">
+                                    </div>
+                                    <div class="card_2 card">
+                                        <div class="head">
+                                            <span>Details</span>
+                                        </div>
+                                        <div class="body">
+                                            <div class="txt">
+                                                <span>ID</span>
+                                                <span>R001</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Name</span>
+                                                <span>John Doe</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Email</span>
+                                                <span>johndoe@gmail.com</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>TelNo</span>
+                                                <span>0756234647</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Emp Date</span>
+                                                <span>05-19-2026</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Status</span>
+                                                <span>Active</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Balance Due</span>
+                                                <span>5000</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Wallet</span>
+                                                <span>0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="edit_rider_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Editing Rider's Data</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <section>
+                                <div class="card_1 card">
+                                            <div class="inputs">
+                                                <label id="generate_rider_id_label">
+                                                    <button>Generate ID</button>
+                                                    <input type="text" id="rider_id_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Full Names</span>
+                                                    <input type="text" id="rider_name_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Email Address</span>
+                                                    <input type="email" id="rider_email_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Tel No.</span>
+                                                    <input type="tel" id="rider_tel_txt">
+                                                </label>
+                                                <label>
+                                                    <span>Status</span>
+                                                    <input type="text" id="rider_status_txt">
+                                                </label>
+                                                
+                                            </div>
+                                    </div>
+                                    <div class="card_2 card">
+                                            <div class="inputs">
+                                                <div class="img">
+                                                    <label>
+                                                        <input type="file" id="rider_pic_inp">
+                                                        <span>Selete Picture</span>
+                                                    </label>
+                                                </div>
+                                                <div class="btns">
+                                                    <button onclick="clearRiderInputsBtn()">Clear</button>
+                                                    <button onclick="SaveRiderUpdatesBtn()">Save</button>
+                                                </div>
+                                            </div>
+                                        
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="view_collections_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Viewing Collectionst</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="headers">
+                                <div class="text">
+                                    <sapn>UMA080GB</sapn>
+                                </div>
+                                <div class="btns">
+                                    <input type="date" id="collection_date_inp">
+                                    <select name="" id="collection_viewed_rider_id_select_inp">
+                                        <option value="current">Current</option>
+                                        <option value="R001">R001</option>
+                                        <option value="R002">R002</option>
+                                    </select>
+                                    <button onclick="showCollectionFilterPop_on_Pop()"><img src="../assets/icons/filter.png" alt="">Filter</button>
+                                    <section id="collectionFilterDiv_on_Pop" class="filter_div">
+                                            <div class="sort_dropdown">
+                                                <button onclick="sortBtns(this)" value="normal">Normal</button>
+                                                <button onclick="sortBtns(this)" value="type">Type</button>
+                                                <button onclick="sortBtns(this)" value="status">Status</button>
+                                                <button onclick="sortBtns(this)" value="balance">Balance</button>
+                                                <button onclick="sortBtns(this)" value="wallet">Wallet</button>
+                                            </div>
+                                        </section>
+                                </div>
+                            </div>
+                            <div class="body">
+                                <div class="card_1 card">
+                                    <div class="head_txt">
+                                        <span>John Doe</span>
+                                    </div>
+                                    <div class="box collection_trips_cards">
+                                        <!-- <div class="collection_trips_cards"></div> -->
+                                        <section>
+                                            <div class="txt">
+                                                <span>From</span>
+                                                <span>Nansana</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>To</span>
+                                                <span>Masanafu</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Start Time</span>
+                                                <span>18:20</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>End Time</span>
+                                                <span>18:40</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Amount</span>
+                                                <span>15000</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Work</span>
+                                                <span>Company</span>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="txt">
+                                                <span>From</span>
+                                                <span>Nansana</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>To</span>
+                                                <span>Masanafu</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Start Time</span>
+                                                <span>18:20</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>End Time</span>
+                                                <span>18:40</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Amount</span>
+                                                <span>15000</span>
+                                            </div>
+                                            <div class="txt">
+                                                <span>Work</span>
+                                                <span>Company</span>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="card_2 card">
+                                    <div class="txt">
+                                        <span>Payment Information</span>
+                                    </div>
+                                    <div class="body collection_payment_infomation_parent">
+                                        <div class="collection_payment_infomation_parent">
+                                            <div class="labels">
+                                                <span>Total Collected</span>
+                                                <span>120000</span>
+                                            </div>
+                                            <div class="labels">
+                                                <span>Amount Expected</span>
+                                                <span>20000</span>
+                                            </div>
+                                            <div class="labels">
+                                                <span>T.Amount Recieved</span>
+                                                <span>15000</span>
+                                            </div>
+                                            <div class="labels">
+                                                <span>Balance Due</span>
+                                                <span>15000</span>
+                                            </div>
+                                            <div class="labels">
+                                                <span>Wallet Due</span>
+                                                <span>15000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+                    </div>
+                    <div class="send_general_notification_pop notification_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Send General Notification</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="header">
+                                <span>Genrl Notification</span>
+                            </div>
+                            <div class="inputs">
+                                <label>
+                                    <span>Type</span>
+                                    <input type="text" name="" id="general_noti_type_txt">
+                                </label>
+                                <label>
+                                    <span>Subject</span>
+                                    <input type="text" name="" id="general_noti_subject_txt">
+                                </label>
+                                <label>
+                                    <span>Message</span>
+                                    <textarea name="" id="general_noti_message_txt" placeholder="Please Type Here..."></textarea>
+                                </label>
+                            </div>
+                            <div class="footer">
+                                <button onclick="savegeneralNotificationBtn()">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="send_persona_notification_pop notification_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Send Notification</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="header">
+                                <span>Send to John Doe</span>
+                            </div>
+                            <div class="inputs">
+                                <label>
+                                    <span>Type</span>
+                                    <input type="text" name="" id="">
+                                </label>
+                                <label>
+                                    <span>Subject</span>
+                                    <input type="text" name="" id="">
+                                </label>
+                                <label>
+                                    <span>Message</span>
+                                    <textarea name="" id="" placeholder="Please Type Here..."></textarea>
+                                </label>
+                            </div>
+                            <div class="footer">
+                                <button>Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <div class="loading_animation_div">
+            <div class="loading">
+            </div>
+            <span>RIV</span>
+        </div>
+        <div class="msg_pops_div">
+            <div class="msg_pop msg_pop_1">
+                <div class="header">
+                    <span>Mssage Name</span>
+                    <img src="../assets/icons/close.png" onclick="closePopBtn()" alt="">
+                </div>
+                <div class="body">
+                    <img src="../assets/icons/error.png" alt="">
+                    <span>Text Message</span>
+                </div>
+                <div class="footer">
+                    <button onclick="closePopBtn()">Close</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
