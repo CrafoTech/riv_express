@@ -323,6 +323,9 @@ main .mainbar .main .dashboard-window .data .cards .card .second span:first-chil
     font-weight: bolder;
     color: goldenrod;
 }
+main .mainbar .main .dashboard-window .data .cards .card .second span:last-child {
+    color: rgba(245, 245, 245, 0.919);
+}
 
 /* ++++++++++++++++++++++++ ANALYTICS SECTIONS ++++++++++++++++++++++++*/
 

@@ -4,7 +4,8 @@ const { MongoClient,ObjectId } = require('mongodb');
 
 const app = express();
 let Port = process.env.PORT || 8080;
-const uri = `mongodb://localhost:27017/`;
+// const uri = `mongodb://localhost:27017/`;
+const uri = `mongodb+srv://rivexpress30_db_user:rivexpres%40%40%401234@rivexpress.q8j8iwj.mongodb.net/?appName=rivexpress`;
 
 app.use(express.json())
 app.use(cors())
@@ -580,5 +581,5 @@ app.post('/login', async (req,res) => {
 })
 
 app.listen(Port, () => {
-    console.log(`Development - Server started and unning on Port: ${Port}`)
+    console.log(`Production - Server started and running on Port: ${Port}`)
 })

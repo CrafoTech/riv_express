@@ -501,7 +501,8 @@ function closePopUpBtn() {
 
 // Handelling Data and Server
 
-let baseUrl = `http://127.0.0.1:8080`
+// let baseUrl = `http://127.0.0.1:8080`
+let baseUrl = `https://riv-express.onrender.com`
 let allAssetsDataArr = []
 let allRidersDataArr = []
 

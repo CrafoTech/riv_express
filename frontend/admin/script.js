@@ -418,7 +418,8 @@ let total_cars_span = document.getElementById('total_cars_span')
 let total_riders_and_drivers_span = document.getElementById('total_riders_and_drivers_span')
 let total_income_span = document.getElementById('total_income_span')
 
-let baseUrl = `http://127.0.0.1:8080` 
+// let baseUrl = `http://127.0.0.1:8080` 
+let baseUrl = `https://riv-express.onrender.com` 
 
 let allAssetsDataArr = []
 let allRiderssDataArr = []
@@ -1963,4 +1964,10 @@ function searchInTables(search_input,tbody) {
 window.addEventListener('load', () => {
     analytics_drop_down.style.height = '0px'
     notification_drop_down.style.height = '0px'
+    manageMainWindow(dashboard_window,"Dashboard","")
+    analytics_drop_down.style.height = '0px'
+    analytics_drop_down_icon.style.transform = "rotate(0deg)"
+    notification_drop_down.style.height = '0px'
+    notification_drop_down_icon.style.transform = "rotate(0deg)"
+    getDashBoardDataFunc()
 })
