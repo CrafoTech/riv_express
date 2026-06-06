@@ -5,7 +5,8 @@ const { MongoClient,ObjectId } = require('mongodb');
 const app = express();
 let Port = process.env.PORT || 8080;
 // const uri = `mongodb://localhost:27017/`;
-const uri = `mongodb+srv://rivexpress30_db_user:rivexpres%40%40%401234@rivexpress.q8j8iwj.mongodb.net/?appName=rivexpress`;
+// const uri = `mongodb+srv://rivexpress30_db_user:rivexpres%40%40%401234@rivexpress.q8j8iwj.mongodb.net/?appName=rivexpress`;
+const uri = `mongodb+srv://reagansekimu_db_user:crafotech_1_bms@cluster0.rrf9cot.mongodb.net/?appName=Cluster0"`;
 
 app.use(express.json())
 app.use(cors())
