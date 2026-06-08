@@ -288,28 +288,58 @@ function disableBtns() {
 }
 
 
+function disableStartAndCancelBtns() {
+    switch (tripCreated) {
+        case true :
+            start_company_btn.forEach(btn => btn.setAttribute('disabled',true))
+    }
+}
 function startTripBtn() {
-    
-    let pop_body = `
-    <div class="true_or_flase_pop .pop_up">
-                    <div class="title n_warning_message">
-                        <span>Start the journey</span>
-                        <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
-                    </div>
-                    <div class="body">
-                        <div class="img">
-                            <img src="../assets/icons/n_warning.png" alt="" >
+    let pop_body = ''
+    // if (tripCreated) {
+    //     pop_body = `
+    //     <div class="true_or_flase_pop .pop_up">
+    //                     <div class="title n_warning_message">
+    //                         <span>Start the journey</span>
+    //                         <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+    //                     </div>
+    //                     <div class="body">
+    //                         <div class="img">
+    //                             <img src="../assets/icons/n_warning.png" alt="" >
+    //                         </div>
+    //                         <div class="txt">
+    //                             <span>Click Yes to start</span>
+    //                         </div>
+    //                     </div>
+    //                     <div class="footer">
+    //                         <button onclick="closePopUpBtn()">No</button>
+    //                         <button onclick="startGigFunc()">Yes</button>
+    //                     </div>
+    //             </div>
+    //             `
+    // } else {
+        pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title n_warning_message">
+                            <span>Warning</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
                         </div>
-                        <div class="txt">
-                            <span>Click Yes to start</span>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>You cant start befor creating a new Gig or Ride
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <button onclick="closePopUpBtn()">No</button>
-                        <button onclick="startGigFunc()">Yes</button>
-                    </div>
-            </div>
-            `
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                        </div>
+                </div>
+                `
+
+    // }
     true_flase_pops.innerHTML = pop_body
     true_flase_pops.style.display = 'flex'
 }
@@ -481,7 +511,8 @@ function displayProfileCardBtn() {
 function displayNotificationsCardBtn() {
     displayACard(user_notifications,'block');
     section_identifier.innerHTML = `Notifications`
-    displayRiderNotificationsCardFunc()
+    // displayRiderNotificationsCardFunc()
+    getGenralNotifications()
 }
 function displayFaqsCardBtn() {
     displayACard(user_faqs,'block');
@@ -1182,13 +1213,24 @@ rider_history_filter_date_inp.addEventListener('change', () => {
     displayRiderHistoryCardFunc()
 })
 
-
-
+let allGeneralNotifications = []
+async function getGenralNotifications() {
+    try {
+        loading_screen.style.display = 'block'
+        const res = await fetch(`${baseUrl}/getall/communication/notifications`)
+        const nots = await res.json()
+         allGeneralNotifications = nots
+         displayRiderNotificationsCardFunc()
+         loading_screen.style.display = 'none'
+    } catch (err) {
+        console.error(`Oops - While getting General notifications: ${err.name}_${err.message}`)
+    }
+}
 
 
 function displayRiderNotificationsCardFunc() {
 
-    let notifications = riderArr[0].notifications;
+    let notifications = allGeneralNotifications;
     console.log(riderArr[0].notifications)
     let elem = ''
     notifications.forEach((notification,i) => {

@@ -4,9 +4,9 @@ const { MongoClient,ObjectId } = require('mongodb');
 
 const app = express();
 let Port = process.env.PORT || 8080;
-// const uri = `mongodb://localhost:27017/`;
 // const uri = `mongodb+srv://rivexpress30_db_user:rivexpres%40%40%401234@rivexpress.q8j8iwj.mongodb.net/?appName=rivexpress`;
-const uri = `mongodb+srv://reagansekimu_db_user:crafotech_1_bms@cluster0.rrf9cot.mongodb.net/?appName=Cluster0"`;
+// const uri = `mongodb://localhost:27017/`;
+const uri = `mongodb+srv://reagansekimu_db_user:crafotech_1_bms@cluster0.rrf9cot.mongodb.net/?appName=Cluster0`;
 
 app.use(express.json())
 app.use(cors())
@@ -553,7 +553,7 @@ app.get('/getone_collec_cdate/:dbname/:cname/:id/:cdate', async (req,res) => {
     }
 })
 
-// Adding Many Assets
+// Logging in a rider
 app.post('/login', async (req,res) => {
 
     let allAssets = [];
@@ -580,7 +580,31 @@ app.post('/login', async (req,res) => {
         return res.status(500).json(serverErrObj)
     }
 })
+// Logging in a User
+app.post('/user_login', async (req,res) => {
+
+    let allUsers = [];
+    try {
+        
+        const client = await initConnection();
+        const db = await client.db('data');
+        const rslt = await db.collection('admin_data').find().toArray()
+        allUsers = await rslt 
+        
+        let login_status = false
+        allUsers.forEach(user => {
+            if ((user.user_id == req.body.user_id) && (user.user_email == req.body.user_email)) {
+                login_status = true
+            }
+        })
+
+        return res.status(200).json(login_status)
+    } catch (err) {
+        const serverErrObj = generateServerError(err,'Logging in');
+        return res.status(500).json(serverErrObj)
+    }
+})
 
 app.listen(Port, () => {
-    console.log(`Production - Server started and running on Port: ${Port}`)
+    console.log(`Development - Server started and running on Port: ${Port}`)
 })

@@ -209,15 +209,36 @@ main .mainbar .content .head {
 main .mainbar .content .head .header {
     margin-left: 25px;
 }
+main .mainbar .content .head .header span {
+    font-size: 35px;
+    font-weight: bolder;
+    color: #fa8a3aee;
+}
 main .mainbar .content .head .header span:first-child {
     font-size: 35px;
     font-weight: bolder;
     color: rgba(245, 245, 245, 0.875);
 }
-main .mainbar .content .head .header span:last-child {
-    font-size: 35px;
-    font-weight: bolder;
-    color: #fa8a3aee;
+main .mainbar .content .head .header #window_nav_indicator_txt {
+    /* color: whitesmoke;
+    font-weight: bold;
+    position: relative;
+    top: 20px;
+    right: 170px; */
+    display: none;
+    flex-direction: row;
+    transition: .2s all;
+}
+main .mainbar .content .head .header #window_nav_indicator_txt span {
+    color: whitesmoke;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 4px;
+    cursor: pointer;
+    transition: .2s all;
+}
+main .mainbar .content .head .header #window_nav_indicator_txt span:hover {
+    color: #2563EB;
 }
 main .mainbar .content .head .user {
     margin-right: 25px;
@@ -238,6 +259,30 @@ main .mainbar .content .head .user img {
 main .mainbar .content .head .user span {
     color: rgba(245, 245, 245, 0.875);
     font-weight: bolder;
+}
+main .mainbar .content .head .user button {
+    background: rgba(0, 0, 128, 0.283);
+    color: whitesmoke;
+    border-radius: .2em;
+    position: relative;
+    bottom: 50px;
+    width: 0px;
+    height: 0px;
+    padding: 5px;
+    overflow: hidden;
+    border: none;
+    transition: .2s all;
+    cursor: pointer;
+}
+main .mainbar .content .head .user:hover > button {
+    width: 70px;
+    height: 50px;
+    overflow: visible;;
+}
+main .mainbar .content .head .user button:hover {
+    background: navy;
+
+    
 }
 
 main .mainbar .main {
@@ -817,11 +862,193 @@ main .mainbar .main .notifications .second .cards .card .icons img:last-child {
 main .mainbar .main .notifications-window-personal{
     display: none;
 }
+
+
+/* SETINGS WINDOW */
+
 main .mainbar .main .settings-window {
     display: none;
 }
+main .mainbar .main .settings-window {
+    
+}
+main .mainbar .main .settings-window .data {
+    width: 100%;
+    height: 100%;
+}
+main .mainbar .main .settings-window .data .cards {
+    width: 100%;
+    height: 200px;
+    /* background: gray; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+main .mainbar .main .settings-window .data .cards .card {
+    width: 24%;
+    height: 90%;
+    border-radius: .5em;
+    border: 1px solid rgb(179, 177, 177);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20) ;
+    transition: .3s all;
+    cursor:alias;
+    background: #52162994;
+    background: linear-gradient(135deg,#011747,#521629);
+}
+main .mainbar .main .settings-window .data .cards .card:hover {
+    transform: translateY(-5px);
+}
+/* main .mainbar .main .settings-window .data .cards .total-bikes-card {
+    background: #521629;  
+}
+main .mainbar .main .settings-window .data .cards .total-cars-card {
+    background: #10B981;  
+}
+main .mainbar .main .settings-window .data .cards .total-rd-card {
+    background: #D9215D;  
+}
+main .mainbar .main .settings-window .data .cards .total-income-card {
+    background: #FBBF24;  
+} */
+main .mainbar .main .settings-window .data .cards .card .first {
+    width: 100%;
+    height: 30%;
+    /* background: lightblue; */
+    display: flex;
+    align-items: center;
+}
 
+main .mainbar .main .settings-window .data .cards .card .first img {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+    /* background: rgb(157, 129, 129); */
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20) ;
+}
+main .mainbar .main .settings-window .data .cards .card .second {
+    width: 100%;
+    height: 70%;
+    /* background: rgb(79, 96, 101); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+main .mainbar .main .settings-window .data .cards .card .second span:first-child {
+    font-size: 60px;
+    font-weight: bolder;
+    color: goldenrod;
+}
+main .mainbar .main .settings-window .data .cards .card .second span:last-child {
+    color: rgba(245, 245, 245, 0.919);
+}
 
+main .mainbar .main .settings-window .settings_tabs_dv {
+    display: block;
+}
+main .mainbar .main .settings-window .users_data_dv {
+    /* border: 2px solid gold; */
+    display: none;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv {
+    width: 100%;
+    height: 10%;
+    background: gray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .inputs_dv {
+    margin-left: 10px;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .inputs_dv input {
+    padding: 10px;
+    color: #521629;
+    border-radius: .3em;
+    font-size: 17px;
+    border: none;
+    outline-color: #521629;
+    text-align: center;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .inputs_dv select {
+    width: 100px;
+    padding: 10px;
+    cursor: pointer;
+    color: #521629;
+    border: none;
+    outline-color: #521629;
+    border-radius: .3em;
+    font-size: 15px;
+    margin-left: 5px;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .btn {
+    margin-right: 20px;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .btn button {
+    width: 130px;
+    padding: 10px;
+    cursor: pointer;
+    color: #521629;
+    border: none;
+    outline-color: #521629;
+    border-radius: .3em;
+    font-size: 15px;
+    transition: .2s all;
+}
+main .mainbar .main .settings-window .users_data_dv .first_dv .btn button:hover {
+    transform: translateX(3px);
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv {
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background: lightsteelblue;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr:nth-child(odd) {
+    background: gainsboro;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr:nth-child(even) {
+    background: #bbb6b6;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr:hover {
+/* main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr:hover { */
+    background: skyblue;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr td {
+    text-indent: 5px;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr td:first-child {
+    text-align: center;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr .photo_td {
+    text-align: center;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr .id_td {
+    text-align: center;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr .action_btns_td {
+    text-align: center;
+}
+main .mainbar .main .settings-window .users_data_dv .second_dv .table  tbody tr .action_btns_td img {
+    cursor: pointer;
+}
+    
 /* ++++++++++++++++++++++++++ POP UPS ++++++++++++++++++++++++++++++ */
 
 /* ************ ADDING ASSET POP */
@@ -2022,6 +2249,286 @@ main .mainbar .notification_pop .main .footer button:hover {
     color: whitesmoke;
 }
 
+
+/* ADDING USER STYLES */
+
+.mainbar .pop_div .add_edit_user_pop .main {
+    width: 100%;
+    height: 92%;
+    /* background: linear-gradient(135deg,#af9fa4,rgba(150, 135, 124, 0.974)); */
+    /* background: linear-gradient(135deg, #521629 0%, #fa8a3ab5 100%); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card {
+    /* border: 2px solid blue; */
+    width: 47%;
+    height: 90%;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 {
+    display: flex;
+    align-items: center;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs {
+    width: 40%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label span {
+    margin-left: 10px;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 18px;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label input {
+    padding: 10px;
+    width: 220px;
+    border: none;
+    border-radius: .3em;
+    color: #2e0612;
+    font-weight: bolder;
+    font-size: 16px;
+    
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label button{
+    padding: 10px;
+    width: 220px;
+    border: none;
+    border-radius: .3em;
+    color: #2e0612;
+    font-weight: bolder;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label select {
+    /* width: 100px;
+    border: none; */
+    padding: 10px;
+    width: 220px;
+    border: none;
+    border-radius: .3em;
+    color: #2e0612;
+    font-weight: bolder;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs {
+    width: 50%;
+    height: 95%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .img {
+    width: 95%;
+    height: 60%;
+    background-image: url(../assets/icons/bike.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: .5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: .3s all;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .img:hover >  label {
+    display: block;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .img label {
+    /* border: 1px solid red; */
+    width: auto;
+    transition: .3s all;
+    display: none;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .img label input {
+    display: none;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .img label span {
+    padding: 8px;
+    width: 150px;
+    background: rgb(0, 128, 255);
+    border-radius: .3em;
+    border: none;
+    cursor: pointer;
+    /* display: none; */
+    
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .btns {
+    /* border: 1px solid red; */
+    width: 90%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: last baseline;
+    justify-content: space-evenly;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .btns button {
+    padding: 10px;
+    width: 110px;
+    border: none;
+    cursor: pointer;
+    border-radius: .2em;
+    transition: .2s all;
+    background: #e03737;
+    font-size: 18px;
+    color: white;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .btns button:last-child {
+    background: #099d6b;
+}
+main .mainbar .pop_div .add_edit_user_pop .main .card_2 .inputs .btns button:hover {
+    /* background: blue; */
+    color: whitesmoke;
+    opacity: .7;
+}
+
+/* main .main .pop_div .view_user_pop {
+    background: gray;
+} */
+main .view_user_pop .main {
+    background: rgb(112, 112, 122);
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+main .view_user_pop .main .user_info {
+    width: 48%;
+    height: 98%;
+    background-color: gold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main .view_user_pop .main .user_info .img {
+    width: 70%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main  .view_user_pop .main .user_info .img img {
+    width: 60%;
+}
+main  .view_user_pop .main .user_info .dets {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+main  .view_user_pop .main .user_info .dets label {
+    border-bottom: 2px solid limegreen;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+main  .view_user_pop .main .user_info .dets label span:last-child{
+    color: #062b7a;
+    text-indent: 20px;
+
+}
+main .view_user_pop .main .user_action_btns {
+    width: 48%;
+    height: 98%;
+}
+main .view_user_pop .main .user_action_btns .head {
+    width: 98%;
+    background: gray;
+    
+}
+main .view_user_pop .main .user_action_btns .head span {
+    text-indent: 20px;
+    font-weight: bolder;
+}
+main .view_user_pop .main .user_action_btns .cards {
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main .view_user_pop .main .user_action_btns .cards .card {
+    width: 98%;
+    height: 80px;
+    border-radius: .4em;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-content: ;
+    justify-content: center;
+    transition: .2s all;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20);
+    
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg {
+    width: 94%;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg .title {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg .title span {
+    font-weight: bolder;
+    font-size: 18px;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg .title #action_color_code {
+    width: 50px;
+    border-radius: .2em;
+    margin-top: 3px;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg .title span:last-child {
+    font-size: 15px;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_msg  span {
+    color: rgb(128, 0, 73);
+    margin-left: 10px;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_btn {
+    width: 5%;
+    height: 0%;
+    transition: .2s all;
+    overflow: hidden;
+}
+main .view_user_pop .main .user_action_btns .cards .card:hover {
+    transform: translateX(3px);
+}
+main .view_user_pop .main .user_action_btns .cards .card:hover > .action_btn {
+    height: 70%;
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_btn img {
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: .2s all;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20);
+}
+main .view_user_pop .main .user_action_btns .cards .card .action_btn img:hover {
+    background: gray;
+}
+
+
+
 /* ++++++ LOADING ANIMATION +++++++ */
 
 main .loading_animation_div  {
@@ -2146,6 +2653,126 @@ main .msg_pops_div .msg_pop img {
     width: 23px;
 }
 
+
+/* LOGIN SCREEN */
+
+main .login_screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: gray;
+    background: linear-gradient(135deg,#D9215D,#d46c21);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+main .login_screen section {
+    width: 60%;
+    height: 80%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+main .login_screen section .fisrt {
+    width: 80%;
+    height: 40%;
+    /* border: 2px solid green; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main .login_screen section .fisrt img {
+    width: 100px;
+    /* height: */
+    padding: 10px;
+    background: #521629;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20);
+}
+main .login_screen section .fisrt span {
+    color: #e8e6e7;
+    font-weight: bolder;
+    padding: 10px;
+    font-size: 20px;
+}
+main .login_screen section .second {
+    width: 80%;
+    height: 50%;
+    /* border: 2px solid blue; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+main .login_screen section .second .form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+main .login_screen section .second .form label {
+    width: 50%;
+    /* border: 1px solid white; */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+main .login_screen section .second .form label span  {
+    font-size: 18px;
+    font-weight: bold;
+    width: 40%;
+    padding: 7px;
+    text-indent: 8px;
+    color: whitesmoke;
+}
+main .login_screen section .second .form label input {
+    width: 100%;
+    /* width: 150px; */
+    padding: 15px;
+    border: none;
+    border-radius: .3em;
+    outline: none;
+    font-size: 17px;
+    font-weight: bold;
+    color: #521629;
+}
+main .login_screen section .second .form label button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .33em;
+    font-size: 18px;
+    transition: .2s all;
+    cursor: pointer;
+    background: #521629;
+    color: rgba(245, 245, 245, 0.908);
+}
+main .login_screen section .second .form label button:hover {
+    background: #8a2143;
+}
+main .login_screen section .second .form label button img {
+    width: 17px;
+    margin-left: 3px;
+    animation: rotate_login_img linear 1.5s infinite;
+    visibility: hidden;
+}
+@keyframes rotate_login_img {
+    from {
+        transform: rotate(-360deg);
+    }
+}
 main .mainbar img {
     width: 25px;
 }

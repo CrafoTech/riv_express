@@ -89,10 +89,14 @@
                     <div class="header">
                         <span id="window_indicator_label">Dashboard</span>
                         <span id="window_indicator_txt"></span>
+                        <div id="window_nav_indicator_txt">
+                            <span onclick="goBackTo()">settings</span>
+                        </div>
                     </div>
                     <div class="user">
                         <img src="../assets/icons/amin-user.png" alt="">
-                        <span>Admin Doe</span>
+                        <span id="loggedind_user_name_span">Admin</span>
+                        <button onclick="userLogOutButton()">Logout</button>
                     </div>
                 </div>
                 <div class="main">
@@ -540,7 +544,124 @@
                         </div>
                     </div>
                     <div class="windows settings-window">
-                        <h1>Settings</h1>
+                        <div class="data settings_tabs_dv">
+                            <div class="cards">
+                                <div class="card total-bikes-card users_dv_btn" >
+                                    <div class="first">
+                                        <img src="../assets/icons/bike-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_bikes_span">0</span>
+                                        <span>Users</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="card total-cars-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/car-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_cars_span">0</span>
+                                        <span>Total Cars</span>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="card total-r&d-card total-rd-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/rider_and_driver-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_riders_and_drivers_span">0</span>
+                                        <span>Rider & Drivers</span>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="card total-income-card">
+                                    <div class="first">
+                                        <img src="../assets/icons/income-2.png" alt="">
+                                    </div>
+                                    <div class="second">
+                                        <span id="total_income_span">0</span>
+                                        <span>Generated Income</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="data users_data_dv">
+                            <div class="first_dv">
+                                <div class="inputs_dv">
+                                    <input type="text" name="" id="search_in_users_inp" placeholder="Q Search User">
+                                    <select name="" id="selectSortQuery">
+                                        <option value="">Sort By</option>
+                                        <option value="normal">Default</option>
+                                        <option value="name_az">Name A-Z</option>
+                                        <option value="name_za">Name Z-A</option>
+                                    </select>
+                                </div>
+                                <div class="btn">
+                                    <button onclick="addUserBtn()">+ Add User</button>
+                                </div>
+                            </div>
+                            <div class="second_dv">
+                                <div class="table">
+                                    <table border>
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Photo</th>
+                                                <th>User ID</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Tel</th>
+                                                <th>Role</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="users_data_tbdy">
+                                            <tr>
+                                                <td>1</td>
+                                                <td class="photo_td"><img src="../assets/icons/user.png" alt=""></td>
+                                                <td class="id_td">A001</td>
+                                                <td>John Doe</td>
+                                                <td>johndoe@gmail.com</td>
+                                                <td>0750665351</td>
+                                                <td>Admin</td>
+                                                <td class="action_btns_td">
+                                                    <img src="../assets/icons/view.png" onclick="viewUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/edit.png" onclick="editUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/delete.png" onclick="deleteUserBtn(this)" alt="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td class="photo_td"><img src="../assets/icons/user.png" alt=""></td>
+                                                <td class="id_td">A001</td>
+                                                <td>John Doe</td>
+                                                <td>johndoe@gmail.com</td>
+                                                <td>0750665351</td>
+                                                <td>Admin</td>
+                                                <td class="action_btns_td">
+                                                    <img src="../assets/icons/view.png" onclick="viewUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/edit.png" onclick="editUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/delete.png" onclick="deleteUserBtn(this)" alt="">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td class="photo_td"><img src="../assets/icons/user.png" alt=""></td>
+                                                <td class="id_td">A001</td>
+                                                <td>John Doe</td>
+                                                <td>johndoe@gmail.com</td>
+                                                <td>0750665351</td>
+                                                <td>Admin</td>
+                                                <td class="action_btns_td">
+                                                    <img src="../assets/icons/view.png" onclick="viewUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/edit.png" onclick="editUserBtn(this)" alt="">
+                                                    <img src="../assets/icons/delete.png" onclick="deleteUserBtn(this)" alt="">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="pop_div">
@@ -1115,6 +1236,222 @@
                             </div>
                         </div>
                     </div>
+                    <div class="add_user_pop add_edit_user_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Adding User</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="card_1 card">
+                                <div class="inputs">
+                                    <label>
+                                        <button>Generate ID</button>
+                                        <input type="text" id="add_user_id_txt">
+                                    </label>
+                                    <label>
+                                        <span>Name</span>
+                                        <input type="text" id="add_user_name_txt">
+                                    </label>
+                                    <label>
+                                        <span>Email Address</span>
+                                        <input type="email" id="add_user_email_txt">
+                                    </label>
+                                    <label>
+                                        <span>Tel Number</span>
+                                        <input type="text" id="add_user_tel_txt">
+                                    </label>
+                                    <label>
+                                        <span></span>
+                                        <select name="" id="add_user_role_txt">
+                                            <option value="">Select Role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="overall">Overall</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card_2 card">
+                                <div class="inputs">
+                                    <div class="img">
+                                        <label>
+                                            <input type="file" id="add_user_pic_inp">
+                                            <span>Selete Picture</span>
+                                        </label>
+                                    </div>
+                                    <div class="btns">
+                                        <button onclick="ClrAddUserInputsBtn()">Clear</button>
+                                        <button onclick="saveAddEditUserBtn()">Save</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view_user_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Viewing User Data</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="user_info card">
+                                <div class="img">
+                                    <img src="../assets/icons/user.png" alt="">
+                                </div>
+                                <div class="dets user_info_dets">
+                                    <label>
+                                        <span>UserID: </span>
+                                        <span>A001</span>
+                                    </label>
+                                    <label>
+                                        <span>Name: </span>
+                                        <span>John Doe</span>
+                                    </label>
+                                    <label>
+                                        <span>Email: </span>
+                                        <span>johndoe@gmail.com</span>
+                                    </label>
+                                    <label>
+                                        <span>TelNo.: </span>
+                                        <span>0750665351</span>
+                                    </label>
+                                    <label>
+                                        <span>Role: </span>
+                                        <span>Admin</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="user_action_btns">
+                                <div class="head">
+                                    <span>Actions</span>
+                                </div>
+                                <div class="cards user_actions_cards">
+                                    <div class="card">
+                                        <div class="action_msg">
+                                            <div class="title">
+                                                <span>Type</span>
+                                                <span id="action_color_code" style="background-color: antiquewhite;"></span>
+                                                <span>2026-06-8 | 10:33</span>
+                                            </div>
+                                            <div class="body">
+                                                <span>Action done</span>
+                                            </div>
+                                        </div>
+                                        <div class="action_btn">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="action_msg">
+                                            <div class="title">
+                                                <span>Type</span>
+                                                <span id="action_color_code" style="background-color: antiquewhite;"></span>
+                                                <span>2026-06-8 | 10:33</span>
+                                            </div>
+                                            <div class="body">
+                                                <span>Action done</span>
+                                            </div>
+                                        </div>
+                                        <div class="action_btn">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="action_msg">
+                                            <div class="title">
+                                                <span>Type</span>
+                                                <span id="action_color_code" style="background-color: antiquewhite;"></span>
+                                                <span>2026-06-8 | 10:33</span>
+                                            </div>
+                                            <div class="body">
+                                                <span>Action done</span>
+                                            </div>
+                                        </div>
+                                        <div class="action_btn">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="action_msg">
+                                            <div class="title">
+                                                <span>Type</span>
+                                                <span id="action_color_code" style="background-color: antiquewhite;"></span>
+                                                <span>2026-06-8 | 10:33</span>
+                                            </div>
+                                            <div class="body">
+                                                <span>Action done</span>
+                                            </div>
+                                        </div>
+                                        <div class="action_btn">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="edit_user_pop pop">
+                        <div class="head">
+                            <div class="txt">
+                                <span>Editing User</span>
+                            </div>
+                            <div class="img">
+                                <img src="../assets/icons/close.png" onclick="closePopBtn()">
+                            </div>
+                        </div>
+                        <div class="main">
+                            <div class="card_1 card">
+                                <div class="inputs">
+                                    <label>
+                                        <button>Generate ID</button>
+                                        <input type="text" id="add_user_id_txt">
+                                    </label>
+                                    <label>
+                                        <span>Name</span>
+                                        <input type="text" id="add_user_name_txt">
+                                    </label>
+                                    <label>
+                                        <span>Email Address</span>
+                                        <input type="email" id="add_user_email_txt">
+                                    </label>
+                                    <label>
+                                        <span>Tel Number</span>
+                                        <input type="text" id="add_user_tel_txt">
+                                    </label>
+                                    <label>
+                                        <span></span>
+                                        <select name="" id="add_user_role_txt">
+                                            <option value="">Select Role</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="overall">Overall</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card_2 card">
+                                <div class="inputs">
+                                    <div class="img">
+                                        <label>
+                                            <input type="file" id="add_user_pic_inp">
+                                            <span>Selete Picture</span>
+                                        </label>
+                                    </div>
+                                    <div class="btns">
+                                        <button onclick="ClrAddAssetInputsBtn()">Clear</button>
+                                        <button onclick="saveAddAssetBtn()">Save</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div> -->
                 </div>
         </section>
         <div class="loading_animation_div">
@@ -1136,6 +1473,29 @@
                     <button onclick="closePopBtn()">Close</button>
                 </div>
             </div>
+        </div>
+        <div class="login_screen">
+            <section>
+                <div class="fisrt">
+                    <img src="../assets/icons/logo.png" alt="">
+                    <span>RIV EXPRESS</span>
+                </div>
+                <div class="second">
+                    <div class="form">
+                        <label>
+                            <span>Email ID</span>
+                            <input type="text" id="user_log_in_email_txt">
+                        </label>
+                        <label>
+                            <span>User ID</span>
+                            <input type="text" id="user_log_in_id_txt">
+                        </label>
+                        <label>
+                            <button onclick="userLoginBtn()">LogIn <img id="user_login_rotate_img" src="../assets/icons/login.png" alt=""></button>
+                        </label>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
     <script src="script.js"></script>

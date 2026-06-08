@@ -37,6 +37,7 @@ dashboard_btn.addEventListener('click', () => {
     notification_drop_down.style.height = '0px'
     notification_drop_down_icon.style.transform = "rotate(0deg)"
     getDashBoardDataFunc()
+    window_nav_indicator_txt.style.display = ''
 })
 analytics_btn.addEventListener('click', () => {
     notification_drop_down.style.height = '0px'
@@ -48,6 +49,7 @@ analytics_btn.addEventListener('click', () => {
         analytics_drop_down.style.height = '0px'
         analytics_drop_down_icon.style.transform = "rotate(0deg)"
     }
+    window_nav_indicator_txt.style.display = ''
 })
 function analytics_assets_btn() {
     manageMainWindow(analytics_window_assets,"Analytics"," - Assets")
@@ -56,12 +58,10 @@ function analytics_assets_btn() {
 function analytics_riders_btn() {
     manageMainWindow(analytics_window_riders,"Analytics"," - Riders")
     getAllRiderssDataFunc()
-    
 }
 function analytics_collections_btn() {
     manageMainWindow(analytics_window_collections,"Analytics"," - Collections")
     getAllassetCollectionsDataFunc()
-    
 }
 
 notification_btn.addEventListener('click', () => {
@@ -74,6 +74,7 @@ notification_btn.addEventListener('click', () => {
         notification_drop_down.style.height = '0px'
         notification_drop_down_icon.style.transform = "rotate(0deg)"
     }
+    window_nav_indicator_txt.style.display = ''
 })
 function notification_general_btn() {
     notification_general_func()
@@ -91,6 +92,7 @@ settings_btn.addEventListener('click', () => {
     analytics_drop_down_icon.style.transform = "rotate(0deg)"
     notification_drop_down.style.height = '0px'
     notification_drop_down_icon.style.transform = "rotate(0deg)"
+    window_nav_indicator_txt.style.display = 'flex'
 })
 
 
@@ -192,6 +194,17 @@ const edit_rider_pop = document.querySelector('.edit_rider_pop');
 const pop_div = document.querySelector('.pop_div');
 const view_collections_pop = document.querySelector('.view_collections_pop');
 
+const add_user_pop = document.querySelector('.add_user_pop');
+const edit_user_pop = document.querySelector('.edit_user_pop');
+const view_user_pop = document.querySelector('.view_user_pop');
+const user_info_dv = document.querySelector('.user_info');
+let user_actions_cards = document.querySelector('.user_actions_cards')
+
+let users_data_tbdy = document.querySelector('#users_data_tbdy')
+let users_dv_btn = document.querySelector('.users_dv_btn')
+let users_data_dv = document.querySelector('.users_data_dv')
+let settings_tabs_dv = document.querySelector('.settings_tabs_dv')
+
 const  asset_cards = document.querySelectorAll('.asset_cards')
 const asset_info_card = document.querySelector('.asset_info_card')
 const asset_rider_card = document.querySelector('.asset_rider_card')
@@ -236,6 +249,272 @@ function editAssetBtn(Index) {
 }
 function deleteAssetBtn(Index) {
     deleteAssetFunc(Index);
+}
+
+
+function addUserBtn() {
+    saveAddEditUserFlag = 'add_user'
+
+    managePopUpWindow(all_pops,add_user_pop,'block')
+}
+function viewUserBtn(Index) {
+    viewUserFunc(Index);
+    managePopUpWindow(all_pops,view_user_pop,'block')
+}
+
+function editUserBtn(Index) {
+    saveAddEditUserFlag = 'edit_user'
+    let userData = allUsersDataArr[Index]
+    activeUserDocIDFlag = userData._id
+    add_user_id_txt.value = userData.user_id
+    add_user_name_txt.value = userData.user_name
+    add_user_email_txt.value = userData.user_email
+    add_user_tel_txt.value = userData.user_tel
+    add_user_role_txt.value = userData.user_role
+    // add_user_pop.style.display = 'block'
+    managePopUpWindow(all_pops,add_user_pop,'block')
+}
+function deleteUserBtn(Index) {
+    deleteUserFunc(Index);
+}
+
+function viewUserFunc(index) {
+    let user  = allUsersDataArr[index]
+    let user_actions = allUsersDataArr[index].user_actions
+    let info_content = ''
+    let actions_cards = ''
+    info_content += `
+        <div class="img">
+                                <img src="../assets/icons/user.png" alt="">
+                            </div>
+                            <div class="dets user_info_dets">
+                                <label>
+                                    <span>UserID: </span>
+                                    <span>${user.user_id}</span>
+                                </label>
+                                <label>
+                                    <span>Name: </span>
+                                    <span>${user.user_name}</span>
+                                </label>
+                                <label>
+                                    <span>Email: </span>
+                                    <span>${user.user_email}/span>
+                                </label>
+                                <label>
+                                    <span>TelNo.: </span>
+                                    <span>${user.user_tel}</span>
+                                </label>
+                                <label>
+                                    <span>Role: </span>
+                                    <span>${user.user_role}</span>
+                                </label>
+                            </div>
+    `
+    if (user_actions.length > 0 ) {
+        user_actions.forEach((action) => {
+            actions_cards += `
+                <div class="card">
+                                        <div class="action_msg">
+                                            <div class="title">
+                                                <span>${action.type}</span>
+                                                <span id="action_color_code" style="background: ${action.color_code};"></span>
+                                                <span>${action.date} | ${action.time}</span>
+                                            </div>
+                                            <div class="body">
+                                                <span>${action.desc}</span>
+                                            </div>
+                                        </div>
+                                        <div class="action_btn">
+                                            <img src="../assets/icons/delete.png" alt="">
+                                        </div>
+                                    </div>
+            `
+        })
+    } else {
+        actions_cards = `<h3> There no actions yet </h3>`
+    }
+    user_info_dv.innerHTML = info_content
+    user_actions_cards.innerHTML = actions_cards
+}
+
+let settings_tabs_array = ['settings']
+
+function renderSettingsTabsElement() {
+    let elems = ''
+    settings_tabs_array.forEach(tab => {
+        elems += `
+            <span onclick="goBackTo('${tab}')"> ${tab} ></span>
+        `
+    }) 
+    window_nav_indicator_txt.innerHTML = elems
+    
+}
+users_dv_btn.addEventListener('click', () => {
+    getAllUsersData()
+    displayAllUsersData()
+    settings_tabs_array.push('users')
+    renderSettingsTabsElement()
+    users_data_dv.style.display = 'block'
+    settings_tabs_dv.style.display = 'none'
+    
+})
+
+function goBackTo(flag) {
+    switch(flag) {
+        case 'settings':
+            users_data_dv.style.display = 'none'
+            settings_tabs_dv.style.display = 'block'
+            settings_tabs_array.pop()
+            if (settings_tabs_array.length < 1) {
+                settings_tabs_array = ['settings']
+            }
+            renderSettingsTabsElement()
+            break;
+            case 'users':
+            users_data_dv.style.display = 'block'
+            settings_tabs_dv.style.display = 'none'
+            // settings_tabs_array.pop()
+            // renderSettingsTabsElement()
+            break
+    }
+    console.log("hello"+flag)
+}
+
+
+let allUsersDataArr = []
+let saveAddEditUserFlag = ''
+let activeUserDocIDFlag = ''
+
+async function getAllUsersData() {
+    let dbname = 'data'
+    let cname = 'admin_data'
+    try {
+        loading_animation_div.style.display = 'flex'
+        const res = await fetch(`${baseUrl}/getall/${dbname}/${cname}`)
+        const data = await res.json()
+        allUsersDataArr = await data
+        // displayAllUsersData()
+        loading_animation_div.style.display = ''
+    } catch (err) {
+        console.log(`Oops While getting all usersData: ${err.name}_${err.message}`)
+    }
+}
+function displayAllUsersData() {
+    let td = ''
+    allUsersDataArr.forEach((user,i) => [
+        td += `
+            <tr>
+                <td>${i+1}</td>
+                <td class="photo_td"><img src="../assets/icons/user.png" alt=""></td>
+                <td class="id_td">${user.user_id}</td>
+                <td>${user.user_name}</td>
+                <td>${user.user_email}</td>
+                <td>${user.user_tel}</td>
+                <td>${user.user_role}</td>
+                <td class="action_btns_td">
+                    <img src="../assets/icons/view.png" onclick="viewUserBtn(${i})" alt="">
+                    <img src="../assets/icons/edit.png" onclick="editUserBtn(${i})" alt="">
+                    <img src="../assets/icons/delete.png" onclick="deleteUserBtn(${i})" alt="">
+                 </td>
+             </tr>
+        `
+    ])
+    users_data_tbdy.innerHTML = td
+    users_data_dv.style.display = 'block'
+    // settings_tabs_dv.style.display = 'none'
+}
+function ClrAddUserInputsBtn() {
+    add_user_id_txt.value = ''
+    add_user_name_txt.value = ''
+    add_user_email_txt.value = ''
+    add_user_tel_txt.value = ''
+    add_user_role_txt.value =''
+
+}
+
+
+function saveAddEditUserBtn() {
+    switch (saveAddEditUserFlag) {
+        case 'add_user':
+            saveAddUserFunc()
+            break;
+        case 'edit_user':
+            editUserFunc()
+            break;
+    }
+}
+
+async function saveAddUserFunc() {
+    let dbname = 'data'
+    let cname = 'admin_data'
+    try {
+        let insertData = {
+            user_id : add_user_id_txt.value,
+            user_name : add_user_name_txt.value,
+            user_email : add_user_email_txt.value,
+            user_tel : add_user_tel_txt.value,
+            user_role : add_user_role_txt.value,
+            user_actions: []
+        }
+        const res = await fetch(`${baseUrl}/insertone/${dbname}/${cname}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json'
+            },
+            body: JSON.stringify(insertData)
+        })
+        const data = await res.json()
+        getAllUsersData()
+        loading_animation_div.style.display = ''
+    } catch (err) {
+        console.error(`Oops: While Adding User Data: ${err.name}_${err.message}`)
+    }
+}
+
+async function editUserFunc() {
+    let dbname = 'data'
+    let cname = 'admin_data'
+    try {
+        let updates = {
+            user_id : add_user_id_txt.value,
+            user_name : add_user_name_txt.value,
+            user_email : add_user_email_txt.value,
+            user_tel : add_user_tel_txt.value,
+            user_role : add_user_role_txt.value
+        }
+        const res = await fetch(`${baseUrl}/updateonedoc_id/${dbname}/${cname}/${activeUserDocIDFlag}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'Application/json'
+            },
+            body: JSON.stringify(updates)
+        })
+        const data = await res.json()
+        console.log(await data)
+        getAllUsersData()
+        loading_animation_div.style.display = ''
+    } catch (err) {
+        console.error(`Oops: While editing User Data: ${err.name}_${err.message}`)
+    }
+}
+async function deleteUserFunc(index) {
+    let dbname = 'data'
+    let cname = 'admin_data'
+    let user_doc_id = allUsersDataArr[index]._id 
+    try {
+        const res = await fetch(`${baseUrl}/deleteonedoc_id/${dbname}/${cname}/${user_doc_id}`, {
+            method: 'Delete',
+            headers: {
+                'Content-Type': 'Application/json'
+            }
+        })
+        const data = await res.json()
+        console.log(await data)
+        getAllUsersData()
+        loading_animation_div.style.display = ''
+    } catch (err) {
+        console.error(`Oops: While editing User Data: ${err.name}_${err.message}`)
+    }
 }
 
 // RIDER OPPS
@@ -417,6 +696,13 @@ let total_bikes_span = document.getElementById('total_bikes_span')
 let total_cars_span = document.getElementById('total_cars_span')
 let total_riders_and_drivers_span = document.getElementById('total_riders_and_drivers_span')
 let total_income_span = document.getElementById('total_income_span')
+
+const add_user_pic_inp = document.getElementById('add_user_pic_inp');
+const add_user_role_txt = document.getElementById('add_user_role_txt');
+const add_user_tel_txt = document.getElementById('add_user_tel_txt');
+const add_user_email_txt = document.getElementById('add_user_email_txt');
+const add_user_name_txt = document.getElementById('add_user_name_txt');
+const add_user_id_txt = document.getElementById('add_user_id_txt');
 
 // let baseUrl = `http://127.0.0.1:8080` 
 let baseUrl = `https://riv-express.onrender.com` 
@@ -1691,6 +1977,8 @@ async function deletegeneralNotificationFunc(index) {
 let search_asset_inp = document.getElementById('search_asset_inp')
 let search_rider_inp = document.getElementById('search_rider_inp')
 let search_collection_inp = document.getElementById('search_collection_inp')
+let search_in_users_inp = document.getElementById('search_in_users_inp')
+let selectSortQuery = document.getElementById('selectSortQuery')
 
 search_asset_inp.addEventListener('input', () => {
     searchInTables(search_asset_inp,asset_data_tbody)
@@ -1702,6 +1990,10 @@ search_rider_inp.addEventListener('input', () => {
 })
 search_collection_inp.addEventListener('input', () => {
     searchInTables(search_collection_inp,collections_data_tbdy)
+    
+})
+search_in_users_inp.addEventListener('input', () => {
+    searchInTables(search_in_users_inp,users_data_tbdy)
     
 })
 
@@ -1860,6 +2152,7 @@ function filterRidersFunc(flag) {
     console.log('Filtering Riders by: '+flag)
 }
 
+
 function sortCollectionsFunc(flag) {
     switch (flag) {
         case 'normal':
@@ -1961,6 +2254,96 @@ function searchInTables(search_input,tbody) {
     }
 }
 
+selectSortQuery.addEventListener('change', () => {
+    sortUsersDataFunc(selectSortQuery.value)
+})
+function sortUsersDataFunc(flag) {
+    console.log(flag)
+    switch (flag) {
+        case 'normal':
+            getAllUsersData()
+            break;
+        case 'name_az':
+            allUsersDataArr.sort((a,b) => {
+                return a.user_name.localeCompare(b.user_name)
+            })
+            displayAllUsersData()
+            break
+        case 'name_za':
+            allUsersDataArr.sort((a,b) => {
+                return b.user_name.localeCompare(a.user_name)
+            })
+            displayAllUsersData()
+            break
+        default: 
+            getAllUsersData()
+            break
+        }
+}
+
+let user_log_in_email_txt = document.getElementById('user_log_in_email_txt');
+let user_log_in_id_txt = document.getElementById('user_log_in_id_txt');
+let user_login_rotate_img = document.getElementById('user_login_rotate_img');
+let login_screen = document.querySelector('.login_screen')
+
+let loggedind_user_name_span = document.getElementById('loggedind_user_name_span');
+
+function userLoginBtn() {
+    userLoginFunc()
+}
+function userLogOutButton() {
+    location.reload()
+}
+
+let loggedInUserData = {}
+async function userLoginFunc() {
+    if (user_log_in_id_txt.value.trim() && user_log_in_email_txt.value.trim()) {
+        try {
+            user_login_rotate_img.style.visibility = 'visible'
+            let logins = {
+                user_id: user_log_in_id_txt.value,
+                user_email: user_log_in_email_txt.value
+            }
+            const res = await fetch(`${baseUrl}/user_login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                body: JSON.stringify(logins)
+            })
+            const rslt = await res.json();
+            let login_status = await Boolean(rslt)
+            // console.log("STATUS: "+rslt)
+            if (login_status) {
+                console.log('Logged in successfully ! '+logins.user_id)
+                getDashBoardDataFunc()
+                getAllUsersData()
+                const res2 = await fetch(`${baseUrl}/getall/data/admin_data`)
+                const data = await res2.json()
+                console.log(loggedInUserData)
+                // display
+                await data.forEach( user => {
+                    if ( (user.user_email == logins.user_email) && (user.user_id == logins.user_id)) {
+                        loggedInUserData = user
+                    }
+                })
+                login_screen.style.display = 'none'
+                loggedind_user_name_span.innerHTML = loggedInUserData.user_name
+            } else {
+                console.log("enter correct creds"+rslt.login_status)
+            // }
+            }
+            user_login_rotate_img.style.visibility = ''
+        } catch (err) {
+        console.error(`Oops while Logiing in`)
+        user_login_rotate_img.style.visibility = ''
+        }
+    } else {
+        alert('Make Sure none of the fields is empty')
+    }
+}
+
+
 window.addEventListener('load', () => {
     analytics_drop_down.style.height = '0px'
     notification_drop_down.style.height = '0px'
@@ -1969,5 +2352,5 @@ window.addEventListener('load', () => {
     analytics_drop_down_icon.style.transform = "rotate(0deg)"
     notification_drop_down.style.height = '0px'
     notification_drop_down_icon.style.transform = "rotate(0deg)"
-    getDashBoardDataFunc()
+    
 })
