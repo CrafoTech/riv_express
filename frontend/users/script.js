@@ -1138,7 +1138,7 @@ async function deleteGigFunc() {
                 rider_work_btn.style.background = select_work_btn_background
                 rider_work_btn.style.color = select_work_btn_color
                 rider_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
-                manuPulateJurneyStatusSpan('company','delete')
+                manuPulateJurneyStatusSpan('rider','delete')
                 break;
         }
         tripCreatedFlag = false
