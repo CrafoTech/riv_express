@@ -252,6 +252,7 @@ let section_identifier = document.getElementById('section_identifier');
 function displayTripCardBtn() {
     displayACard(user_trips_card,'block')
     section_identifier.innerHTML = `Trips & Rides`
+    logout_Btn.style.display = 'none'
     
 }
 
@@ -269,7 +270,11 @@ let rider_new_gig_btn = document.querySelector('.rider_new_gig_btn')
 let start_company_btn = document.querySelectorAll('.start_company_btn')
 let stop_company_btn = document.querySelectorAll('.stop_company_btn')
 
+let trip_status_span = document.getElementById('trip_status_span')
+let ride_status_span = document.getElementById('ride_status_span')
+
 let tripCreatedFlag = false
+let newRideCreatedFlag = false
 let newGigBtnDisbaled = false
 let startJourneyBtnDisabled = false 
 let cancelTripBtnDisabled = false
@@ -287,40 +292,94 @@ function disableBtns() {
     }
 }
 
+let status_TravellingBG = '#521629' 
+let status_TravellingColor = '#FA8B3A' 
+let status_TravellingTxt = 'travelling' 
+let status_CreatedBG = '#521629' 
+let status_CreatedColor = '#10B981' 
+let status_CreatedTxt = 'Created' 
+// let status_FinishedBG = 'gray' 
+// let status_FinishedColor = 'blue' 
+// let status_FinishedTxt = 'travelling' 
 
-function disableStartAndCancelBtns() {
-    switch (tripCreated) {
-        case true :
-            start_company_btn.forEach(btn => btn.setAttribute('disabled',true))
+function manuPulateJurneyStatusSpan(work,status) {
+    if (work == 'company') {
+        switch (status) {
+            case 'created': 
+            console.log("WORKKINDD: "+work)
+            console.log("STATUSUUU: "+status)
+                trip_status_span.innerHTML = status_CreatedTxt
+                trip_status_span.style.background = status_CreatedBG
+                trip_status_span.style.color = status_CreatedColor
+                break;
+            case 'started': 
+                trip_status_span.innerHTML = status_TravellingTxt
+                trip_status_span.style.background = status_TravellingBG
+                trip_status_span.style.color = status_TravellingColor
+                break
+            // case 'finished': 
+            //     trip_status_span.innerHTML = 'No Trip'
+            //     trip_status_span.style.background = 'black'
+            //     trip_status_span.style.color = 'lime'
+            //     break
+            default:
+                trip_status_span.innerHTML = 'No f Trip'
+                trip_status_span.style.background = ''
+                trip_status_span.style.color = ''
+                break
+        }
+    } else if (work == 'rider') {
+        switch (status) {
+            case 'created':
+                ride_status_span.innerHTML = status_CreatedTxt
+                ride_status_span.style.background = status_CreatedBG
+                ride_status_span.style.color = status_CreatedColor
+                break;
+            case 'started': 
+                ride_status_span.innerHTML = status_TravellingTxt
+                ride_status_span.style.background = status_TravellingBG
+                ride_status_span.style.color = status_TravellingColor
+                break
+            // case 'finished': 
+            //     ride_status_span.innerHTML = 'No Trip'
+            //     ride_status_span.style.background = 'black'
+            //     ride_status_span.style.color = 'lime'
+            //     break
+            default:
+                ride_status_span.innerHTML = 'No f Trip'
+                ride_status_span.style.background = ''
+                ride_status_span.style.color = ''
+                break
+        }
     }
 }
 function startTripBtn() {
     let pop_body = ''
-    // if (tripCreated) {
-    //     pop_body = `
-    //     <div class="true_or_flase_pop .pop_up">
-    //                     <div class="title n_warning_message">
-    //                         <span>Start the journey</span>
-    //                         <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
-    //                     </div>
-    //                     <div class="body">
-    //                         <div class="img">
-    //                             <img src="../assets/icons/n_warning.png" alt="" >
-    //                         </div>
-    //                         <div class="txt">
-    //                             <span>Click Yes to start</span>
-    //                         </div>
-    //                     </div>
-    //                     <div class="footer">
-    //                         <button onclick="closePopUpBtn()">No</button>
-    //                         <button onclick="startGigFunc()">Yes</button>
-    //                     </div>
-    //             </div>
-    //             `
-    // } else {
+    if (tripCreatedFlag) {
         pop_body = `
         <div class="true_or_flase_pop .pop_up">
                         <div class="title n_warning_message">
+                            <span>Start the journey</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                        </div>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/n_warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>Click Yes to start</span>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                            <button onclick="startGigFunc()">Yes</button>
+                        </div>
+                </div>
+                `
+    } else {
+        pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title warning_message">
                             <span>Warning</span>
                             <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
                         </div>
@@ -329,7 +388,7 @@ function startTripBtn() {
                                 <img src="../assets/icons/warning.png" alt="" >
                             </div>
                             <div class="txt">
-                                <span>You cant start befor creating a new Gig or Ride
+                                <span>You can't start before creating a <b>New Gig</b>
                                 </span>
                             </div>
                         </div>
@@ -339,11 +398,12 @@ function startTripBtn() {
                 </div>
                 `
 
-    // }
+    }
     true_flase_pops.innerHTML = pop_body
     true_flase_pops.style.display = 'flex'
 }
 function stopTripBtn() {
+    
     let pop_body = `
     <div class="true_or_flase_pop .pop_up">
                     <div class="title">
@@ -368,26 +428,52 @@ function stopTripBtn() {
     true_flase_pops.style.display = 'flex'
 }
 function cancelTripBtn() {
-    let pop_body = `
-    <div class="true_or_flase_pop .pop_up">
-                    <div class="title warning_message">
-                        <span>Cancel the Journey</span>
-                        <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
-                    </div>
-                    <div class="body">
-                        <div class="img">
-                            <img src="../assets/icons/n_warning.png" alt="" >
+
+    let pop_body = ''
+    if (tripCreatedFlag) {
+        pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title warning_message">
+                            <span>Cancel the Journey</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
                         </div>
-                        <div class="txt">
-                            <span>Click Yes to Cancel Journey</span>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/n_warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>Click Yes to Cancel Journey</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <button onclick="closePopUpBtn()">No</button>
-                        <button onclick="deleteGigFunc()">Yes</button>
-                    </div>
-            </div>
-            `
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                            <button onclick="deleteGigFunc()">Yes</button>
+                        </div>
+                </div>
+                `
+                
+    } else {
+         pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title warning_message">
+                            <span>No Trip Created</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                        </div>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>There is no any <b>trip</b> created</span>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                        </div>
+                </div>
+                `
+        
+    }
     true_flase_pops.innerHTML = pop_body
     true_flase_pops.style.display = 'flex'
 }
@@ -402,7 +488,6 @@ function addNewRideBtn() {
 function submitGigCreationBtn() {
     // true_flase_pops.style.display = 'flex'
     submitGigCreationFunc()
-    tripCreatedFlag = true
     cancelGigCreationFunc()
 }
 function cancelGigCreationFunc() {
@@ -420,26 +505,50 @@ function cancelGigCreationFunc() {
 }
 
 function startRideTripBtn() {
-    let pop_body = `
-    <div class="true_or_flase_pop .pop_up">
-                    <div class="title n_warning_message">
-                        <span>Start the Ride</span>
-                        <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
-                    </div>
-                    <div class="body">
-                        <div class="img">
-                            <img src="../assets/icons/n_warning.png" alt="" >
+    let pop_body = ''
+    if ( newRideCreatedFlag ) {
+         pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title n_warning_message">
+                            <span>Start the Ride</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
                         </div>
-                        <div class="txt">
-                            <span>Click Yes to start</span>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/n_warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>Click Yes to start</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <button onclick="closePopUpBtn()">No</button>
-                        <button onclick="startGigFunc()">Yes</button>
-                    </div>
-            </div>
-            `
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                            <button onclick="startGigFunc()">Yes</button>
+                        </div>
+                </div>
+                `
+
+    }  else {
+        pop_body = `
+       <div class="true_or_flase_pop .pop_up">
+                       <div class="title warning_message">
+                           <span>No Ride Created</span>
+                           <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                       </div>
+                       <div class="body">
+                           <div class="img">
+                               <img src="../assets/icons/warning.png" alt="" >
+                           </div>
+                           <div class="txt">
+                               <span>You can't start before creating a  <b>New Ride</b></span>
+                           </div>
+                       </div>
+                       <div class="footer">
+                           <button onclick="closePopUpBtn()">No</button>
+                       </div>
+               </div>
+               `
+    }
     true_flase_pops.innerHTML = pop_body
     true_flase_pops.style.display = 'flex'
 }
@@ -468,26 +577,50 @@ function stopRideTripBtn() {
     true_flase_pops.style.display = 'flex'
 }
 function cancelRideTripBtn() {
-    let pop_body = `
-    <div class="true_or_flase_pop .pop_up">
-                    <div class="title waning">
-                        <span>Warning</span>
-                        <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
-                    </div>
-                    <div class="body">
-                        <div class="img">
-                            <img src="../assets/icons/warning.png" alt="" >
+    let pop_body = ''
+    if ( newRideCreatedFlag ) {
+         pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title waning">
+                            <span>Warning</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
                         </div>
-                        <div class="txt">
-                            <span>Would you want to cancle the trip</span>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>Would you want to cancle the trip</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="footer">
-                        <button onclick="closePopUpBtn()">No</button>
-                        <button onclick="deleteGigFunc()">Yes</button>
-                    </div>
-            </div>
-            `
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                            <button onclick="deleteGigFunc()">Yes</button>
+                        </div>
+                </div>
+                `
+    } else {
+        pop_body = `
+       <div class="true_or_flase_pop .pop_up">
+                       <div class="title warning_message">
+                           <span>No Ride Created</span>
+                           <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                       </div>
+                       <div class="body">
+                           <div class="img">
+                               <img src="../assets/icons/warning.png" alt="" >
+                           </div>
+                           <div class="txt">
+                               <span>There is no <b>Ride</b> Created</span>
+                           </div>
+                       </div>
+                       <div class="footer">
+                           <button onclick="closePopUpBtn()">No</button>
+                       </div>
+               </div>
+               `
+
+    }
     true_flase_pops.innerHTML = pop_body
     true_flase_pops.style.display = 'flex'
 }
@@ -496,6 +629,7 @@ function cancelRideTripBtn() {
 function displayHistoryCardBtn() {
     displayACard(user_history,'block');
     section_identifier.innerHTML = `Trips history`
+    logout_Btn.style.display = 'none'
     getRidersData()
     
 
@@ -506,6 +640,7 @@ function displayHistoryCardBtn() {
 function displayProfileCardBtn() {
     displayACard(user_profile,'block')
     section_identifier.innerHTML = `My Profile`
+    logout_Btn.style.display = 'none'
     displayUserProfile()
 }
 function displayNotificationsCardBtn() {
@@ -513,10 +648,12 @@ function displayNotificationsCardBtn() {
     section_identifier.innerHTML = `Notifications`
     // displayRiderNotificationsCardFunc()
     getGenralNotifications()
+    logout_Btn.style.display = 'none'
 }
 function displayFaqsCardBtn() {
     displayACard(user_faqs,'block');
     section_identifier.innerHTML = `FaQs`
+    logout_Btn.style.display = 'none'
     displayFaqsFunc()
 }
 function displayContactUSCardBtn() {
@@ -524,6 +661,7 @@ function displayContactUSCardBtn() {
     let {rname} = riderArr[0]
     contact_intro_user_name.innerHTML = `Hey ${rname}`
     section_identifier.innerHTML = `Contact Us`
+    logout_Btn.style.display = 'block'
 }
 
 function closePopUpBtn() {
@@ -749,6 +887,7 @@ async function submitGigCreationFunc() {
                 company_new_gig_btn.style.background = ''
                 company_new_gig_btn.innerText += ' 🚫'
                 select_rider_work_btn.innerText += ' 🚫'
+                manuPulateJurneyStatusSpan('company','created')
                 break;
                 case 'rider':
                     select_company_work_btn.setAttribute('disabled',true)
@@ -757,9 +896,12 @@ async function submitGigCreationFunc() {
                     rider_new_gig_btn.style.background = ''
                     rider_new_gig_btn.innerText += ' 🚫'
                     select_company_work_btn.innerText += ' 🚫'
+                    manuPulateJurneyStatusSpan('rider','created')
                     console.log('WorkKind RIDER : '+work_kind_flag)
                 break;
         }
+        tripCreatedFlag = true
+        newRideCreatedFlag = true
         loading_screen.style.display = ''
     } catch (err) {
         
@@ -817,7 +959,15 @@ async function startGigFunc() {
         stop_company_btn[1].style.display = 'block'
         newGigBtnDisbaled = true
         disableBtns()
-        console.log("\n",t_id)
+        switch (work_kind_flag) {
+            case 'company':
+                manuPulateJurneyStatusSpan('company','started')
+                break;
+            case 'rider':
+                manuPulateJurneyStatusSpan('rider','started')
+                break;
+        }
+        
     } catch (err) {
         let errObj = {
                         name: `${err.name}`,
@@ -899,13 +1049,17 @@ async function finishingGigFuc() {
                 company_work_btn.style.background = select_work_btn_background
                 company_work_btn.style.color = select_work_btn_color
                 company_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
+                manuPulateJurneyStatusSpan('company','finished')
                 break;
             case 'rider': 
                 rider_work_btn.style.background = select_work_btn_background
                 rider_work_btn.style.color = select_work_btn_color
                 rider_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
+                manuPulateJurneyStatusSpan('rider','finished')
                 break;
         }
+        tripCreatedFlag = false
+        newRideCreatedFlag = false
     } catch (err) {
         let errObj = {
             name: `${err.name}`,
@@ -981,6 +1135,8 @@ async function deleteGigFunc() {
                 rider_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
                 break;
         }
+        tripCreatedFlag = false
+        newRideCreatedFlag = false
     } catch (err) {
         
         let errObj = {
@@ -1367,7 +1523,14 @@ async function logInFunc() {
                     }
                     let {name,msg,desc,img,type} = errObj
                     displayErrorMessage(name,msg,desc,img,type)
-                    
+
+                    localStorage.removeItem('logged_in_user');
+                    let logged_in_user_obj = {
+                        logged_in_user_email: login_user_email_txt.value.trim(),
+                        logged_in_user_id: login_user_id_txt.value.trim()
+                    }
+                    localStorage.setItem('logged_in_user',JSON.stringify(logged_in_user_obj))
+
                     getAllAssetsData();
                     getAllRiderssData();
                     getRidersData()
@@ -1385,7 +1548,6 @@ async function logInFunc() {
                     }
                     let {name2,msg2,desc2,img2,type2} = errObj
                     displayErrorMessage(name2,msg2,desc2,img2,type2)
-
                     
                     login_screen.style.display = ''
                     break;
@@ -1448,6 +1610,59 @@ function initialScreenAnimationFunc() {
 
     },1500)
 }
+
+let logout_Btn = document.getElementById('logout_Btn');
+
+logout_Btn.addEventListener('click', () => {
+    confirmLogOutFunc()
+})
+
+function confirmLogOutFunc() {
+   let  pop_body = `
+        <div class="true_or_flase_pop .pop_up">
+                        <div class="title n_warning_message">
+                            <span>Logging out</span>
+                            <img src="../assets/icons/close.png" alt="" onclick="closePopUpBtn()">
+                        </div>
+                        <div class="body">
+                            <div class="img">
+                                <img src="../assets/icons/n_warning.png" alt="" >
+                            </div>
+                            <div class="txt">
+                                <span>Are you sure you want to <b>LogOut</b></span>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <button onclick="closePopUpBtn()">No</button>
+                            <button onclick="logout_Func()">Yes</button>
+                        </div>
+                </div>
+                `
+    true_flase_pops.innerHTML = pop_body
+    true_flase_pops.style.display = 'flex'
+}
+function logout_Func() {
+    localStorage.removeItem('logged_in_user')
+    location.reload()
+}
+
+let savedLoggedInUser = ''
+function checkForLoggedInUser() {
+    savedLoggedInUser = JSON.parse(localStorage.getItem('logged_in_user')) || ''
+    if (!(savedLoggedInUser == '') ) {
+        login_user_email_txt.value = savedLoggedInUser.logged_in_user_email
+        login_user_id_txt.value = savedLoggedInUser.logged_in_user_id
+    } else {
+        login_user_email_txt.value = ''
+        login_user_id_txt.value = ''
+    }
+}
+
+function reloadAppBtn() {
+    location.reload();
+}
+
 window.addEventListener('load', () => {
     initialScreenAnimationFunc()
+    checkForLoggedInUser()
 })

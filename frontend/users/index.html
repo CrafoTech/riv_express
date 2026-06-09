@@ -14,7 +14,8 @@
                 <div class="slash slash_2"></div>
             </div>
             <div class="txt">
-                <span id="section_identifier">Trips & Rides</span>
+                <span id="section_identifier">---</span>
+                <button id="logout_Btn" >Logout</button>
             </div>
         </header>
         <section class="side_bar_div">
@@ -61,7 +62,8 @@
                         <div class="content">
                             <div class="mode">
                                 <div class="txt">
-                                    <span>Dark Mode</span>
+                                    <!-- <span>Dark Mode</span> -->
+                                     <button onclick="reloadAppBtn()">Refresh</button>
                                 </div>
                                 <div class="divs">
                                     <div class="main_div">
@@ -92,6 +94,7 @@
                 <div class="body">
                     <section class="section company_section company_gig_section">
                         <div class="fisrt">
+                            <span id="trip_status_span" class="journey_status_span">No Trip</span>
                             <button onclick="addNewGigBtn()" class="new_gig_btn company_new_gig_btn" >+ New Gig</button>
                         </div>
                         <div class="second">
@@ -104,6 +107,7 @@
                     </section>
                     <section class="section rider_work_section rider_gig_section">
                         <div class="fisrt">
+                            <span id="ride_status_span" class="journey_status_span">No Ride</span>
                             <button onclick="addNewRideBtn()" class=" rider_new_gig_btn">+ New Ride</button>
                         </div>
                         <div class="second">

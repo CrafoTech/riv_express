@@ -1646,6 +1646,7 @@ function correctDate() {
 }
 correctDate()
 
+let currentCollectionTrips = []
 
 function viewCollectionFunc(index) {
     let asset_id = allAssetsDataArr[index].asset_id
@@ -1682,6 +1683,7 @@ function viewCollectionFunc(index) {
         
         if (!(current_viewed_collection.trips == undefined)) {
             collection_trips = current_viewed_collection.trips
+            currentCollectionTrips = collection_trips
             collection_trips.forEach((trip,i) => {
                 cards += `
                     <section>
@@ -1708,6 +1710,13 @@ function viewCollectionFunc(index) {
                         <div class="txt">
                             <span>Work</span>
                             <span>${trip.work}</span>
+                        </div>
+                        <div class="txt">
+                            <span>Action</span>
+                            <span>
+                                <button onclick="editTripBtn(${i})">Edit</button>
+                                <button onclick="deleteTripBtn(${i})">Delete</button>
+                            </span>
                         </div>
                     </section>
                 `
@@ -1774,6 +1783,10 @@ function viewCollectionFunc(index) {
     }
 
     // try 
+}
+
+function deleteTripBtn(index) {
+    alert('Deleting trip'+currentCollectionTrips[index].ttype)
 }
 
 // NOTIFICATIONS OPPS

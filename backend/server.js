@@ -17,7 +17,7 @@ function generateServerError (erro,type) {
             name: erro.name,
             msg: erro.message
         }
-    console.error(`Oops An error Ocured While ${Error.type}\n ${Error.name} ${Error.msg}`)
+    console.error(`Oops An error Occured While ${Error.type}\n ${Error.name} ${Error.msg}`)
     return Error;
 }
 
