@@ -928,6 +928,7 @@ async function startGigFunc() {
     console.log(t_id)
 
     try {
+        true_flase_pops.style.display = ''
         loading_screen.style.display = 'block'
 
         let updates = {
@@ -968,6 +969,7 @@ async function startGigFunc() {
                 break;
         }
         
+        
     } catch (err) {
         let errObj = {
                         name: `${err.name}`,
@@ -995,6 +997,7 @@ async function finishingGigFuc() {
     // let trip_amount = global_compony_trip_amount
 
     try {
+        true_flase_pops.style.display = ''
         loading_screen.style.display = 'block'
 
         let updates = {
@@ -1082,6 +1085,7 @@ async function deleteGigFunc() {
     let {t_id,current_date} = used_info
 
     try {
+        true_flase_pops.style.display = ''
         loading_screen.style.display = 'block'
 
         const res = await fetch(`${baseUrl}/deletetrip/${dbname}/${cname}/${asset_ID}/${current_date}/${t_id}`, {
@@ -1099,7 +1103,7 @@ async function deleteGigFunc() {
             }
         })
         const data2 = await res2.json();
-        console.log("Updating Rider-Collections: ",rider_ID," - ", data2)
+        // console.log("Updating Rider-Collections: ",rider_ID," - ", data2)
 
         true_flase_pops.style.display = ''
         loading_screen.style.display = ''
@@ -1127,12 +1131,14 @@ async function deleteGigFunc() {
             case 'company': 
                 company_work_btn.style.background = select_work_btn_background
                 company_work_btn.style.color = select_work_btn_color
+                manuPulateJurneyStatusSpan('company','delete')
                 company_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
                 break;
             case 'rider': 
                 rider_work_btn.style.background = select_work_btn_background
                 rider_work_btn.style.color = select_work_btn_color
                 rider_work_btn.style.borderBottomColor = select_work_btn_bottom_border_color
+                manuPulateJurneyStatusSpan('company','delete')
                 break;
         }
         tripCreatedFlag = false
