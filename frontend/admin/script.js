@@ -1184,6 +1184,19 @@ function viewAssetFunc(index) {
 }
 
 
+function generateAssetRiderIdBtn() {
+    let ID = `R-0${Math.floor(Math.random() * 1999)}`
+    asset_rider_id_txt.value = ID
+}
+function generateRiderIdBtn() {
+    let ID = `R-0${Math.floor(Math.random() * 1999)}`
+    rider_id_txt.value = ID
+}
+function generateUserIdBtn() {
+    let ID = `A-0${Math.floor(Math.random() * 1999)}`
+    add_user_id_txt.value = ID
+}
+
 function editAssetFunc(index) {
     edit_asset_btns.forEach( btn => {
         btn.style.display = ''

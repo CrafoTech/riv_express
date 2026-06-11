@@ -632,5 +632,5 @@ app.post('/user_login', async (req,res) => {
 })
 
 app.listen(Port, () => {
-    console.log(`Development - Server started and running on Port: ${Port}`)
+    console.log(`Production - Server started and running on Port: ${Port}`)
 })
