@@ -411,12 +411,26 @@ function renderSettingsTabsElement() {
     
 }
 users_dv_btn.addEventListener('click', () => {
-    getAllUsersData()
-    displayAllUsersData()
-    settings_tabs_array.push('users')
-    renderSettingsTabsElement()
-    users_data_dv.style.display = 'block'
-    settings_tabs_dv.style.display = 'none'
+    if ((loggedInUserData.user_role == 'overall')) {
+        getAllUsersData()
+        displayAllUsersData()
+        
+        settings_tabs_array.push('users')
+        renderSettingsTabsElement()
+        users_data_dv.style.display = 'block'
+        settings_tabs_dv.style.display = 'none'
+    } else {
+        let errObj = {
+        title: 'Oops',
+        name: '',
+        msg: 'Access Denied',
+        img: 'warning.png',
+        type: 'n_warning_msg_pop',
+        btn_class: 'btn_disp_none'
+    }
+    let {title,name,msg,img,type,btn_class} = errObj
+    showMessagePopUpFunc(type,title,img,`${name}-${msg}`,btn_class)
+    }
     
 })
 
@@ -454,7 +468,7 @@ async function getAllUsersData() {
         const res = await fetch(`${baseUrl}/getall/${dbname}/${cname}`)
         const data = await res.json()
         allUsersDataArr = await data
-        // displayAllUsersData()
+        displayAllUsersData()
         loading_animation_div.style.display = ''
     } catch (err) {
         let errObj = {
@@ -514,7 +528,7 @@ function saveAddEditUserBtn() {
             break;
     }
 }
-
+// closePopBtn
 async function saveAddUserFunc() {
     let dbname = 'data'
     let cname = 'admin_data'
@@ -536,6 +550,9 @@ async function saveAddUserFunc() {
         })
         const data = await res.json()
         getAllUsersData()
+        // displayAllUsersData()
+        closePopBtn()
+        // add_user_pop.style.display = 'none'
         loading_animation_div.style.display = ''
     } catch (err) {
         let errObj = {
@@ -574,6 +591,7 @@ async function editUserFunc() {
         const data = await res.json()
         console.log(await data)
         getAllUsersData()
+        displayAllUsersData()
         loading_animation_div.style.display = ''
     } catch (err) {
         let errObj = {
@@ -603,6 +621,7 @@ async function deleteUserFunc(index) {
         const data = await res.json()
         console.log(await data)
         getAllUsersData()
+        displayAllUsersData()
         msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
@@ -2781,6 +2800,7 @@ async function userLoginFunc() {
                 showMessagePopUpFunc(type,title,img,`${msg}`,btn_class)
     }
 }
+// displayAllUsersData
 
 
 window.addEventListener('load', () => {
