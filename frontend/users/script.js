@@ -919,13 +919,18 @@ async function submitGigCreationFunc() {
     }
     // console.log("AMOUNTCompany: "+global_company_rider_trip_amount)
 }
+
+let gig_Start_Mins = 0
+let gig_End_Mins = 0
 async function startGigFunc() {
 
     let dbname = 'data'
     let cname = 'asset_data'
     let {rider_ID,asset_ID} = rider_creds
     let {t_id,current_date} = used_info
-    console.log(t_id)
+    gig_Start_Mins = ((new Date().getHours()*60) + new Date().getMinutes())
+    // console.log(t_id)
+    // console.log("STart MINS: ",gig_Start_Mins)
 
     try {
         true_flase_pops.style.display = ''
@@ -993,7 +998,11 @@ async function finishingGigFuc() {
 
     let hrs = new Date().getHours()
     let mins = new Date().getMinutes()
-
+    gig_End_Mins = ((hrs*60) + new Date().getMinutes()) 
+    let mins_taken = gig_End_Mins - gig_Start_Mins
+    // console.log("GIG START TIME: ",gig_Start_Mins)
+    // console.log("GIG END TIME: ",gig_End_Mins)
+    // console.log("GIG MiNS TIME: ",mins)
     // let trip_amount = global_compony_trip_amount
 
     try {
@@ -1002,7 +1011,7 @@ async function finishingGigFuc() {
 
         let updates = {
             t_end_time: `${hrs}:${mins}`,
-            tmins: `${mins}`,
+            tmins: `${mins_taken}`,
             status: 'finished',
             trip_amount:global_company_rider_trip_amount
         }
@@ -1314,6 +1323,18 @@ function displayRiderHistoryCardFunc() {
                     let trip_end_time = trip.t_end_time
                     let trip_status = trip.status
                     let trip_mins = trip.tmins
+                    let startHrs = trip_start_time.slice(0,2) 
+                    let startMins = trip_start_time.slice(3,2) 
+                    let endHrs = trip_end_time.slice(0,2) 
+                    let endMins = trip_end_time.slice(3,2)
+                    // let MinsTaken Number() 
+                    console.log(`-------------- TRIP ${i+1} ------------`)
+                    console.log('STart Hrs: ',startHrs)
+                    console.log('STart Mins: ',startMins)
+                    console.log('End Mins: ',endHrs)
+                    console.log('End Mins: ',endMins)
+                    // console.log('End Mins: ',MinsTaken)
+                    console.log(`-------------- TRIP ${i+1} ------------\n`)
                     elem += `
                         <div class="card">
                             <div class="sec_1 sec">

@@ -238,53 +238,27 @@ app.get('/getonerider_id/:dbname/:cname/:id', async (req,res) => {
 })
 
 // Updating One Asset By ASSET ID
-app.patch('/updateoneasset_id/:dbname/:cname/:id/:edit_f', async (req,res) => {
-    let {dbname,cname,id,edit_f} = req.params
-    // console.log("\nBODY :: ",req.body)
-    let rider_ID = req.body.rider_id
+app.patch('/updateoneasset_id/:dbname/:cname/:id', async (req,res) => {
+    let {dbname,cname,id} = req.params
+    let rider_ID = req.body.rider_collection_data.rider_id
     try {
         const client = await initConnection();
         const db = await client.db(dbname);
-
-        let riderData = ''
-        let updateAssetCOllectionRslt = ''
-        let updateRiderRst = ''
-        let updateAssetRiderRst = ''
-        let updateAssetRst = ''
-        let updateRiderAssetRst = ''
-        switch (edit_f) {
-            case 'asset':
-                console.log("RIDER UPDATES ON ASSET: ",req.body)
-                // updateAssetRiderRst = await  
-                updateRiderAssetRst = await db.collection('rider_data').updateOne({rid:rider_ID},{$set: {asset:req.body}})
-                updateAssetRst = await db.collection(cname).updateOne({asset_id:id},{$set: req.body})
-                break;
-            case 'rider':
-                console.log("RIDER UPDATES ON ASSET: ",req.body)
-                // updateAssetRiderRst = await  
-                // updateRiderRst = await db.collection('rider_data').updateOne({rid:rider_ID},{$set: req.body})
-                updateAssetRiderRst = await db.collection(cname).updateOne({asset_id:id},{$set: req.body})
-                // updateAssetRiderRst
-                break;
-            case 'collection':
-                rider_ID = req.body.rider_collection_data.rider_id
-                updateAssetCOllectionRslt = await db.collection(cname).updateOne({asset_id:id},{$set: req.body.asset_collection})
-                riderData = await db.collection('rider_data').find({rid:rider_ID}).toArray()
-                // let rider_Collection = 
-                riderData[0].collections.forEach(collection => {
-                    if (collection.cid == req.body.rider_collection_data.collection_id) {
-                        collection.cmoney = Number(req.body.rider_collection_data.cmoney)
-                        collection.amount_expected = Number(req.body.rider_collection_data.amount_expected)
-                        collection.amount_recieved = Number(req.body.rider_collection_data.amount_recieved)
-                        collection.balance_due = Number(req.body.rider_collection_data.balance_due)
-                        collection.wallet = Number(req.body.rider_collection_data.wallet)
-                    }
-                })
-                const riderRslt = await db.collection('rider_data').updateMany({rid:rider_ID},{$set: {collections: riderData[0].collections}})
-                // console.log(riderData)
-                break;
-        }
-        return res.status(200).json(updateAssetCOllectionRslt)
+        const rslt = await db.collection(cname).updateOne({asset_id:id},{$set: req.body.asset_collection})
+        const riderData = await db.collection('rider_data').find({rid:rider_ID}).toArray()
+        // let rider_Collection = 
+        riderData[0].collections.forEach(collection => {
+            if (collection.cid == req.body.rider_collection_data.collection_id) {
+                collection.cmoney = Number(req.body.rider_collection_data.cmoney)
+                collection.amount_expected = Number(req.body.rider_collection_data.amount_expected)
+                collection.amount_recieved = Number(req.body.rider_collection_data.amount_recieved)
+                collection.balance_due = Number(req.body.rider_collection_data.balance_due)
+                collection.wallet = Number(req.body.rider_collection_data.wallet)
+            }
+        })
+        const riderRslt = await db.collection('rider_data').updateMany({rid:rider_ID},{$set: {collections: riderData[0].collections}})
+        console.log(riderData)
+        return res.status(200).json(rslt)
     } catch (err) {
         const serverErrObj = generateServerError(err,`Updating One Asset By ASSET ID: ${id}`);
         return res.status(500).json(serverErrObj)

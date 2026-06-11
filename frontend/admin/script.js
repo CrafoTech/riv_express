@@ -230,7 +230,30 @@ function managePopUpWindow(elements,element,display_state) {
 
 const msg_pops_div = document.querySelector('.msg_pops_div');
 
+function showMessagePopUpFunc(pop_type,pop_title,pop_img,pop_msg,pop_yes_btn_class) {
+    let popUp = ''
+    popUp = `
+        <div class="msg_pop msg_pop_1">
+                <div class="header ${pop_type}">
+                    <span>${pop_title}</span>
+                    <img src="../assets/icons/close.png" onclick="closePopBtn()" alt="">
+                </div>
+                <div class="body">
+                    <img src="../assets/icons/${pop_img}" alt="">
+                    <span>${pop_msg}</span>
+                </div>
+                <div class="footer">
+                    <button onclick="closePopBtn()">Close</button>
+                    <button class="${pop_yes_btn_class}" onclick="closePopBtn()">Yes</button>
+                </div>
+            </div>
+    `
+    msg_pops_div.innerHTML = popUp
+    msg_pops_div.style.display = 'flex'
+}
+
 function closePopBtn() {
+    msg_pops_div.style.display = 'none'
     pop_div.style.display = 'none'
 }
 
@@ -248,7 +271,26 @@ function editAssetBtn(Index) {
     managePopUpWindow(all_pops,edit_asset_pop,'block')
 }
 function deleteAssetBtn(Index) {
-    deleteAssetFunc(Index);
+    let popUp = ''
+    popUp = `
+        <div class="msg_pop msg_pop_1">
+                <div class="header n_waning_message">
+                    <span>Deleting Asset</span>
+                    <img src="../assets/icons/close.png" onclick="closePopBtn()" alt="">
+                </div>
+                <div class="body">
+                    <img src="../assets/icons/n_warning" alt="">
+                    <span>Aure sure you want to delete ${allAssetsDataArr[Index].asset_id}</span>
+                </div>
+                <div class="footer">
+                    <button onclick="closePopBtn()">Close</button>
+                    <button class="" onclick="deleteAssetFunc(${Index})">Yes</button>
+                </div>
+            </div>
+    `
+    msg_pops_div.innerHTML = popUp
+    msg_pops_div.style.display = 'flex'
+    // deleteAssetFunc(Index);
 }
 
 
@@ -275,7 +317,26 @@ function editUserBtn(Index) {
     managePopUpWindow(all_pops,add_user_pop,'block')
 }
 function deleteUserBtn(Index) {
-    deleteUserFunc(Index);
+    let popUp = ''
+    popUp = `
+        <div class="msg_pop msg_pop_1">
+                <div class="header n_waning_message">
+                    <span>Deleting User</span>
+                    <img src="../assets/icons/close.png" onclick="closePopBtn()" alt="">
+                </div>
+                <div class="body">
+                    <img src="../assets/icons/n_warning" alt="">
+                    <span>Aure sure you want to delete ${allUsersDataArr[Index].user_name}</span>
+                </div>
+                <div class="footer">
+                    <button onclick="closePopBtn()">Close</button>
+                    <button class="" onclick="deleteUserFunc(${Index})">Yes</button>
+                </div>
+            </div>
+    `
+    msg_pops_div.innerHTML = popUp
+    msg_pops_div.style.display = 'flex'
+    // deleteUserFunc(Index);
 }
 
 function viewUserFunc(index) {
@@ -396,6 +457,16 @@ async function getAllUsersData() {
         // displayAllUsersData()
         loading_animation_div.style.display = ''
     } catch (err) {
+        let errObj = {
+            title: 'Error',
+            name: err.name,
+            msg: err.message,
+            img: 'err.png',
+            type: 'error_msg_pop',
+            btn_class: 'btn_disp_none'
+        }
+        let {title,name,msg,img,type,btn_class} = errObj
+        showMessagePopUpFunc(type,title,img,`${name}-${msg}`,btn_class)
         console.log(`Oops While getting all usersData: ${err.name}_${err.message}`)
     }
 }
@@ -467,9 +538,20 @@ async function saveAddUserFunc() {
         getAllUsersData()
         loading_animation_div.style.display = ''
     } catch (err) {
+        let errObj = {
+                    title: 'Adding User',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
         console.error(`Oops: While Adding User Data: ${err.name}_${err.message}`)
     }
 }
+
 
 async function editUserFunc() {
     let dbname = 'data'
@@ -494,7 +576,17 @@ async function editUserFunc() {
         getAllUsersData()
         loading_animation_div.style.display = ''
     } catch (err) {
-        console.error(`Oops: While editing User Data: ${err.name}_${err.message}`)
+        let errObj = {
+                    title: 'Editing user data',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.error(`Oops: While editing User Data: ${err.name}_${msg}`)
     }
 }
 async function deleteUserFunc(index) {
@@ -511,8 +603,19 @@ async function deleteUserFunc(index) {
         const data = await res.json()
         console.log(await data)
         getAllUsersData()
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
+        let errObj = {
+                    title: 'Deleting a user',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
         console.error(`Oops: While editing User Data: ${err.name}_${err.message}`)
     }
 }
@@ -537,17 +640,41 @@ function editRiderBtn(Index) {
     managePopUpWindow(all_pops,edit_rider_pop,'block')
 }
 
+
 function deleteRiderBtn(Index) {
+    let popUp = ''
+    popUp = `
+        <div class="msg_pop msg_pop_1">
+                <div class="header n_waning_message">
+                    <span>Deleting Rider</span>
+                    <img src="../assets/icons/close.png" onclick="closePopBtn()" alt="">
+                </div>
+                <div class="body">
+                    <img src="../assets/icons/n_warning" alt="">
+                    <span>Aure sure you want to delete <b>${allRiderssDataArr[Index].rname}</b></span>
+                </div>
+                <div class="footer">
+                    <button onclick="closePopBtn()">Close</button>
+                    <button class="" onclick="deleteRiderFunc_2(${Index})">Yes</button>
+                </div>
+            </div>
+    `
+    msg_pops_div.innerHTML = popUp
+    msg_pops_div.style.display = 'flex'
+}
+
+function deleteRiderFunc_2(Index) {
     let rid_name = allRiderssDataArr[Index].rname
     let rid_status = allRiderssDataArr[Index].rstatus
-    switch (allRiderssDataArr[Index].rstatus) {
-        case 'active': 
-            alert(`Ooh no ${rid_name} is still ${rid_status}`)
-            break;
-        case 'blocked':
-            deleteRiderFunc(Index)
-            break;
-    }
+    deleteRiderFunc(Index)
+    // switch (allRiderssDataArr[Index].rstatus) {
+    //     case 'active': 
+    //         alert(`Ooh no ${rid_name} is still ${rid_status}`)
+    //         break;
+    //     case 'blocked':
+    //         deleteRiderFunc(Index)
+    //         break;
+    // }
 }
 
 function viewCollectionBtn(Index) {
@@ -562,7 +689,7 @@ let editAssetDataFlag = 'asset'
 let editAssetDataIDFlag = ''
 
 function ClrEditAssetInputsBtn() {
-    alert('CLearing inputs')
+    ClrEditAssetInputsFunc(editAssetDataFlag)
 }
 function SaveAssetUpdatesBtn() {
     switch(save_Assets_Flag){
@@ -729,35 +856,39 @@ async function getDashBoardDataFunc() {
         displayDashboardDataFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All data Dashboard Display",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Getting Dashboard Data',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
 function displayDashboardDataFunc() {
-    let totalBikesFlag = 1
-    let totalCarsFlag = 1
-    let totalRidersAndDriverFlag = 1
+    let totalBikesFlag = 0
+    let totalCarsFlag = 0
+    let totalRidersAndDriverFlag = 0
     let tottalIncomeFlag = 0
     let d = ''
     let current_date = `${new Date().getFullYear()}-0${new Date().getMonth() + 1}-0${new Date().getDate()}`
 
     allAssetsDataArr.forEach((asset,i) => {
         if (asset.asset_type == 'bike') {
-            totalBikesFlag += (i)
-        }
-        if (asset.asset_type == 'cars') {
-            totalCarsFlag += (i)
+            totalBikesFlag += 1
+        } else if (asset.asset_type == 'cars') {
+            console.log(`${i} Asset ${asset.asset_id}`)
+            totalCarsFlag += (1)
         }
 
     })
     allRiderssDataArr.forEach( (rider,i) => {
-        totalRidersAndDriverFlag += (i)
+        totalRidersAndDriverFlag += (1)
         rider.collections.forEach(collection => {
             if (collection.cdate == current_date) {
                 d = collection.cdate
@@ -780,32 +911,62 @@ function displayDashboardDataFunc() {
 async function saveAddAssetFunc() {
     let dbname = 'data'
     let cname = 'asset_data'
-    try {
-        loading_animation_div.style.display = 'flex'
-        let assetData_ = {
-            asset_id: add_asset_id_txt.value,
-            modal: add_asset_modal_txt.value,
-            distributor: add_asset_distributor_txt.value,
-            bought_on: '',
-            asset_pic: '../assets/icons/bike.png',
-            asset_type: add_asset_type_txt.value,
-            asset_state: add_asset_state_txt.value
-        }
-        const res = await fetch (`${baseUrl}/insertoneasset/${dbname}/${cname}`, {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'Application/json'
-            },
-            body: JSON.stringify(assetData_)
-        })
-        const data = await res.json()
-        console.log("After adding Data: \n",data)
-        console.log("------\n")
-        getAllassetsDataFunc();
-        loading_animation_div.style.display = ''
-    } catch (err) {
 
+    if (
+        add_asset_id_txt.value.trim() && 
+        add_asset_modal_txt.value.trim() && 
+        add_asset_distributor_txt.value.trim() && 
+        add_asset_type_txt.value.trim() && 
+        add_asset_state_txt.value.trim() 
+    ) {
+        try {
+            loading_animation_div.style.display = 'flex'
+            let assetData_ = {
+                asset_id: add_asset_id_txt.value,
+                modal: add_asset_modal_txt.value,
+                distributor: add_asset_distributor_txt.value,
+                bought_on: '',
+                asset_pic: '../assets/icons/bike.png',
+                asset_type: add_asset_type_txt.value,
+                asset_state: add_asset_state_txt.value
+            }
+            const res = await fetch (`${baseUrl}/insertoneasset/${dbname}/${cname}`, {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                body: JSON.stringify(assetData_)
+            })
+            const data = await res.json()
+            console.log("After adding Data: \n",data)
+            console.log("------\n")
+            getAllassetsDataFunc();
+            loading_animation_div.style.display = ''
+        } catch (err) {
+            let errObj = {
+                    title: 'Adding new Asset',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        }
+    } else {
+        let errObj = {
+                title: 'Empty Fields',
+                name: '',
+                msg: 'Please make sure none of the fields is empty',
+                img: 'warning.png',
+                type: 'warning_msg_pop',
+                btn_class: 'btn_disp_none'
+            }
+            let {title,name,msg,img,type,btn_class} = errObj
+            showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
     }
+
 }
 
 async function getAllassetsDataFunc() {
@@ -820,13 +981,17 @@ async function getAllassetsDataFunc() {
         displayAssetDataFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All data to retrieve assets",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                title: 'Getting Asset Data',
+                name: err.name,
+                msg: err.message,
+                img: 'error.png',
+                type: 'error_msg_pop',
+                btn_class: 'btn_disp_none'
+            }
+            let {title,name,msg,img,type,btn_class} = errObj
+            showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -865,11 +1030,16 @@ function displayAssetDataFunc() {
         
         // console.log(Asset_Rider_Amount_Expected)
     } catch (err) {
-            let errMsg = "Cannot read properties of undefined (reading 'amount_expected')"
-            if (err.message == errMsg) {
-            } else {
-                console.log(err.message)
+            let errObj = {
+                title: 'Displaying Asset Data',
+                name: err.name,
+                msg: err.message,
+                img: 'error.png',
+                type: 'error_msg_pop',
+                btn_class: 'btn_disp_none'
             }
+            let {title,name,msg,img,type,btn_class} = errObj
+            showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
     }
 
     td += `
@@ -894,6 +1064,30 @@ function displayAssetDataFunc() {
 
     })
     asset_data_tbody.innerHTML = td;
+}
+
+
+function ClrEditAssetInputsFunc(edit_flag) {
+    switch (edit_flag) {
+            case 'asset':
+                    asset_id_txt.value = ''
+                    asset_modal_txt.value = ''
+                    asset_distributor_txt.value = ''
+                    asset_type_txt.value = ''
+                    asset_state_txt.value = ''
+            break;
+            case 'rider':
+                    asset_rider_id_txt.value = ''
+                    // rpic:"../assets/icons/user.png",
+                     asset_rider_name_txt.value = ''
+                     asset_rider_email_txt.value = ''
+                     asset_rider_tel_txt.value = ''
+                     asset_rider_status_txt.value = ''
+            break;
+            case 'collection':
+                asset_payment_date_txt.value = ''
+            break;
+        }
 }
 
 function viewAssetFunc(index) {
@@ -1038,61 +1232,112 @@ async function saveEditAssetFunc(asset_id,edit_flag) {
     let riderID = asset.rider.rid
     let updates = {}
     let updates_2 = {}
+    let empty = false
     try {
         loading_animation_div.style.display = 'flex'
         switch (edit_flag) {
             case 'asset':
-                updates = {
-                    asset_id: asset_id_txt.value,
-                    modal: asset_modal_txt.value,
-                    distributor: asset_distributor_txt.value,
-                    asset_type: asset_type_txt.value,
-                    asset_state: asset_state_txt.value,
+                if (
+                    asset_id_txt.value.trim() &&
+                    asset_modal_txt.value.trim() &&
+                    asset_distributor_txt.value.trim() &&
+                    asset_type_txt.value.trim() &&
+                    asset_state_txt.value.trim()
+
+                ) {
+                    updates = {
+                        asset_id: asset_id_txt.value,
+                        modal: asset_modal_txt.value,
+                        distributor: asset_distributor_txt.value,
+                        asset_type: asset_type_txt.value,
+                        asset_state: asset_state_txt.value,
+                    }
+                } else {
+                    empty = true
+                    let errObj = {
+                    title: 'Empty Fields',
+                    name: '',
+                    msg: 'Please make Sure none of the fields is empty',
+                    img: 'warning.png',
+                    type: 'warning_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+                    
                 }
             break;
             case 'rider': 
-                updates = {
-                    rider: {
+                if (
+                    asset_rider_id_txt.value.trim() &&
+                    asset_rider_name_txt.value.trim() &&
+                    asset_rider_email_txt.value.trim() &&
+                    asset_rider_tel_txt.value.trim() &&
+                    asset_rider_status_txt.value.trim()
+                ) {
+                    updates = {
+                        rider: {
+                            rid: asset_rider_id_txt.value,
+                            rpic:"../assets/icons/user.png",
+                            rname: asset_rider_name_txt.value,
+                            remail: asset_rider_email_txt.value,
+                            rtel: asset_rider_tel_txt.value,
+                            rstatus: asset_rider_status_txt.value,
+                            rtype:asset.rider.rtype,
+                            entry_date: asset.rider.entry_date,
+                            resignatio_date: asset.rider.resignatio_date,
+                            rresidence: asset.rider.rresidence,
+                            guaranter: asset.rider.guaranter,//{gname:"Tom T",gtel:"0754889346",gresidence:"Kajansi"},
+                            notifications:asset.rider.notifications
+                        },
+                        rider_id: riderID
+                    }
+                    updates_2 = {
                         rid: asset_rider_id_txt.value,
                         rpic:"../assets/icons/user.png",
                         rname: asset_rider_name_txt.value,
                         remail: asset_rider_email_txt.value,
                         rtel: asset_rider_tel_txt.value,
                         rstatus: asset_rider_status_txt.value,
-                        rtype:asset.rider.rtype,
+                        // rtype:asset.rider.rtype,
                         entry_date: asset.rider.entry_date,
                         resignatio_date: asset.rider.resignatio_date,
-                        rresidence: asset.rider.rresidence,
-                        guaranter: asset.rider.guaranter,//{gname:"Tom T",gtel:"0754889346",gresidence:"Kajansi"},
-                        notifications:asset.rider.notifications
+                        // rresidence: asset.rider.rresidence,
+                        // guaranter: asset.rider.guaranter,//{gname:"Tom T",gtel:"0754889346",gresidence:"Kajansi"},
+                        notifications:asset.rider.notifications,
+                        rider_id: riderID
                     }
+                    const res2 = await fetch(`${baseUrl}/updateone_rider_rider_id/${dbname}/rider_data/${riderID}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'Application/json'
+                        },
+                        body: JSON.stringify(updates_2)
+                })
+                const data2 = await res2.json();
+                console.log(`Res2: `, await data2)
+
+            } else {
+                empty = true
+                    let errObj = {
+                title: 'Empty Fields',
+                name: '',
+                msg: 'Please make Sure none of the fields is empty',
+                img: 'warning.png',
+                type: 'warning_msg_pop',
+                btn_class: 'btn_disp_none'
+            }
+            let {title,name,msg,img,type,btn_class} = errObj
+            showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+                    
                 }
-                updates_2 = {
-                    rid: asset_rider_id_txt.value,
-                    rpic:"../assets/icons/user.png",
-                    rname: asset_rider_name_txt.value,
-                    remail: asset_rider_email_txt.value,
-                    rtel: asset_rider_tel_txt.value,
-                    rstatus: asset_rider_status_txt.value,
-                    // rtype:asset.rider.rtype,
-                    entry_date: asset.rider.entry_date,
-                    resignatio_date: asset.rider.resignatio_date,
-                    // rresidence: asset.rider.rresidence,
-                    // guaranter: asset.rider.guaranter,//{gname:"Tom T",gtel:"0754889346",gresidence:"Kajansi"},
-                    notifications:asset.rider.notifications
-                }
-            const res2 = await fetch(`${baseUrl}/updateone_rider_rider_id/${dbname}/rider_data/${riderID}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'Application/json'
-                },
-                body: JSON.stringify(updates_2)
-        })
-        const data2 = await res2.json();
-        console.log(`Res2: `, await data2)
             break;
             case 'collection':
+            if (
+                asset_amount_recieved_txt.value.trim() && 
+                !(asset_payment_date_txt.value == '')
 
+            ) {
                 let n = asset.collections.length
                 // let collection_Money = asset.collections[n-1].cmoney
                 let Amount_Recieved = Number(asset_amount_recieved_txt.value)
@@ -1129,35 +1374,70 @@ async function saveEditAssetFunc(asset_id,edit_flag) {
                         amount_recieved: Amount_Recieved,
                         balance_due: Balance_Due,
                         wallet: Wallet
-                    }
+                    },
+                    rider_id: asset.collections[n-1].crider,
                 }
+            } else {
+                empty = true
+                let errObj = {
+                    title: 'Empty Fields',
+                    name: '',
+                    msg: 'Please make Sure none of the fields is empty',
+                    img: 'warning.png',
+                    type: 'warning_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+                
+            }
             break;
             default:
                 updates = {}
             break;
         }
-        const res = await fetch(`${baseUrl}/updateoneasset_id/${dbname}/${cname}/${asset_id}`, {
-            method: "PATCH",
-            headers: {
-                'Content-Type': 'Application/json'
-            },
-            body: JSON.stringify(updates)
-        });
-        const data = await res.json();
-
-        console.log(data)
-        getAllassetsDataFunc()
+        if (!(empty)) {
+            const res = await fetch(`${baseUrl}/updateoneasset_id/${dbname}/${cname}/${asset_id}/${edit_flag}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                body: JSON.stringify(updates)
+            });
+            const data = await res.json();
+    
+            console.log(data)
+            getAllassetsDataFunc()
+            
+        } else {
+            let errObj = {
+                title: 'Empty Fields',
+                name: '',
+                msg: 'Please make Sure none of the fields is empty',
+                img: 'warning.png',
+                type: 'warning_msg_pop',
+                btn_class: 'btn_disp_none'
+            }
+            let {title,name,msg,img,type,btn_class} = errObj
+            showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        }
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Editing Asset: ${asset_id}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Editing Asset',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
+
 
 async function saveAssignNewRiderFunc(assetID,riderID) {
     let dbname = 'data';
@@ -1170,6 +1450,7 @@ async function saveAssignNewRiderFunc(assetID,riderID) {
     })
     let updates = {}
     let riderData = {}
+    console.log(`Asiging ${riderID} to ${assetID}`)
     try {
         loading_animation_div.style.display = 'flex' 
                 updates = {
@@ -1207,9 +1488,11 @@ async function saveAssignNewRiderFunc(assetID,riderID) {
                     resignatio_date:'',
                     rresidence: '',
                     guaranter: {gname:"",gtel:"",gresidence:""},
-                    notifications:[]
+                    collections: [],
+                    notifications:[],
+                    guaranter: {gname:"",gtel:"",gresidence:""}
     }
-        const res = await fetch(`${baseUrl}/updateoneasset_id/${dbname}/${cname}/${assetID}`, {
+        const res = await fetch(`${baseUrl}/updateoneasset_id/${dbname}/${cname}/${assetID}/rider`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'Application/json'
@@ -1230,13 +1513,17 @@ async function saveAssignNewRiderFunc(assetID,riderID) {
         getAllassetsDataFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Editing Asset: ${asset_id}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Assiging a Rider',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1255,15 +1542,20 @@ async function deleteAssetFunc(index) {
         let data = await res.json()
         console.log(await data)
         getAllassetsDataFunc()
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "DELETING AN ASSET BY ASSET ID",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Deleting an Asset',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1279,13 +1571,17 @@ async function getAllRiderssDataFunc() {
         displayRiderstDataFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All data to retrieve assets",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Getting Rider Data',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 function displayRiderstDataFunc() {
@@ -1325,11 +1621,16 @@ function displayRiderstDataFunc() {
         
         // console.log(Asset_Rider_Amount_Expected)
     } catch (err) {
-            let errMsg = "Cannot read properties of undefined (reading 'amount_expected')"
-            if (err.message == errMsg) {
-            } else {
-                console.log(err.message)
-            }
+            let errObj = {
+                    title: 'Displaying Rider Data',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
     }
 
     td += `
@@ -1450,7 +1751,13 @@ async function saveEditRiderFunc(index) {
     let dbname = 'data';
     let cname = 'rider_data';
     let riderId = allRiderssDataArr[index].rid
-    
+    if ( 
+        rider_id_txt.value.trim() 
+        && rider_name_txt.value.trim() 
+        && rider_email_txt.value.trim()
+        && rider_tel_txt.value.trim()
+) {
+
     let updates = {
         rid: rider_id_txt.value,
         rpic: rider_pic_inp.value,
@@ -1472,15 +1779,33 @@ async function saveEditRiderFunc(index) {
 
         console.log(await data)
         getAllRiderssDataFunc()
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Editing Rider's Info: ${asset_id}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Editing Rider',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+                console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
+            }
+    } else {
+        let errObj = {
+                    title: 'Empty Field',
+                    name: '',
+                    msg: 'Please make sure none of the fields is empty',
+                    img: 'warning.png',
+                    type: 'warning_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
+
     }
 }
 async function deleteRiderFunc(index) {
@@ -1500,15 +1825,20 @@ async function deleteRiderFunc(index) {
 
         console.log(await data)
         getAllRiderssDataFunc()
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Deleting Rider's Info: ${asset_id}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Deleting Rider',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1544,13 +1874,17 @@ async function getAllassetCollectionsDataFunc() {
         displayassetCollectionsDataFun()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All data to retrieve assets",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Getting CollectionData',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 function displayassetCollectionsDataFun() {
@@ -1595,7 +1929,16 @@ function displayassetCollectionsDataFun() {
             let errMsg = "Cannot read properties of undefined (reading 'amount_expected')"
             if (err.message == errMsg) {
             } else {
-                console.log(err.message)
+                let errObj = {
+                    title: 'Displaying Collection Data',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${name} ${msg}`,btn_class)
             }
     }
 
@@ -1779,7 +2122,16 @@ function viewCollectionFunc(index) {
         collection_trips_cards.innerHTML = cards
         collection_payment_infomation_parent.innerHTML = pay_info
     } catch (err) {
-        console.error(err.message)
+        let errObj = {
+                    title: 'Viewing Collections',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
     }
 
     // try 
@@ -1819,12 +2171,16 @@ async function notification_general_func() {
         displayGenralNotifcationsFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All General Notifications",
-            name,
-            message,
-        }
+                    title: 'Getting G- Notifications',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
         console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
     }
 }
@@ -1891,13 +2247,17 @@ async function savegeneralNotificationFunc() {
         notification_general_func()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Adding General Notification`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Adding G-Notification',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1923,15 +2283,20 @@ async function updategeneralNotificationFunc(index) {
         const data = await res.json();
         console.log(data)
         notification_general_func()
+        msg_pops_div.style.display = ''
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Updating General Notification: ${allGeneralNotifications[index].nsubject}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Updating G-Notification',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1947,13 +2312,17 @@ async function notification_personal_func() {
         displayRiderstDataFunc()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: "Getting All data to retrieve assets",
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Getting P-Notifications',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -1975,13 +2344,17 @@ async function deletegeneralNotificationFunc(index) {
         notification_general_func()
         loading_animation_div.style.display = ''
     } catch (err) {
-        let {name,message} = err;
         let errObj = {
-            type: `Deleting General Notification: ${allGeneralNotifications[index].nsubject}`,
-            name,
-            message,
-        }
-        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.message}`)
+                    title: 'Deleting Notification',
+                    name: err.name,
+                    msg: err.message,
+                    img: 'error.png',
+                    type: 'error_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${err.name} ${msg}`,btn_class)
+        console.log(`Oops - ${errObj.type} :: ${errObj.name} __ ${errObj.msg}`)
     }
 }
 
@@ -2340,19 +2713,59 @@ async function userLoginFunc() {
                         loggedInUserData = user
                     }
                 })
+
+                let errObj = {
+                    title: 'Success',
+                    name: '',
+                    msg: 'Successfully Logged in!',
+                    img: 'success.png',
+                    type: 'success_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${msg}`,btn_class)
                 login_screen.style.display = 'none'
                 loggedind_user_name_span.innerHTML = loggedInUserData.user_name
             } else {
+                let errObj = {
+                    title: 'Incorrect Details',
+                    name: '',
+                    msg: 'Please enter correct Credentials',
+                    img: 'warning.png',
+                    type: 'warning_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${msg}`,btn_class)
                 console.log("enter correct creds"+rslt.login_status)
             // }
             }
             user_login_rotate_img.style.visibility = ''
         } catch (err) {
-        console.error(`Oops while Logiing in`)
+            let errObj = {
+            title: 'Error',
+            name: err.name,
+            msg: err.message,
+            img: 'error.png',
+            type: 'error_msg_pop',
+            btn_class: 'btn_disp_none'
+        }
+        let {title,name,msg,img,type,btn_class} = errObj
+        // showMessagePopUpFunc(type,title,img,`${name}-${msg}`,btn_class)
+        console.error(`Oops while Logiing in: ${err.name} - ${err.message}`)
         user_login_rotate_img.style.visibility = ''
         }
     } else {
-        alert('Make Sure none of the fields is empty')
+        let errObj = {
+                    title: 'Empyt Fields',
+                    name: '',
+                    msg: 'Please Make sure none of the Fields is empyt',
+                    img: 'warning.png',
+                    type: 'warning_msg_pop',
+                    btn_class: 'btn_disp_none'
+                }
+                let {title,name,msg,img,type,btn_class} = errObj
+                showMessagePopUpFunc(type,title,img,`${msg}`,btn_class)
     }
 }
 
