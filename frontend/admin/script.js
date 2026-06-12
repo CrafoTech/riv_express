@@ -2705,6 +2705,7 @@ let user_login_rotate_img = document.getElementById('user_login_rotate_img');
 let login_screen = document.querySelector('.login_screen')
 
 let loggedind_user_name_span = document.getElementById('loggedind_user_name_span');
+let logged_in_user_role_span = document.getElementById('logged_in_user_role_span');
 
 function userLoginBtn() {
     userLoginFunc()
@@ -2758,6 +2759,7 @@ async function userLoginFunc() {
                 showMessagePopUpFunc(type,title,img,`${msg}`,btn_class)
                 login_screen.style.display = 'none'
                 loggedind_user_name_span.innerHTML = loggedInUserData.user_name
+                logged_in_user_role_span.innerHTML = loggedInUserData.user_role == 'overall' ? `${loggedInUserData.user_role} Admin`: loggedInUserData.user_role
             } else {
                 let errObj = {
                     title: 'Incorrect Details',

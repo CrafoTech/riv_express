@@ -69,12 +69,14 @@ main .sidebar .cards .card-1 .txt span:first-child {
     color: whitesmoke;
 }
 main .sidebar .cards .card-1 .txt span:last-child {
-    font-size: 15px;
-    width: 50px;
+    font-size: 13px;
+    width: 100px;
     border-radius: .4em;
     text-align: center;
     padding: 2px;
     background: lightcyan;
+    
+    text-transform: capitalize;
 }
 main .sidebar .cards .card-2 {
     width: 100%;
@@ -948,6 +950,9 @@ main .mainbar .main .settings-window .data .cards .card .second span:last-child 
 
 main .mainbar .main .settings-window .settings_tabs_dv {
     display: block;
+}
+main .mainbar .main .settings-window .settings_tabs_dv .cards .users_dv_btn {
+    background: #086975de;
 }
 main .mainbar .main .settings-window .users_data_dv {
     /* border: 2px solid gold; */
