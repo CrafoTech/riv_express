@@ -942,6 +942,21 @@ main .pop_pups_div .new_gig_pop .pop_box .inputs label input {
     outline: none;
     font-size: 18px;
 }
+main .pop_pups_div .new_gig_pop .pop_box .inputs label #loading_location_img_company {
+    width: 20px;
+    position: relative;
+    left: 90%;
+    bottom: 33px;
+    animation-name: ;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes animate_location_img {
+    from {
+        transform: rotate(-360deg);
+    }
+}
 main .pop_pups_div .new_gig_pop .pop_box .inputs .money_input_div {
     width: 90%;
     display: flex;
@@ -1150,6 +1165,22 @@ main .pop_pups_div .new_ride_pop .pop_box .inputs label input {
     border: none;
     outline: none;
     font-size: 18px;
+    
+}
+main .pop_pups_div .new_ride_pop .pop_box .inputs label #loading_location_img {
+    width: 20px;
+    position: relative;
+    left: 90%;
+    bottom: 33px;
+    animation-name: ;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes animate_location_img {
+    from {
+        transform: rotate(-360deg);
+    }
 }
 main .pop_pups_div .new_ride_pop .pop_box .inputs .money_input_div {
     width: 90%;
@@ -1267,13 +1298,14 @@ main .pop_pups_div .new_ride_pop .pop_box .btns button:first-child {
     background: rgba(0, 0, 0, 0.363);
 }
 .true_flase_pops .true_or_flase_pop {
-    width: 95%;
+    width: 93%;
     height: 35%;
     background: gainsboro;
     border-radius: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 5px 10px 0 rgba(219, 218, 218, 0.108), 0 7px 21px 0 rgba(172, 167, 167, 0.2);
 }
 .true_flase_pops .true_or_flase_pop .title {
     background: gray;

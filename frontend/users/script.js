@@ -258,6 +258,7 @@ function displayTripCardBtn() {
 
 function addNewGigBtn() {
     displayPopDiv(all_add_trip_popups,new_gig_pop,'flex');
+    getRiderCurrentLocationFunc()
 }
 
 function cancelGigCreationBtn() {
@@ -481,14 +482,29 @@ function cancelTripBtn() {
 
 function addNewRideBtn() {
     displayPopDiv(all_add_trip_popups,new_ride_pop,'flex');
+    getRiderCurrentLocationFunc()
     
 }
 
 
 function submitGigCreationBtn() {
     // true_flase_pops.style.display = 'flex'
-    submitGigCreationFunc()
-    cancelGigCreationFunc()
+    if (riderLocationFetchedFlag) {
+        submitGigCreationFunc()
+        cancelGigCreationFunc()
+    } else {
+        let errObj = {
+            name: `Fetching Locarion`,
+            msg: `Still fetching Location`,
+            desc: ` `,
+            img: '../assets/icons/n_warning.png',
+            type: 'n_warning'
+        }
+        let {name,msg,desc,img,type} = errObj
+        displayErrorMessage(name,msg,desc,img,type)
+
+        console.log(`Oops - ${errObj.type} : ${errObj.name}__${errObj.message}`);
+    }
 }
 function cancelGigCreationFunc() {
     company_gig_start_point_txt.value = ''
@@ -640,7 +656,7 @@ function displayHistoryCardBtn() {
 function displayProfileCardBtn() {
     displayACard(user_profile,'block')
     section_identifier.innerHTML = `My Profile`
-    logout_Btn.style.display = 'none'
+    logout_Btn.style.display = 'block'
     displayUserProfile()
 }
 function displayNotificationsCardBtn() {
@@ -661,7 +677,7 @@ function displayContactUSCardBtn() {
     let {rname} = riderArr[0]
     contact_intro_user_name.innerHTML = `Hey ${rname}`
     section_identifier.innerHTML = `Contact Us`
-    logout_Btn.style.display = 'block'
+    logout_Btn.style.display = ''
 }
 
 function closePopUpBtn() {
@@ -772,10 +788,50 @@ async function getRidersData() {
     }
 }
 
+let loading_location_img = document.getElementById('loading_location_img')
+let loading_location_img_company = document.getElementById('loading_location_img_company')
+let riderLocationFetchedFlag = false
 
+ function getRiderCurrentLocationFunc() {
+    try {
+        // loading_screen.style.display = 'block'
+        loading_location_img.style.animationName = 'animate_location_img'
+        loading_location_img_company.style.animationName = 'animate_location_img'
+        company_gig_start_point_txt.value = 'Fetching location...'
+        rider_gig_start_point_txt.value = 'Fetching location...'
+        window.navigator.geolocation.getCurrentPosition( async (position) => {
+            try {
+                //  loading_screen.style.display = 'block'
+                let {latitude,longitude} = await  position.coords
+                
+             const baseUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+             const res = await fetch(baseUrl)
+             const data = await res.json();
+
+            company_gig_start_point_txt.value = `${await data.name}, ${await data.address.suburb}`
+            rider_gig_start_point_txt.value = `${await data.name}, ${await data.address.suburb}`
+            console.log(latitude)
+            console.log(longitude)
+            console.log("LOCATION DATA: ",data)
+            riderLocationFetchedFlag = true
+            loading_location_img.style.animationName = ''
+            loading_location_img.src = '../assets/icons/tick.png'
+            loading_location_img_company.style.animationName = ''
+            loading_location_img_company.src = '../assets/icons/tick.png'
+            
+            // loading_screen.style.display = ''
+        } catch (err1) {
+            console.log(err1)
+        }   
+        })
+    } catch (err) {
+        console.log(`While Getting the Location: ${err.name}_${err.message}`)
+    }
+}
 
 
 async function submitGigCreationFunc() {
+    // getRiderCurrentLocationFunc()
     // global_company_trip_amount = company_gig_amount_charged_txt.value
     // global_rider_trip_amount = rider_gig_amount_charged_txt.value
     let g = 0
@@ -805,27 +861,58 @@ async function submitGigCreationFunc() {
     let trip_to = ''
     let trip_amount = ''
     
-
+    let errorSignal = ''
 
     try {
         loading_screen.style.display = 'block'
         let cash_flag = ''
         switch (work_kind_flag) {
             case 'company': 
+            if (company_gig_start_point_txt.value.trim() && company_gig_end_point_txt.value.trim() && company_gig_amount_charged_txt.value.trim() ) {
+                errorSignal = false
                 cash_flag = cash_payment_company_check_div_flag;
                 trip_from = company_gig_start_point_txt.value;
                 trip_to = company_gig_end_point_txt.value;
                 trip_amount = company_gig_amount_charged_txt.value
                 global_trip_amountt = company_gig_amount_charged_txt.value
                 global_company_rider_trip_amount = company_gig_amount_charged_txt.value
+
+            } else {
+                errorSignal = true
+                let errObj = {
+                        name: `Empty Fields`,
+                        msg: `Please make sure none of the fileds is empty`,
+                        desc: ` Please make sure none of the fileds is empty`,
+                        img: '../assets/icons/warning.png',
+                        type: 'warning'
+                    }
+                let {name,msg,desc,img,type} = errObj
+                displayErrorMessage(name,msg,desc,img,type)
+            }
                 break;
                 case 'rider': 
-                cash_flag = cash_payment_check_flag;
-                trip_from = rider_gig_start_point_txt.value;
-                trip_to = rider_gig_end_point_txt.value;
-                trip_amount = rider_gig_amount_charged_txt.value 
-                global_company_rider_trip_amount = rider_gig_amount_charged_txt.value
-                global_trip_amount = rider_gig_amount_charged_txt.value 
+                if (rider_gig_start_point_txt.value.trim() && rider_gig_end_point_txt.value.trim() && rider_gig_amount_charged_txt.value.trim()) {
+                    cash_flag = cash_payment_check_flag;
+                    trip_from = rider_gig_start_point_txt.value;
+                    trip_to = rider_gig_end_point_txt.value;
+                    trip_amount = rider_gig_amount_charged_txt.value 
+                    global_company_rider_trip_amount = rider_gig_amount_charged_txt.value
+                    global_trip_amount = rider_gig_amount_charged_txt.value 
+                    errorSignal = false
+
+                } else {
+                    errorSignal = true
+                    let errObj = {
+                        name: `Empty Fields`,
+                        msg: `Please make sure none of the fileds is empty`,
+                        desc: ` Please make sure none of the fileds is empty`,
+                        img: '../assets/icons/warning.png',
+                        type: 'warning'
+                    }
+                    let {name,msg,desc,img,type} = errObj
+                    displayErrorMessage(name,msg,desc,img,type)
+            }
+                
             break;
             default: 
                 cash_flag = cash_payment_company_check_div_flag;
@@ -834,6 +921,8 @@ async function submitGigCreationFunc() {
                 trip_amount = company_gig_amount_charged_txt.value
             break;
         }
+        console.log("AUTO COMPANY LOCATION: ",company_gig_start_point_txt.value)
+        console.log("AUTO RIDER LOCATION: ",rider_gig_start_point_txt.value)
         let randomTripId = Math.floor(Math.random() * 1999)
         used_info.t_id = `T_${randomTripId}`
         let updates = {
@@ -859,50 +948,64 @@ async function submitGigCreationFunc() {
                 status: "started"
             }
         }
+        if (!(errorSignal)) {
 
-        const res = await fetch(`${baseUrl}/createtrip/${dbname}/${cname}/${asset_ID}/${current_date}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updates)
-        })
-        const data = await res.json()
-        console.log("Updating Asset-Collections: ",asset_ID," - ", data) 
-        
-        const res2 = await fetch(`${baseUrl}/update_rider_collection/${dbname}/${cname}/${asset_ID}/${rider_ID}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
+            const res = await fetch(`${baseUrl}/createtrip/${dbname}/${cname}/${asset_ID}/${current_date}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updates)
+            })
+            const data = await res.json()
+            console.log("Updating Asset-Collections: ",asset_ID," - ", data) 
+            
+            const res2 = await fetch(`${baseUrl}/update_rider_collection/${dbname}/${cname}/${asset_ID}/${rider_ID}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data2 = await res2.json();
+            console.log("Updating Rider-Collections: ",rider_ID," - ", data2)
+            switch (work_kind_flag) {
+                case 'company':
+                    console.log('WorkKind COMPANY : '+work_kind_flag)
+                    select_rider_work_btn.setAttribute('disabled',true)
+                    company_new_gig_btn.setAttribute('disabled',true)
+                    select_rider_work_btn.style.background = ''
+                    company_new_gig_btn.style.background = ''
+                    company_new_gig_btn.innerText += ' 🚫'
+                    select_rider_work_btn.innerText += ' 🚫'
+                    manuPulateJurneyStatusSpan('company','created')
+                    break;
+                    case 'rider':
+                        select_company_work_btn.setAttribute('disabled',true)
+                        rider_new_gig_btn.setAttribute('disabled',true)
+                        select_company_work_btn.style.background = ''
+                        rider_new_gig_btn.style.background = ''
+                        rider_new_gig_btn.innerText += ' 🚫'
+                        select_company_work_btn.innerText += ' 🚫'
+                        manuPulateJurneyStatusSpan('rider','created')
+                        console.log('WorkKind RIDER : '+work_kind_flag)
+                    break;
             }
-        })
-        const data2 = await res2.json();
-        console.log("Updating Rider-Collections: ",rider_ID," - ", data2)
-        switch (work_kind_flag) {
-            case 'company':
-                console.log('WorkKind COMPANY : '+work_kind_flag)
-                select_rider_work_btn.setAttribute('disabled',true)
-                company_new_gig_btn.setAttribute('disabled',true)
-                select_rider_work_btn.style.background = ''
-                company_new_gig_btn.style.background = ''
-                company_new_gig_btn.innerText += ' 🚫'
-                select_rider_work_btn.innerText += ' 🚫'
-                manuPulateJurneyStatusSpan('company','created')
-                break;
-                case 'rider':
-                    select_company_work_btn.setAttribute('disabled',true)
-                    rider_new_gig_btn.setAttribute('disabled',true)
-                    select_company_work_btn.style.background = ''
-                    rider_new_gig_btn.style.background = ''
-                    rider_new_gig_btn.innerText += ' 🚫'
-                    select_company_work_btn.innerText += ' 🚫'
-                    manuPulateJurneyStatusSpan('rider','created')
-                    console.log('WorkKind RIDER : '+work_kind_flag)
-                break;
+            tripCreatedFlag = true
+            newRideCreatedFlag = true
+            loading_screen.style.display = ''
+        } else {
+            errorSignal = true
+            let errObj = {
+                name: `Empty Fields`,
+                        msg: ``,
+                        desc: ` Please make sure none of the fileds is empty`,
+                        img: '../assets/icons/warning.png',
+                        type: 'warning'
+                    }
+                    let {name,msg,desc,img,type} = errObj
+                    displayErrorMessage(name,msg,desc,img,type)
+                    loading_screen.style.display = ''
         }
-        tripCreatedFlag = true
-        newRideCreatedFlag = true
-        loading_screen.style.display = ''
     } catch (err) {
         
         let errObj = {
