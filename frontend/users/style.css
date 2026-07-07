@@ -1639,3 +1639,18 @@ main img {
     width: 25px;
     height: 15%;
 }
+
+
+/* 
+Install Button Styles
+ */
+
+#installAppBtn {
+    display: none; 
+    padding: 10px 20px; 
+    background-color: #012955;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer;
+}
