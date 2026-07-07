@@ -1,11 +1,11 @@
 const CACHE_NAME = "my-app-cache-v1";
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/manifest.json",
-  "/icon-192.png",
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./script.js",
+  "./manifest.json",
+  "./icon-192.png",
 ];
 
 // Install event: Caches your static core assets
