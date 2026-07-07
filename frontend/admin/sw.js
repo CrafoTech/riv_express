@@ -8,7 +8,7 @@ const ASSETS = [
   "./icon-192.png",
 ];
 
-// Install event: To Caches the  static core assets
+// Install event: To Caches the static core assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {

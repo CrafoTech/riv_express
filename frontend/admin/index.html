@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="./manifest.json" />
     <title>RivExp - Admin</title>
 </head>
 <body>
@@ -1507,6 +1508,20 @@
                 </div>
             </div>
         </div>
+        <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((reg) =>
+              console.log("Service Worker registered successfully!", reg),
+            )
+            .catch((err) =>
+              console.log("Service Worker registration failed:", err),
+            );
+        });
+      }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

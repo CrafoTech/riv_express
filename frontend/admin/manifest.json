@@ -1,6 +1,6 @@
 {
-  "name": "RivExpress Users",
-  "short_name": "RivExp",
+  "name": "RivExp Admin",
+  "short_name": "RivExp-Admin",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
