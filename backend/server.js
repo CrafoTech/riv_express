@@ -502,7 +502,11 @@ app.patch('/finishtrip/:dbname/:cname/:id/:date/:t_id', async (req,res) => {
                 collection_updates = collection
                 newCollectionMoney = Number(collection.cmoney) + Number(req.body.trip_amount)
                 collection.cmoney = newCollectionMoney
-                collection.amount_expected = (Number(collection.amount_expected)+Number(newCollectionMoney))
+                console.log("\n+++++ Collection Money ++++ Before : ",collection.amount_expected)
+                collection.amount_expected =
+                  Number(collection.amount_expected) +
+                  Number(req.body.trip_amount);
+                console.log("+++++ Collection Money ++++ After : ",collection.amount_expected)
                 collection.trips.forEach((trip) => {
                     if (trip.tid == t_id) {
                         trip.t_end_time = req.body.t_end_time
@@ -632,5 +636,5 @@ app.post('/user_login', async (req,res) => {
 })
 
 app.listen(Port, () => {
-    console.log(`Production - Server started and running on Port: ${Port}`)
+    console.log(`Development - Server started and running on Port: ${Port}`)
 })

@@ -5,6 +5,7 @@
 :root {
   /* font-size: 25px; */
   --general_table_font_size_1: 78%;
+  --text_input_bg_1: #f5f5f5ed;
 }
 html,
 body {
@@ -1514,15 +1515,28 @@ main .mainbar .pop_div .add_asset_pop .main .card_1 .inputs label span {
   font-weight: bold;
   padding: 5px;
   font-size: 18px;
+  color: var(--text_input_bg_1);
 }
 main .mainbar .pop_div .add_asset_pop .main .card_1 .inputs label input {
   padding: 10px;
-  width: 220px;
+  width: 180px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+}
+
+main .mainbar .pop_div .add_asset_pop .main .card_1 .inputs label select {
+  padding: 10px;
+  width: 180px;
+  border: none;
+  border-radius: 0.3em;
+  color: #2e0612;
+  font-weight: bolder;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 
 main .mainbar .pop_div .add_asset_pop .main .card_2 .inputs {
@@ -1769,6 +1783,7 @@ main
   font-weight: bold;
   padding: 5px;
   font-size: 18px;
+  color: var(--text_input_bg_1);
 }
 main
   .mainbar
@@ -1783,12 +1798,13 @@ main
   label
   input {
   padding: 10px;
-  width: 220px;
+  width: 180px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 
 main
@@ -1916,6 +1932,27 @@ main
   align-items: last baseline;
   justify-content: space-evenly;
 }
+
+main
+  .mainbar
+  .pop_div
+  .edit_asset_pop
+  .main
+  .second
+  .asset_info_card
+  section
+  label
+  select {
+  padding: 10px;
+  width: 180px;
+  border: none;
+  border-radius: 0.3em;
+  color: #2e0612;
+  font-weight: bolder;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+}
+
 main
   .mainbar
   .pop_div
@@ -2070,7 +2107,13 @@ main
   #generate_rider_id_label
   button {
   width: 100%;
-  padding: 10px;
+  padding: 6.8px;
+  font-size: 12px;
+  border-radius: 0.3em;
+  transition: 0.2s all;
+  background: #015252ed;
+  color: whitesmoke;
+
   border: none;
   cursor: pointer;
 }
@@ -2086,8 +2129,10 @@ main
   .inputs
   #generate_rider_id_label
   input {
-  width: 100px;
-  margin-left: 5px;
+  width: 70px;
+  padding: 5px;
+  margin-left: 3px;
+  background: #f5f5f598;
 }
 main
   .mainbar
@@ -2105,6 +2150,7 @@ main
   font-weight: bold;
   padding: 5px;
   font-size: 18px;
+  color: var(--text_input_bg_1);
 }
 main
   .mainbar
@@ -2119,12 +2165,35 @@ main
   label
   input {
   padding: 10px;
-  width: 220px;
+  width: 180px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+}
+
+main
+  .mainbar
+  .pop_div
+  .edit_asset_pop
+  .main
+  .second
+  .asset_rider_card
+  section
+  .card_1
+  .inputs
+  label
+  select {
+  padding: 10px;
+  width: 180px;
+  border: none;
+  border-radius: 0.3em;
+  color: #2e0612;
+  font-weight: bolder;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 
 main
@@ -2362,7 +2431,7 @@ main
   .inputs
   label
   span {
-  color: whitesmoke;
+  color: var(--text_input_bg_1);
   padding: 5px;
 }
 main
@@ -2376,14 +2445,15 @@ main
   .inputs
   label
   input {
-  width: 260px;
+  width: 240px;
   padding: 10px;
   border: none;
   border-radius: 0.4em;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 main
   .mainbar
@@ -2655,13 +2725,14 @@ main
   .inputs
   #generate_rider_id_label
   button {
-  width: 100%;
-  padding: 10px;
+  width: 110%;
+  padding: 5px;
   border: none;
   cursor: pointer;
   background: #2563eb;
   font-weight: bolder;
   color: whitesmoke;
+  font-size: 12px;
   border-radius: 0.3em;
 }
 main
@@ -2675,21 +2746,35 @@ main
   width: 100px;
   margin-left: 5px;
 }
+
 main .mainbar .edit_rider_pop section .card_1 .inputs label span {
   margin-left: 10px;
   font-weight: bold;
   padding: 5px;
   font-size: 18px;
+  color: var(--text_input_bg_1);
 }
 main .mainbar .edit_rider_pop section .card_1 .inputs label input {
-  width: 260px;
+  width: 180px;
   padding: 10px;
   border: none;
   border-radius: 0.4em;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+}
+
+main .mainbar .edit_rider_pop section .card_1 .inputs label select {
+  padding: 10px;
+  width: 180px;
+  border: none;
+  border-radius: 0.3em;
+  color: #2e0612;
+  font-weight: bolder;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 
 main .mainbar .edit_rider_pop section .card_2 .inputs {
@@ -2793,6 +2878,10 @@ main .mainbar .view_collections_pop .main .headers .btns {
   margin-left: 50px;
   padding: 10px;
 }
+main .mainbar .view_collections_pop .main .headers #collection_date_inp {
+  width: 130px;
+  padding: 8px;
+}
 main
   .mainbar
   .view_collections_pop
@@ -2800,8 +2889,8 @@ main
   .headers
   .btns
   #collection_viewed_rider_id_select_inp {
-  padding: 10px;
-  width: 150px;
+  padding: 8px;
+  width: 100px;
   border: none;
   outline: none;
   border-radius: 0.5em;
@@ -2826,7 +2915,7 @@ main
   .btns
   #collection_viewed_rider_id_select_inp
   option {
-  color: red;
+  color: rgb(0, 187, 255);
   padding: 10px;
 }
 main
@@ -2836,7 +2925,7 @@ main
   .headers
   .btns
   #collectionFilterDiv_on_Pop {
-  /* background: rgba(0, 0, 0, 0); */
+  /* background: rgba(130, 4, 4, 0); */
   width: 100%;
   height: 100%;
   position: fixed;
@@ -2923,11 +3012,83 @@ main .mainbar .view_collections_pop .main .body .card_1 .head_txt {
   height: 8%;
   /* border: 2px solid red; */
 }
-main .mainbar .view_collections_pop .main .body .card_1 .head_txt span {
+main .mainbar .view_collections_pop .main .body .card_1 .head_txt .spans {
+  /* border: 2px solid red; */
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+main .mainbar .view_collections_pop .main .body .card_1 .head_txt .fir {
+  /* border: 2px solid black; */
+}
+main
+  .mainbar
+  .view_collections_pop
+  .main
+  .body
+  .card_1
+  .head_txt
+  .fir
+  #view_collections_rider_name {
   font-weight: bolder;
   font-size: 18px;
   margin-left: 100px;
   padding: 10px;
+  color: rgba(245, 245, 245, 0.864);
+}
+main .mainbar .view_collections_pop .main .body .card_1 .head_txt .sec {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+main
+  .mainbar
+  .view_collections_pop
+  .main
+  .body
+  .card_1
+  .head_txt
+  .sec
+  #view_collections_trips_count {
+  background: #521629;
+  color: rgba(245, 245, 245, 0.864);
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+main
+  .mainbar
+  .view_collections_pop
+  .main
+  .body
+  .card_1
+  .head_txt
+  .sec
+  #view_collections_trips_money_sp
+  span {
+  color: #acff2fd8;
+}
+main
+  .mainbar
+  .view_collections_pop
+  .main
+  .body
+  .card_1
+  .head_txt
+  .sec
+  #view_collections_trips_money_sp {
+  margin-left: 10px;
+  color: rgba(245, 245, 245, 0.864);
 }
 
 main .mainbar .view_collections_pop .main .body .card_1 .box {
@@ -3089,6 +3250,7 @@ main .mainbar .notification_pop .main .inputs label {
 main .mainbar .notification_pop .main .inputs label span {
   font-size: 17px;
   padding: 8px;
+  color: var(--text_input_bg_1);
 }
 main .mainbar .notification_pop .main .inputs label input {
   /* width: 200px; */
@@ -3099,7 +3261,21 @@ main .mainbar .notification_pop .main .inputs label input {
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+}
+main .mainbar .notification_pop .main .inputs label select {
+  /* width: 200px; */
+  width: 260px;
+  padding: 10px;
+  border: none;
+  border-radius: 0.4em;
+  border-radius: 0.3em;
+  color: #2e0612;
+  font-weight: bolder;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
+  cursor: pointer;
 }
 main .mainbar .notification_pop .main .inputs label textarea {
   height: 170px;
@@ -3107,7 +3283,8 @@ main .mainbar .notification_pop .main .inputs label textarea {
   border-radius: 0.5em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 main .mainbar .notification_pop .main .footer {
   width: 47.7%;
@@ -3209,36 +3386,42 @@ main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label span {
   font-weight: bold;
   padding: 5px;
   font-size: 18px;
+  color: var(--text_input_bg_1);
 }
 main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label input {
   padding: 10px;
-  width: 220px;
+  width: 190px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
 }
 main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label button {
   padding: 10px;
-  width: 220px;
+  width: 100px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
   font-size: 16px;
   margin-bottom: 10px;
+  background: rgb(1, 69, 72);
+  color: var(--text_input_bg_1);
+  cursor: pointer;
 }
 main .mainbar .pop_div .add_edit_user_pop .main .card_1 .inputs label select {
   /* width: 100px;
     border: none; */
   padding: 10px;
-  width: 220px;
+  width: 190px;
   border: none;
   border-radius: 0.3em;
   color: #2e0612;
   font-weight: bolder;
-  font-size: 16px;
+  font-size: 14px;
+  background: var(--text_input_bg_1);
   cursor: pointer;
 }
 

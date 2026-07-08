@@ -669,7 +669,7 @@
                     <div class="add_asset_pop pop">
                         <div class="head">
                             <div class="txt">
-                                <span>Adding an Asset</span>
+                                <span>Add Asset</span>
                             </div>
                             <div class="img">
                                 <img src="../assets/icons/close.png" onclick="closePopBtn()">
@@ -692,7 +692,11 @@
                                     </label>
                                     <label>
                                         <span>Asset Type</span>
-                                        <input type="text" id="add_asset_type_txt">
+                                        <select id="add_asset_type_txt">
+                                            <option value="bike">Bike</option>
+                                            <option value="car">Car</option>
+                                        </select>
+                                        <!-- <input type="text" id="add_asset_type_txt"> -->
                                     </label>
                                     <label>
                                         <span>Asset State</span>
@@ -720,7 +724,7 @@
                     <div class="view_asset_pop pop">
                         <div class="head">
                             <div class="txt">
-                                <span>Editing an Asset</span>
+                                <span>Edit Asset</span>
                             </div>
                             <div class="img">
                                 <img src="../assets/icons/close.png" onclick="closePopBtn()">
@@ -837,8 +841,12 @@
                                                     <input type="text" id="asset_distributor_txt">
                                                 </label>
                                                 <label>
-                                                    <span>Asset Type</span>
-                                                    <input type="text" id="asset_type_txt">
+                                                     <span>Asset Type</span>
+                                                    <select id="asset_type_txt">
+                                                        <option value="bike">Bike</option>
+                                                        <option value="car">Car</option>
+                                                    </select>
+                                                    <!-- <input type="text" id="asset_type_txt"> -->
                                                 </label>
                                                 <label>
                                                     <span>Asset State</span>
@@ -885,7 +893,11 @@
                                                 </label>
                                                 <label>
                                                     <span>Status</span>
-                                                    <input type="text" id="asset_rider_status_txt">
+                                                    <select  id="asset_rider_status_txt">
+                                                        <option value="active">Active</option>
+                                                        <option value="blocked">Blocked</option>
+                                                    </select>
+                                                    <!-- <input type="text" id="asset_rider_status_txt"> -->
                                                 </label>
                                                 
                                             </div>
@@ -1024,7 +1036,11 @@
                                                 </label>
                                                 <label>
                                                     <span>Status</span>
-                                                    <input type="text" id="rider_status_txt">
+                                                    <select  id="rider_status_txt">
+                                                        <option value="active">Active</option>
+                                                        <option value="blocked">Blocked</option>
+                                                    </select>
+                                                    <!-- <input type="text" id="rider_status_txt"> -->
                                                 </label>
                                                 
                                             </div>
@@ -1050,7 +1066,7 @@
                     <div class="view_collections_pop pop">
                         <div class="head">
                             <div class="txt">
-                                <span>Viewing Collectionst</span>
+                                <span>Collections</span>
                             </div>
                             <div class="img">
                                 <img src="../assets/icons/close.png" onclick="closePopBtn()">
@@ -1083,7 +1099,15 @@
                             <div class="body">
                                 <div class="card_1 card">
                                     <div class="head_txt">
-                                        <span id="view_collections_rider_name">Rider Name</span>
+                                        <div class="spans">
+                                            <div class="fir">
+                                                <span id="view_collections_rider_name">Rider Name</span>
+                                            </div>
+                                            <div class="sec">
+                                                <div id="view_collections_trips_count">0</div>
+                                                <span id="view_collections_trips_money_sp">UGX <span id="view_collections_trips_money">0</span></span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="box collection_trips_cards">
                                         <!-- <div class="collection_trips_cards"></div> -->
@@ -1191,12 +1215,18 @@
                         </div>
                         <div class="main">
                             <div class="header">
-                                <span>Genrl Notification</span>
+                                <!-- <span>Genrl Notification</span> -->
                             </div>
                             <div class="inputs">
                                 <label>
                                     <span>Type</span>
-                                    <input type="text" name="" id="general_noti_type_txt">
+                                    <select id="general_noti_type_txt">
+                                        <option value="normal">Normal</option>
+                                        <option value="tips">Tips</option>
+                                        <option value="updates">Updates</option>
+                                        <option value="warning">Warning</option>
+                                    </select>
+                                    <!-- <input type="text" name="" id="general_noti_type_txt"> -->
                                 </label>
                                 <label>
                                     <span>Subject</span>
@@ -1228,7 +1258,14 @@
                             <div class="inputs">
                                 <label>
                                     <span>Type</span>
-                                    <input type="text" name="" id="">
+                                    <span>Type</span>
+                                    <select id="">
+                                        <option value="normal">Normal</option>
+                                        <option value="tips">Tips</option>
+                                        <option value="updates">Updates</option>
+                                        <option value="warning">Warning</option>
+                                    </select>
+                                    <!-- <input type="text" name="" id=""> -->
                                 </label>
                                 <label>
                                     <span>Subject</span>

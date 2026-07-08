@@ -934,7 +934,7 @@ function displayDashboardDataFunc() {
   allAssetsDataArr.forEach((asset, i) => {
     if (asset.asset_type == "bike") {
       totalBikesFlag += 1;
-    } else if (asset.asset_type == "cars") {
+    } else if (asset.asset_type == "car") {
       console.log(`${i} Asset ${asset.asset_id}`);
       totalCarsFlag += 1;
     }
@@ -1933,6 +1933,12 @@ let collection_trips_cards = document.querySelector(".collection_trips_cards");
 let view_collections_rider_name = document.querySelector(
   "#view_collections_rider_name",
 );
+let view_collections_trips_money = document.querySelector(
+  "#view_collections_trips_money",
+);
+let view_collections_trips_count = document.querySelector(
+  "#view_collections_trips_count",
+);
 let collection_payment_infomation_parent = document.querySelector(
   ".collection_payment_infomation_parent",
 );
@@ -2114,10 +2120,15 @@ function viewCollectionFunc(index) {
     console.log(current_viewed_collection);
     console.log(current_viewed_collection.trips);
 
+    let collections_trips_count_flag = 0;
+    let collections_trips_money_flag = 0;
+
     if (!(current_viewed_collection.trips == undefined)) {
       collection_trips = current_viewed_collection.trips;
       currentCollectionTrips = collection_trips;
       collection_trips.forEach((trip, i) => {
+        collections_trips_count_flag = i + 1;
+        collections_trips_money_flag += trip.tamount;
         cards += `
                     <section>
                         <div class="txt">
@@ -2208,6 +2219,8 @@ function viewCollectionFunc(index) {
     //     </div>
     // `
     view_collections_rider_name.innerHTML = rider_name;
+    view_collections_trips_count.innerHTML = collections_trips_count_flag;
+    view_collections_trips_money.innerHTML = collections_trips_money_flag;
     collection_trips_cards.innerHTML = cards;
     collection_payment_infomation_parent.innerHTML = pay_info;
   } catch (err) {
