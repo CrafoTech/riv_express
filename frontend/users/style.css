@@ -542,7 +542,7 @@ main .main .user_history .body .second .cards {
 }
 main .main .user_history .body .second .cards .card {
   width: 95%;
-  border: 0.5px solid #787878;
+  border: 0.5px solid #e8e6e6;
   background: #571a2f;
   color: #f5f5f5;
   display: flex;
