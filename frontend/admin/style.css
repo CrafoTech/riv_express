@@ -72,16 +72,17 @@ main .sidebar .cards .card-1 .txt {
 main .sidebar .cards .card-1 .txt span:first-child {
   font-size: 23px;
   font-weight: bolder;
-  color: whitesmoke;
+  color: #f5f5f5e7;
 }
 main .sidebar .cards .card-1 .txt span:last-child {
-  font-size: 13px;
-  font-size: var(--general_table_font_size_1);
-  width: 100px;
+  font-size: 12px;
+  /* font-size: var(--general_table_font_size_1); */
+  width: 90px;
   border-radius: 0.4em;
   text-align: center;
   padding: 2px;
-  background: lightcyan;
+  color: #f5f5f5d2;
+  background: rgba(6, 211, 211, 0.359);
 
   text-transform: capitalize;
 }
@@ -1462,7 +1463,7 @@ main .mainbar .pop_div .pop .head .txt {
   margin-left: 20px;
 }
 main .mainbar .pop_div .pop .head .txt span {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bolder;
 }
 main .mainbar .pop_div .pop .head .img {
@@ -2636,7 +2637,7 @@ main .mainbar .pop_div .view_rider_pop .main section .sec_2 .card_2 .head {
   background: none;
 }
 main .mainbar .pop_div .view_rider_pop .main section .sec_2 .card_2 .head span {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bolder;
 }
 main .mainbar .pop_div .view_rider_pop .main section .sec_2 .card_2 .body {
@@ -2670,7 +2671,7 @@ main
   align-items: last baseline;
   /* background: rgb(128, 0, 98); */
   width: 50%;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 /* ************ EDITING RIDER POP */
@@ -3034,10 +3035,10 @@ main
   .fir
   #view_collections_rider_name {
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 15px;
   margin-left: 100px;
   padding: 10px;
-  color: rgba(245, 245, 245, 0.864);
+  color: #f5f5f5dc;
 }
 main .mainbar .view_collections_pop .main .body .card_1 .head_txt .sec {
   width: 40%;
@@ -3088,6 +3089,7 @@ main
   .sec
   #view_collections_trips_money_sp {
   margin-left: 10px;
+  font-size: 13px;
   color: rgba(245, 245, 245, 0.864);
 }
 
@@ -3553,7 +3555,7 @@ main .view_user_pop .main {
 main .view_user_pop .main .user_info {
   width: 48%;
   height: 98%;
-  background-color: gold;
+  background-color: #521629;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3568,6 +3570,7 @@ main .view_user_pop .main .user_info .img {
 }
 main .view_user_pop .main .user_info .img img {
   width: 60%;
+  background: #9a677738;
 }
 main .view_user_pop .main .user_info .dets {
   width: 70%;
@@ -3575,14 +3578,18 @@ main .view_user_pop .main .user_info .dets {
   flex-direction: column;
 }
 main .view_user_pop .main .user_info .dets label {
-  border-bottom: 2px solid limegreen;
+  border-bottom: 2px solid rgba(55, 3, 18, 0.737);
   padding: 10px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   text-align: left;
 }
+/* main .view_user_pop .main .user_info .dets label { */
+main .view_user_pop .main .user_info .dets label span:first-child {
+  color: #f5f5f5d2;
+}
 main .view_user_pop .main .user_info .dets label span:last-child {
-  color: #062b7a;
+  color: #0094a1;
   text-indent: 20px;
 }
 main .view_user_pop .main .user_action_btns {

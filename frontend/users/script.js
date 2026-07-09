@@ -74,7 +74,8 @@ function openMenueBtn() {
   side_bar_div.style.width = "100%";
 
   let { rname, rtel } = riderArr[0];
-  side_bar_user_name.innerText = `${rname}`;
+  let nameArr = rname.split(" ");
+  side_bar_user_name.innerText = `${nameArr[nameArr.length - 1]}`;
 }
 empty_sidebar_space.addEventListener("click", () => {
   side_bar_div.style.width = "";
@@ -550,6 +551,10 @@ function cancelGigCreationFunc() {
   cash_payment_check_img.display = "none";
 
   pop_pups_div.style.display = "";
+
+  riderLocationFetchedFlag = false;
+  loading_location_img_company.src = "../assets/icons/login.png";
+  loading_location_img.src = "../assets/icons/login.png";
 }
 
 function startRideTripBtn() {
@@ -702,7 +707,9 @@ function displayFaqsCardBtn() {
 function displayContactUSCardBtn() {
   displayACard(contact_us, "block");
   let { rname } = riderArr[0];
-  contact_intro_user_name.innerHTML = `Hey ${rname}`;
+  let nameArr = rname.split(" ");
+
+  contact_intro_user_name.innerHTML = `Hi ${nameArr[nameArr.length - 1]}!`;
   section_identifier.innerHTML = `Contact Us`;
   logout_Btn.style.display = "";
 }
@@ -834,6 +841,10 @@ function getRiderCurrentLocationFunc() {
     window.navigator.geolocation.getCurrentPosition(async (position) => {
       try {
         //  loading_screen.style.display = 'block'
+        // riderLocationFetchedFlag = false;
+        // loading_location_img_company.src = "../assets/icons/login.png";
+        // loading_location_img.src = "../assets/icons/login.png";
+        loading_location_img_company.style.animationName = "";
         let { latitude, longitude } = await position.coords;
 
         const baseUrl = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
@@ -842,10 +853,10 @@ function getRiderCurrentLocationFunc() {
 
         company_gig_start_point_txt.value = `${await data.name}, ${await data.address.suburb}`;
         rider_gig_start_point_txt.value = `${await data.name}, ${await data.address.suburb}`;
+        riderLocationFetchedFlag = true;
         console.log(latitude);
         console.log(longitude);
         console.log("LOCATION DATA: ", data);
-        riderLocationFetchedFlag = true;
         loading_location_img.style.animationName = "";
         loading_location_img.src = "../assets/icons/tick.png";
         loading_location_img_company.style.animationName = "";
@@ -1036,6 +1047,9 @@ async function submitGigCreationFunc() {
       tripCreatedFlag = true;
       newRideCreatedFlag = true;
       loading_screen.style.display = "";
+      riderLocationFetchedFlag = false;
+      loading_location_img_company.src = "../assets/icons/login.png";
+      loading_location_img.src = "../assets/icons/login.png";
     } else {
       errorSignal = true;
       let errObj = {
@@ -1635,8 +1649,17 @@ async function getFaqsFunc() {
 
     const res = await fetch(`${baseUrl}/getall/communication/faqs`);
     const data = await res.json();
-    allFaqs = await data;
-    console.log(allFaqs);
+    // allFaqs = await data;
+    let message_1 = ` Just enter your email correctly. |
+                      Enter your User ID and click Login `;
+    let message_2 = ` Select Work either Company or My Work. |
+                      Click on new and fill in all the fields |
+                      Click on create and then done`;
+    allFaqs = [
+      { nsubject: "Hoq to login", nmessage: message_1 },
+      { nsubject: "faq-2", nmessage: message_2 },
+    ];
+    console.log("ALLL FQASS : ", allFaqs);
 
     loading_screen.style.display = "none";
   } catch (err) {
@@ -1657,18 +1680,25 @@ async function getFaqsFunc() {
 function displayFaqsFunc() {
   let elem = "";
   allFaqs.forEach((faq, i) => {
+    let messageList = faq.nmessage.split("|");
+    let msgListItem = "";
+    messageList.forEach((message, i) => {
+      msgListItem += `<li>${i + 1}.${message}`;
+    });
     elem += `
-            <div class="card">
-                <div class="one">
-                    <div class="subject">
-                        <span>${faq.nsubject}</span>
-                    </div>
-                    <div class="message">
-                        <span>${faq.nmessage}</span>
-                    </div>
-                </div>
-            </div>
-        `;
+              <div class="card">
+                  <div class="one">
+                      <div class="subject">
+                          <span>${faq.nsubject}</span>
+                      </div>
+                      <div class="message">
+                          <span>
+                          <ul> ${msgListItem} </ul>
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          `;
   });
   faqs_cards_section.innerHTML = elem;
 }
