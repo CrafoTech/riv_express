@@ -212,6 +212,9 @@ const edit_user_pop = document.querySelector(".edit_user_pop");
 const view_user_pop = document.querySelector(".view_user_pop");
 const user_info_dv = document.querySelector(".user_info");
 let user_actions_cards = document.querySelector(".user_actions_cards");
+let add_action_spn = document.querySelector("#add_action_spn");
+let edit_action_spn = document.querySelector("#edit_action_spn");
+let delete_action_spn = document.querySelector("#delete_action_spn");
 
 let users_data_tbdy = document.querySelector("#users_data_tbdy");
 let users_dv_btn = document.querySelector(".users_dv_btn");
@@ -369,9 +372,15 @@ function deleteUserBtn(Index) {
 
 function viewUserFunc(index) {
   let user = allUsersDataArr[index];
+  let user_id = allUsersDataArr[index].user_id;
   let user_actions = allUsersDataArr[index].user_actions;
   let info_content = "";
   let actions_cards = "";
+
+  let delete_action_flag = 0;
+  let edit_action_flag = 0;
+  let add_action_flag = 0;
+
   info_content += `
         <div class="img">
                                 <img src="../assets/icons/user.png" alt="">
@@ -401,12 +410,21 @@ function viewUserFunc(index) {
     `;
   if (user_actions.length > 0) {
     user_actions.forEach((action) => {
+      if (action.color_code == "delete") {
+        delete_action_flag += 1;
+      }
+      if (action.color_code == "edit") {
+        edit_action_flag += 1;
+      }
+      if (action.color_code == "add") {
+        add_action_flag += 1;
+      }
       actions_cards += `
-                <div class="card">
+                 <div class="card">
                                         <div class="action_msg">
                                             <div class="title">
                                                 <span>${action.type}</span>
-                                                <span id="action_color_code" style="background: ${action.color_code};"></span>
+                                                <span id="action_color_code_${action.color_code}" style="background: ${action.color_code};"></span>
                                                 <span>${action.date} | ${action.time}</span>
                                             </div>
                                             <div class="body">
@@ -414,7 +432,7 @@ function viewUserFunc(index) {
                                             </div>
                                         </div>
                                         <div class="action_btn">
-                                            <img src="../assets/icons/delete.png" alt="">
+                                            <img src="../assets/icons/delete.png" alt="Del" onclick="deleteUserActionBtn('${action.action_id}','${user_id}',${index})">
                                         </div>
                                     </div>
             `;
@@ -424,6 +442,82 @@ function viewUserFunc(index) {
   }
   user_info_dv.innerHTML = info_content;
   user_actions_cards.innerHTML = actions_cards;
+  delete_action_spn.innerHTML = delete_action_flag;
+  edit_action_spn.innerHTML = edit_action_flag;
+  add_action_spn.innerHTML = add_action_flag;
+}
+async function displayUseActionsrFunc(user_id) {
+  let actions_cards = [];
+
+  let delete_action_flag = 0;
+  let edit_action_flag = 0;
+  let add_action_flag = 0;
+
+  try {
+    const display_act_res = await fetch(`${baseUrl}/getuseractions/${user_id}`);
+    user_actions = await display_act_res.json();
+
+    if (user_actions.length > 0) {
+      user_actions.forEach((action, index) => {
+        if (action.color_code == "delete") {
+          delete_action_flag += 1;
+        }
+        if (action.color_code == "edit") {
+          edit_action_flag += 1;
+        }
+        if (action.color_code == "add") {
+          add_action_flag += 1;
+        }
+        actions_cards += `
+                   <div class="card">
+                                          <div class="action_msg">
+                                              <div class="title">
+                                                  <span>${action.type}</span>
+                                                  <span id="action_color_code_${action.color_code}" style="background: ${action.color_code};"></span>
+                                                  <span>${action.date} | ${action.time}</span>
+                                              </div>
+                                              <div class="body">
+                                                  <span>${action.desc}</span>
+                                              </div>
+                                          </div>
+                                          <div class="action_btn">
+                                              <img src="../assets/icons/delete.png" alt="Del" onclick="deleteUserActionBtn('${action.action_id}','${user_id}',${index})">
+                                          </div>
+                                      </div>
+              `;
+      });
+    } else {
+      actions_cards = `<h3> There no actions yet </h3>`;
+    }
+    user_actions_cards.innerHTML = actions_cards;
+    delete_action_spn.innerHTML = delete_action_flag;
+    edit_action_spn.innerHTML = edit_action_flag;
+    add_action_spn.innerHTML = add_action_flag;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function deleteUserActionBtn(actionID, userID, i) {
+  console.log("Deleting ", actionID);
+  try {
+    const act_res = await fetch(
+      `${baseUrl}/delete_user_ations/${userID}/${actionID}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+      },
+    );
+    const rslt = await act_res.json();
+
+    console.log("Delted Action: ", rslt);
+    displayUseActionsrFunc(userID);
+  } catch (err) {
+    console.log(`\n Error WHile Deleting user: ${userID} action: ${actionID}`);
+    console.log(err);
+  }
 }
 
 let settings_tabs_array = ["settings"];
@@ -953,11 +1047,33 @@ function displayDashboardDataFunc() {
   total_cars_span.innerText = totalCarsFlag;
   total_riders_and_drivers_span.innerText = totalRidersAndDriverFlag;
   total_income_span.innerText = tottalIncomeFlag;
-  console.log("TOTBIKES: " + totalBikesFlag);
-  console.log("RIDERDRIVERS: " + totalBikesFlag);
-  console.log("D: " + d);
-  console.log("Date: " + current_date);
-  console.log("Income: " + tottalIncomeFlag);
+  // console.log("TOTBIKES: " + totalBikesFlag);
+  // console.log("RIDERDRIVERS: " + totalBikesFlag);
+  // console.log("D: " + d);
+  // console.log("Date: " + current_date);
+  // console.log("Income: " + tottalIncomeFlag);
+}
+
+async function creatingdUserAction(action_obj) {
+  try {
+    let loggedInUserId = loggedInUserData.user_id;
+    const action_res = await fetch(
+      `${baseUrl}/update_user_ations/${loggedInUserId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify(action_obj),
+      },
+    );
+    const action_data = await action_res.json();
+    console.log("\nAfter Adding an action when adding a new asset ----- ");
+    console.log(action_data);
+  } catch (err) {
+    console.log(`\n Error While Adding actiom ---`);
+    console.log(err);
+  }
 }
 
 async function saveAddAssetFunc() {
@@ -990,8 +1106,28 @@ async function saveAddAssetFunc() {
         body: JSON.stringify(assetData_),
       });
       const data = await res.json();
-      console.log("After adding Data: \n", data);
-      console.log("------\n");
+      // console.log("After adding Data: \n", data);
+      // console.log("------\n");
+
+      // Updating User Actions
+
+      // let action_date = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`;
+      let action_date = collection_date_flag;
+
+      let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+      let user_actions_obj = {
+        action_id: randomActionId,
+        type: "adding",
+        name: " Adding new Asset",
+        desc: `Adding new asset ${add_asset_id_txt.value} `,
+        date: action_date,
+        time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+        color_code: "add",
+      };
+
+      creatingdUserAction(user_actions_obj);
+
       getAllassetsDataFunc();
       loading_animation_div.style.display = "";
     } catch (err) {
@@ -1302,6 +1438,9 @@ async function saveEditAssetFunc(asset_id, edit_flag) {
   let updates = {};
   let updates_2 = {};
   let empty = false;
+
+  let user_actions_obj = {};
+
   try {
     loading_animation_div.style.display = "flex";
     switch (edit_flag) {
@@ -1319,6 +1458,21 @@ async function saveEditAssetFunc(asset_id, edit_flag) {
             distributor: asset_distributor_txt.value,
             asset_type: asset_type_txt.value,
             asset_state: asset_state_txt.value,
+          };
+
+          // Updating an action
+          let action_date = collection_date_flag;
+
+          let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+          user_actions_obj = {
+            action_id: randomActionId,
+            type: "edting",
+            name: " Editing Asset Info",
+            desc: `Edited Asset info for Asset: ${asset_id} and Rider: ${asset.rider.rid}-${asset.rider.rname} `,
+            date: action_date,
+            time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+            color_code: "edit",
           };
         } else {
           empty = true;
@@ -1386,6 +1540,21 @@ async function saveEditAssetFunc(asset_id, edit_flag) {
           );
           const data2 = await res2.json();
           console.log(`Res2: `, await data2);
+
+          // Updating an action
+          let action_date = collection_date_flag;
+
+          let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+          user_actions_obj = {
+            action_id: randomActionId,
+            type: "editing",
+            name: " Editing Rider Info",
+            desc: `Edited rider info for the asset: ${asset_id} and Rider: ${updates.rid}-${updates.rname} `,
+            date: action_date,
+            time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+            color_code: "edit",
+          };
         } else {
           empty = true;
           let errObj = {
@@ -1481,6 +1650,9 @@ async function saveEditAssetFunc(asset_id, edit_flag) {
       const data = await res.json();
 
       console.log(data);
+
+      creatingdUserAction(user_actions_obj);
+
       getAllassetsDataFunc();
     } else {
       let errObj = {
@@ -1585,7 +1757,23 @@ async function saveAssignNewRiderFunc(assetID, riderID) {
     const data2 = await res2.json();
     console.log(`Res2: `, await data2);
     console.log(data);
+
+    // Updating an action
+    let action_date = collection_date_flag;
+
+    let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+    let user_actions_obj = {
+      action_id: randomActionId,
+      type: "edting",
+      name: " Assigning new Rider",
+      desc: `Assigned anew rider to Asset: ${assetID} `,
+      date: action_date,
+      time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+      color_code: "edit",
+    };
     getAllassetsDataFunc();
+    creatingdUserAction(user_actions_obj);
     loading_animation_div.style.display = "";
   } catch (err) {
     let errObj = {
@@ -1619,7 +1807,24 @@ async function deleteAssetFunc(index) {
     );
     let data = await res.json();
     console.log(await data);
+
+    // Updating an action
+    let action_date = collection_date_flag;
+
+    let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+    let user_actions_obj = {
+      action_id: randomActionId,
+      type: "deleting",
+      name: " Deleting Asset",
+      desc: `Deleted Asset: ${asset_id} `,
+      date: action_date,
+      time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+      color_code: "delete",
+    };
+
     getAllassetsDataFunc();
+    creatingdUserAction(user_actions_obj);
     msg_pops_div.style.display = "";
     loading_animation_div.style.display = "";
   } catch (err) {
@@ -1826,6 +2031,7 @@ async function saveEditRiderFunc(index) {
   let dbname = "data";
   let cname = "rider_data";
   let riderId = allRiderssDataArr[index].rid;
+  let current_rider_name = allRiderssDataArr[index].rname;
   if (
     rider_id_txt.value.trim() &&
     rider_name_txt.value.trim() &&
@@ -1855,7 +2061,24 @@ async function saveEditRiderFunc(index) {
       const data = await res.json();
 
       console.log(await data);
+
+      // Updating an action
+      let action_date = collection_date_flag;
+
+      let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+      let user_actions_obj = {
+        action_id: randomActionId,
+        type: "edting",
+        name: " Editing  Rider info",
+        desc: `Edited Rider' Infromation Rider: ${riderId}-${current_rider_name} `,
+        date: action_date,
+        time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+        color_code: "edit",
+      };
+
       getAllRiderssDataFunc();
+      creatingdUserAction(user_actions_obj);
       msg_pops_div.style.display = "";
       loading_animation_div.style.display = "";
     } catch (err) {
@@ -1888,6 +2111,7 @@ async function deleteRiderFunc(index) {
   let dbname = "data";
   let cname = "rider_data";
   let riderId = allRiderssDataArr[index].rid;
+  let current_rider_name = allRiderssDataArr[index].rname;
 
   try {
     loading_animation_div.style.display = "flex";
@@ -1903,6 +2127,24 @@ async function deleteRiderFunc(index) {
     const data = await res.json();
 
     console.log(await data);
+
+    // Updating an action
+    let action_date = collection_date_flag;
+
+    let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+    let user_actions_obj = {
+      action_id: randomActionId,
+      type: "deleting",
+      name: " Deleting  Rider",
+      desc: `Deleted Rider: ${riderId}-${current_rider_name} `,
+      date: action_date,
+      time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+      color_code: "delete",
+    };
+
+    creatingdUserAction(user_actions_obj);
+
     getAllRiderssDataFunc();
     msg_pops_div.style.display = "";
     loading_animation_div.style.display = "";
@@ -1930,6 +2172,9 @@ let collection_viewed_rider_id_select_inp = document.getElementById(
 );
 let collection_date_inp = document.getElementById("collection_date_inp");
 let collection_trips_cards = document.querySelector(".collection_trips_cards");
+let view_collections_asset_id = document.querySelector(
+  "#view_collections_asset_id",
+);
 let view_collections_rider_name = document.querySelector(
   "#view_collections_rider_name",
 );
@@ -2218,6 +2463,7 @@ function viewCollectionFunc(index) {
     //         </div>
     //     </div>
     // `
+    view_collections_asset_id.innerHTML = asset_id;
     view_collections_rider_name.innerHTML = rider_name;
     view_collections_trips_count.innerHTML = collections_trips_count_flag;
     view_collections_trips_money.innerHTML = collections_trips_money_flag;
@@ -2351,6 +2597,22 @@ async function savegeneralNotificationFunc() {
     console.log(data);
     notification_general_func();
     loading_animation_div.style.display = "";
+
+    // Updating an action
+    let action_date = collection_date_flag;
+
+    let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+    let user_actions_obj = {
+      action_id: randomActionId,
+      type: "sending",
+      name: " Sending notification",
+      desc: `Sent a notification - ${noti_data.nsubject} `,
+      date: action_date,
+      time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+      color_code: "notification",
+    };
+    creatingdUserAction(user_actions_obj);
   } catch (err) {
     let errObj = {
       title: "Adding G-Notification",
@@ -2438,6 +2700,7 @@ async function deletegeneralNotificationFunc(index) {
   let dbname = "communication";
   let cname = "notifications";
   let noti_id = allGeneralNotifications[index]._id;
+  let noti_subject = allGeneralNotifications[index].nsubject;
 
   try {
     loading_animation_div.style.display = "flex";
@@ -2454,6 +2717,24 @@ async function deletegeneralNotificationFunc(index) {
     console.log(data);
     notification_general_func();
     loading_animation_div.style.display = "";
+
+    // Updating an action
+    let action_date = collection_date_flag;
+
+    let randomActionId = `act_${Math.floor(Math.random() * 19989)}`;
+
+    let user_actions_obj = {
+      action_id: randomActionId,
+      type: "deleting",
+      name: " Deleting  Notification",
+      desc: `Deleted a notification: ${noti_subject} `,
+      date: action_date,
+      time: `${new Date().getHours()} : ${new Date().getMinutes()}`,
+      color_code: "delete",
+    };
+
+    getAllRiderssDataFunc();
+    creatingdUserAction(user_actions_obj);
   } catch (err) {
     let errObj = {
       title: "Deleting Notification",
