@@ -3600,19 +3600,76 @@ main .view_user_pop .main .user_action_btns .head {
   width: 98%;
   background: gray;
 }
-main .view_user_pop .main .user_action_btns .head span {
-  text-indent: 20px;
+main .view_user_pop .main .user_action_btns .head .first {
+  /* border: 1px solid red; */
+  margin-left: 10px;
+  font-size: 20px;
+}
+main .view_user_pop .main .user_action_btns .head .first span {
+  text-indent: 25px;
   font-weight: bolder;
+}
+main .view_user_pop .main .user_action_btns .head .action_indicators_dv {
+  /* border: 1px solid rgb(13, 188, 69); */
+  width: 60px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+main .view_user_pop .main .user_action_btns .head .action_indicators_dv span {
+  border-radius: 50%;
+  background: gainsboro;
+  color: whitesmoke;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .head
+  .action_indicators_dv
+  #add_action_spn {
+  background: #187218;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .head
+  .action_indicators_dv
+  #edit_action_spn {
+  background: #004478;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .head
+  .action_indicators_dv
+  #delete_action_spn {
+  background: #742674;
 }
 main .view_user_pop .main .user_action_btns .cards {
   width: 98%;
+  height: 92%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 2px solid; */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding-bottom: 10px;
 }
 main .view_user_pop .main .user_action_btns .cards .card {
   width: 98%;
-  height: 80px;
+  min-height: 60px;
   border-radius: 0.4em;
   margin-top: 10px;
   display: flex;
@@ -3643,7 +3700,10 @@ main
   .title
   span {
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 17px;
+  color: #013850cc;
+  /* color: #039029; */
+  text-transform: capitalize;
 }
 main
   .view_user_pop
@@ -3653,10 +3713,70 @@ main
   .card
   .action_msg
   .title
-  #action_color_code {
-  width: 50px;
+  #action_color_code,
+#action_color_code_add,
+#action_color_code_edit,
+#action_color_code_delete {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 3px;
+  background: #b16464a0;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .cards
+  .card
+  .action_msg
+  .title
+  #action_color_code_add {
+  width: 40px;
   border-radius: 0.2em;
   margin-top: 3px;
+  background: #187218;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .cards
+  .card
+  .action_msg
+  .title
+  #action_color_code_edit,
+#action_color_code_delete {
+  width: 40px;
+  border-radius: 0.2em;
+  margin-top: 3px;
+  background: #004478;
+}
+main
+  .view_user_pop
+  .main
+  .user_action_btns
+  .cards
+  .card
+  .action_msg
+  .title
+  #action_color_code,
+#action_color_code_add,
+#action_color_code_edit,
+#action_color_code_delete {
+  width: 40px;
+  border-radius: 0.2em;
+  margin-top: 3px;
+  background: #742674;
+}
+.action_color_code_add {
+  background: #187218;
+}
+.action_color_code_edit {
+  background: #004478;
+}
+.action_color_code_delete {
+  background: #742674;
 }
 main
   .view_user_pop
@@ -3667,11 +3787,14 @@ main
   .action_msg
   .title
   span:last-child {
-  font-size: 15px;
+  font-size: 12px;
 }
 main .view_user_pop .main .user_action_btns .cards .card .action_msg span {
-  color: rgb(128, 0, 73);
+  color: rgb(28, 34, 36);
   margin-left: 10px;
+  font-size: 13px;
+  width: 80%;
+  text-wrap: wrap;
 }
 main .view_user_pop .main .user_action_btns .cards .card .action_btn {
   width: 5%;
